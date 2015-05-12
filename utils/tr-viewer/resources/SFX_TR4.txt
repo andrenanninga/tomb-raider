@@ -1,0 +1,436 @@
+0000 -- Lara feet
+0000 -- Lara feet
+0000 -- Lara feet
+0000 -- Lara feet
+0001 -- Lara climb2
+0002 -- Lara no
+0003 -- Lara slipping
+0004 -- Lara land
+0005 -- Lara climb1
+0006 -- Lara draw
+0007 -- Lara holster
+0008 -- Lara fire
+0009 -- Lara reload
+0010 -- Lara ricochet
+0010 -- Lara ricochet
+0011 -- Push block end
+0012 -- Metal scrape loop
+0013 -- Small scarab feet
+0013 -- Small scarab feet
+0014 -- Big scarab attack
+0015 -- Big scarab death
+0016 -- Big scarab flying
+0017 -- Lara wet feet
+0017 -- Lara wet feet
+0017 -- Lara wet feet
+0018 -- Lara wade
+0019 -- Rumble loop
+0020 -- Metal scrape loop
+0021 -- Cricket loop
+0022 -- Wood bridge fall
+0023 -- Stargate swirl
+0024 -- Lara knees shuffle
+0024 -- Lara knees shuffle
+0025 -- Push spx switch
+0026 -- Lara climb3
+0027 -- 
+0028 -- Lara shimmy2
+0029 -- Lara jump
+0029 -- Lara fall
+0030 -- Lara fall
+0031 -- Lara injury
+0031 -- Lara roll
+0032 -- Lara roll
+0033 -- Lara splash
+0034 -- Lara getout
+0035 -- Lara swim
+0036 -- Lara breath
+0037 -- Lara bubbles
+0038 -- Spinning puzzle
+0039 -- Lara key
+0040 -- Cog resaw library
+0041 -- Lara general death
+0042 -- Lara knees death
+0043 -- Lara uzi fire
+0044 -- Lara uzi stop
+0045 -- Lara shotgun
+0046 -- Lara block push1
+0047 -- Lara block push2
+0047 -- Sarlid palaces
+0048 -- Sarlid palaces
+0049 -- Lara shotgun shell
+0050 -- Underwater door
+0051 -- Lara blkpull
+0051 -- Lara floating
+0052 -- Lara floating
+0053 -- Lara falldeth
+0054 -- Lara grabhand
+0055 -- Lara grabbody
+0056 -- Lara grabfeet
+0057 -- Ratchet 3shot
+0058 -- Ratchet 1shot
+0059 -- Water loop notinuse
+0060 -- Underwater
+0061 -- Underwater switch
+0062 -- Lara pickup
+0063 -- Pushable sound
+0064 -- Door general
+0065 -- Helicopter loop
+0066 -- Rock fall crumble
+0067 -- Rock fall land
+0068 -- Pendulum blades
+0069 -- Stalegtite
+0070 -- Lara thud
+0070 -- Generic swoosh
+0071 -- Generic swoosh
+0072 -- Generic heavy thud
+0073 -- Croc feet
+0073 -- Swinging flames
+0074 -- Swinging flames
+0075 -- Stone scrape
+0076 -- Blast circle
+0077 -- Bazooka fire
+0078 -- Heckler&koch fire
+0079 -- Waterfall loop
+0080 -- Croc attack
+0081 -- Croc death
+0082 -- Portcullis up
+0083 -- Portcullis down
+0084 -- Double doors bang
+0085 -- Double doors creak
+0086 -- Petes pyra stone
+0087 -- Petes pyra pneu
+0088 -- Ahmet die
+0089 -- Ahmet attack
+0090 -- Ahmet hands
+0090 -- Ahmet hands
+0090 -- Ahmet hands
+0091 -- Ahmet feet
+0092 -- Ahmet swipe
+0092 -- Ahmet swipe
+0093 -- Ahmet wait
+0093 -- Ahmet wait
+0094 -- Guide jump
+0095 -- General footsteps1
+0096 -- Guide land usenot
+0096 -- Guide land usenot
+0097 -- Pour
+0098 -- Scale1
+0099 -- Scale2
+0100 -- Beetlara windup
+0101 -- Beetle clk whirr
+0102 -- Beetle clk exp
+0103 -- Mine exp overlay
+0104 -- Heckler&koch stop
+0105 -- Explosion1
+0106 -- Explosion2 volwas80
+0107 -- Earthquake loop
+0108 -- Menu rotate
+0109 -- Menu select
+0110 -- Menu empty
+0111 -- Menu choose
+0112 -- Tick tock
+0113 -- Menu empty
+0114 -- Menu combine
+0115 -- Menu empty
+0116 -- Menu medi
+0117 -- Lara climb walls noise
+0118 -- Water loop
+0119 -- Voncroy jump
+0120 -- Locusts loop
+0121 -- Dessert eagle fire
+0122 -- Boulder fall
+0123 -- Lara mini load
+0124 -- Lara mini lock
+0125 -- Lara mini fire
+0126 -- Gate opening
+0127 -- Lara electric loop
+0128 -- Lara electric crackles
+0129 -- Blood loop
+0130 -- Bike start
+0131 -- Bike idle
+0132 -- Bike accelerate
+0133 -- Bike moving
+0134 -- Bike side impact
+0135 -- Bike front impact
+0136 -- Soft wind loop
+0137 -- Bike land
+0138 -- Crocgod roar
+0139 -- Crocgod wings
+0140 -- Crocgod land
+0141 -- Crocgod fire roar
+0142 -- Bike stop
+0143 -- Generic body slam
+0144 -- Hecker&koch overlay
+0145 -- Lara spike death
+0146 -- Lara death3
+0147 -- Rolling ball
+0148 -- Blk plat raise&low
+0149 -- Rumble nextdoor
+0150 -- Loop for small fires
+0151 -- Chains library
+0152 -- Jeep start
+0153 -- Jeep idle
+0154 -- Jeep accelerate
+0155 -- Jeep move
+0156 -- Jeep stop
+0157 -- Bats 1
+0158 -- Rolling door
+0159 -- Launcher 1
+0160 -- Launcher 2
+0161 -- Trapdoor open
+0162 -- Trapdoor close
+0163 -- Empty
+0164 -- Baboon stand wait
+0165 -- Baboon attack low
+0166 -- Baboon attack jump
+0167 -- Baboon jump
+0168 -- Baboon death
+0169 -- Bat squeal full
+0170 -- Bat sqk
+0171 -- Bat flap
+0171 -- Bat flap
+0172 -- Sphinx nose rasp
+0172 -- Sphinx nose rasp
+0172 -- Sphinx nose rasp
+0173 -- Sphinx walk
+0174 -- Sphinx noise
+0174 -- Sphinx noise
+0174 -- Sphinx noise
+0175 -- Dog howl
+0176 -- Dog hit ground
+0177 -- Fountain loop
+0178 -- Dog foot 1
+0179 -- Dog jump
+0180 -- Dog bite
+0181 -- Dog death
+0181 -- Dog death
+0182 -- Thunder rumble
+0182 -- Thunder rumble
+0183 -- Thunder crack
+0184 -- Wraith whispers
+0185 -- Empty
+0185 -- Empty
+0185 -- Empty
+0186 -- Empty
+0187 -- Skel footsteps
+0188 -- Skel attack
+0188 -- Skel attack
+0188 -- Skel attack
+0189 -- Generic sword swoosh
+0189 -- Generic sword swoosh
+0190 -- Skel sword clang
+0191 -- Skel stick ground
+0192 -- Gen pull sword
+0193 -- Skel land heavy
+0194 -- Guide scare
+0195 -- Jeep door open
+0196 -- Jeep door close
+0197 -- Elec arcing loop
+0198 -- Elec one shot
+0199 -- Empty
+0200 -- Library cog loop
+0201 -- Jeep side impact
+0202 -- Jeep front impact
+0203 -- Jeep land
+0204 -- Spinning gem slots
+0205 -- Rummble
+0206 -- Warthog headbutt
+0207 -- Warthog death
+0208 -- Set spike timer
+0209 -- Warthog squeal
+0210 -- Warthog feet
+0211 -- Warthog grunt
+0211 -- Warthog grunt
+0211 -- Warthog grunt
+0211 -- Warthog grunt
+0212 -- Save crystal
+0213 -- Horse ricochets
+0214 -- Metal shutters smash
+0215 -- Gem drop on floor
+0216 -- Scorpion scream
+0217 -- Scorpion feet
+0218 -- Scorpion claws
+0218 -- Scorpion claws
+0218 -- Scorpion claws
+0218 -- Scorpion claws
+0219 -- Scorpion tail whip
+0219 -- Scorpion tail whip
+0220 -- Scorpion small feet
+0221 -- Metal gate open
+0221 -- Metal gate open
+0222 -- Horse trotting
+0223 -- Kn templar walk
+0223 -- Kn templar walk
+0223 -- Kn templar walk
+0223 -- Kn templar walk
+0224 -- Kn templar gurgles
+0224 -- Kn templar gurgles
+0224 -- Kn templar gurgles
+0224 -- Kn templar gurgles
+0225 -- Kn sword scrape
+0225 -- Kn sword scrape
+0226 -- Kn templar attack
+0227 -- Kn sword clang
+0227 -- Kn sword clang
+0228 -- Kn sword swoosh
+0229 -- Mummy attack
+0230 -- Mummy walk
+0231 -- Mummy gurgles
+0231 -- Mummy gurgles
+0232 -- Mummy take hit
+0233 -- Small fan
+0234 -- Large fan
+0235 -- Lara crossbow
+0236 -- Small creature feet
+0237 -- Sas gadgie die
+0237 -- Sas gadgie die
+0238 -- Water flushes
+0239 -- Guid zippo
+0240 -- Leap switch
+0241 -- Old switch
+0242 -- Demigods feet
+0243 -- Demigods bull snort
+0243 -- Demigods bull snort
+0244 -- Demigods bull hammer
+0245 -- Demigods s wave rumb
+0246 -- Demigod weap swoosh
+0247 -- Demigod falcon squeal
+0248 -- Demigod falcon plas
+0249 -- Demigod rise
+0250 -- Demi tut plasma spray
+0251 -- Demi siren swave
+0252 -- Demigods tut growl
+0253 -- Joby electric insert
+0254 -- Bad land
+0255 -- Door gen thud
+0256 -- Bad grunts
+0257 -- Bad die
+0258 -- Bad jump
+0258 -- Bad jump
+0259 -- Bad troop stun
+0260 -- Bad swordaway
+0261 -- Bad troop uzi
+0262 -- Bad sword rico
+0263 -- Bad troop uzi end
+0264 -- Troop scorp cries
+0265 -- Sas troop feet
+0266 -- Generic nrg charge
+0266 -- Generic nrg charge
+0266 -- Generic nrg charge
+0267 -- Sas mg fire
+0268 -- Hammer head wade
+0269 -- Small switch
+0270 -- Empty
+0271 -- Siren wing flap
+0272 -- Siren noizes
+0273 -- Siren attack
+0274 -- Siren death
+0275 -- Siren gen noises
+0276 -- Sett siren plasma
+0277 -- Hammer head atk
+0278 -- Small door subway
+0279 -- Train door open
+0280 -- Train door close
+0281 -- Voncroy knife swish
+0282 -- Train unlink break
+0283 -- Obj box hit
+0284 -- Obj box hit chance
+0285 -- Obj gem smash
+0285 -- Obj gem smash
+0286 -- Catblades draw
+0287 -- Swirly long move sfx
+0288 -- Footsteps mud
+0289 -- Horseman horse neigh
+0289 -- Horseman horse neigh
+0290 -- Footsteps gravel
+0291 -- Footsteps sand & grass
+0291 -- Footsteps sand & grass
+0292 -- Footsteps wood
+0292 -- Footsteps wood
+0293 -- Footsteps marble
+0293 -- Footsteps marble
+0294 -- Footsteps metal
+0294 -- Footsteps metal
+0294 -- Footsteps metal
+0294 -- Footsteps metal
+0295 -- Gen sphinx doorthd
+0295 -- Gen sphinx doorthd
+0296 -- Sett plasma 1
+0297 -- Sett bolt 1
+0298 -- Sett feet
+0299 -- Sett nrg charge
+0300 -- Sett nrg charge2
+0301 -- Horseman takehit
+0302 -- Horseman walk
+0303 -- Horseman grunt
+0303 -- Horseman grunt
+0304 -- Horseman fall
+0305 -- Horseman die
+0306 -- Mapper switch on
+0307 -- Mapper open
+0308 -- Mapper lazer
+0309 -- Mapper move
+0310 -- Mapper clunk
+0311 -- Blades draw
+0312 -- Blades clash loud
+0313 -- Blades clash quiet
+0314 -- Hammer trap bang
+0315 -- Door big stone
+0316 -- Sett big roar
+0317 -- Baboon chatter
+0318 -- Baboon roll
+0319 -- Swoosh swirly double
+0320 -- Door settdoor sqk
+0321 -- Door settdoor clank
+0322 -- Sett jump attack
+0323 -- Joby block
+0324 -- Sett take hit
+0325 -- Dart spitt
+0326 -- Lara crowbar gem
+0327 -- Crowbar door open
+0328 -- Lara lever gen sqks
+0329 -- Horseman getup
+0329 -- Horseman getup
+0330 -- Exh basket open
+0331 -- Exh mumcoff ope1
+0332 -- Exh mumcoff ope2
+0333 -- Exh mum jolt
+0334 -- Exh mumhead spin
+0335 -- Exh mummy rahhh
+0336 -- Exh roller blinds
+0337 -- Lara lever part1
+0338 -- Lara lever part2
+0339 -- Lara pole climb
+0340 -- Lara pole loop
+0341 -- Trap spikeball spk
+0342 -- Lara pulley
+0343 -- Teeth spikes
+0344 -- Sand loop
+0345 -- Lara use object
+0346 -- Library cog sqks
+0347 -- Hit rock
+0347 -- Hit rock
+0348 -- Lara no french
+0349 -- Lara no japan
+0350 -- Lara crow wrench
+0351 -- Lara rope creak
+0352 -- Bowlanim
+0352 -- Bowlanim
+0353 -- Sphinx door woodcrack
+0354 -- Beetle clk whirr
+0355 -- Mapper pyramid open
+0356 -- Light beam joby
+0357 -- Guide fire light
+0358 -- Autoguns
+0359 -- Pulley andy
+0360 -- Steam
+0361 -- Joby garage door
+0362 -- Joby wind
+0363 -- Sandham in the house
+0364 -- Sandham conveys
+0365 -- Cranky grape crush
+0366 -- Bike hit objects
+0367 -- Bike hit enemies
+0368 -- Flame emitter
+0369 -- Lara click switch

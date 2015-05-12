@@ -1,0 +1,408 @@
+0000 -- Lara footstep
+0000 -- Lara footstep
+0000 -- Lara footstep
+0000 -- Lara footstep
+0001 -- Lara grunt
+0002 -- Lara "no"
+0003 -- Lara sliding
+0004 -- Lara landing on feet
+0005 -- Lara "hut" (stepping up)
+0006 -- Lara unholstering pistols/magnums/UZIs
+0007 -- Lara holstering pistols/magnums/UZIs
+0008 -- Lara firing pistols
+0009 -- Lara cocking shotgun/pistol
+0010 -- Bullet ricochet
+0010 -- Bullet ricochet
+0011 -- Lara lighting flare
+0012 -- Flare burning
+0015 -- Harpoon firing
+0016 -- Harpoon reload
+0017 -- Lara footstep in shallow water
+0017 -- Lara footstep in shallow water
+0017 -- Lara footstep in shallow water
+0017 -- Lara footstep in shallow water
+0018 -- Lara wading in shallow water
+0018 -- Lara wading in shallow water
+0020 -- Lara treading water
+0021 -- Lara firing magnums
+0022 -- Harpoon reload (underwater)
+0023 -- Harpoon firing (underwater)
+0024 -- Massive crash
+0025 -- Lara pressing button
+0026 -- Lara "uhhh" (pulling up)
+0027 -- Lara "oof" (hitting wall)
+0027 -- Lara "oof" (hitting wall)
+0028 -- Lara shimmy
+0028 -- Lara shimmy
+0029 -- Lara "hut" (jumping)
+0030 -- Lara scream (falling)
+0031 -- Lara getting hurt
+0031 -- Lara getting hurt
+0032 -- Lara roll
+0033 -- Splash (Lara into water)
+0034 -- Splash (Lara surfacing)
+0035 -- Swim (Lara underwater)
+0036 -- Lara catching breath
+0037 -- Underwater gurgle
+0038 -- Lara pulling metal lever
+0039 -- Lara inserting key/card
+0040 -- Lara inserting chip/pryr-whl/scroll/gem/etc.
+0041 -- Lara dying 1
+0042 -- Lara dying 2
+0043 -- Lara firing Uzis
+0044 -- Gunshot echo?
+0045 -- Lara firing shotgun
+0046 -- Lara grunt (starting to push block)
+0047 -- Lara grunt (pushing block)
+0047 -- Lara grunt (pushing block)
+0047 -- Lara grunt (pushing block)
+0048 -- Click (?)
+0049 -- Something hitting Lara?
+0050 -- Bullet hitting Lara?
+0051 -- Lara "heh!" (pulling up)
+0052 -- Lara treading water
+0053 -- Lara's bones breaking (dying)
+0054 -- Ledge grab by Lara
+0055 -- Lara "oomph!" (hitting wall after grabbing ledge)
+0056 -- Footstep/ledge shimmy by Lara?
+0057 -- Metal-lever reset
+0058 -- Glass breaking
+0059 -- Waterfall and gurgle
+0060 -- Underwater ambience
+0061 -- Underwater lever pull
+0062 -- Lara "aha!" (picked up something)
+0063 -- Block sliding
+0064 -- Door opening
+0065 -- Something swinging
+0066 -- Brittle ground
+0067 -- Brittle ground breaking away/falling
+0068 -- Brittle ground hitting solid ground
+0069 -- Enemy footstep
+0069 -- Enemy footstep
+0069 -- Enemy footstep
+0070 -- Enemy "hoo-uh"
+0071 -- Enemy hitting Lara 1
+0072 -- Enemy hitting Lara 2
+0073 -- Enemy "wuoh-uoh" (dying)
+0074 -- Enemy "hoo-eh" (jumping up)
+0075 -- Enemy grunt (climbing up)
+0076 -- Enemy grunt (climbing down)
+0077 -- Weapon clatter?
+0078 -- Lara firing M-16
+0079 -- Waterfall
+0080 -- Sword statue (drop)
+0081 -- Sword statue (lift)
+0082 -- Metal gate open
+0083 -- Metal gate close
+0084 -- Dog footstep?
+0085 -- Enemy body hitting ground (dying)
+0085 -- Enemy body hitting ground (dying)
+0085 -- Enemy body hitting ground (dying)
+0086 -- Dog bark 1
+0087 -- Dog footstep
+0087 -- Dog footstep
+0087 -- Dog footstep
+0088 -- Dog bark 2
+0089 -- Dog yelp (dying)
+0089 -- Dog yelp (dying)
+0089 -- Dog yelp (dying)
+0090 -- Dog pant
+0091 -- Leopard/Tiger footstep
+0091 -- Leopard/Tiger footstep
+0091 -- Leopard/Tiger footstep
+0092 -- Leopard growl 1
+0093 -- Leopard snarl
+0094 -- Leopard growl 2
+0095 -- Leopard growl-twitch (dying)
+0096 -- Leopard growl 3
+0097 -- Rat squeak
+0097 -- Rat squeak
+0098 -- Rat squeal (dying)
+0099 -- Tiger growl 1
+0100 -- Tiger growl 2
+0101 -- Tiger growl 3
+0102 -- Tiger dying
+0103 -- Tiger growl 4
+0104 -- Echo?
+0105 -- Explosion
+0105 -- Explosion
+0106 -- Growl?
+0107 -- Spider jump
+0108 -- Menu-option movement
+0109 -- Menu option: Lara's home
+0111 -- Menu/menu-option popup
+0112 -- Menu-option escape
+0113 -- Menu-option select?
+0114 -- Menu-option select
+0115 -- Menu game-page turn
+0116 -- Lara sigh ("The-e-ere!") from recharge
+0117 -- Enemy footstep (clicking)
+0117 -- Enemy footstep (clicking)
+0117 -- Enemy footstep (clicking)
+0117 -- Enemy footstep (clicking)
+0118 -- Enemy firing gun with silencer
+0118 -- Enemy firing gun with silencer
+0119 -- Enemy "ah!" (dying)
+0120 -- Enemy "oo!" (dying)
+0121 -- Enemy thump
+0122 -- Spider moving
+0123 -- Grenade launcher load (grenade entering)
+0124 -- Grenade launcher load (grenade settling)
+0125 -- Fire grenade launcher
+0126 -- Spider biting Lara?
+0127 -- Slamming door slide
+0128 -- Slamming door close
+0129 -- Eagle squawk
+0130 -- Eagle-wing flap
+0131 -- Eagle dying squawk
+0132 -- Crow "grok!"
+0133 -- Crow-wing flap
+0134 -- Crow "grak!" (dying)
+0135 -- Crunch?
+0136 -- Enemy gun cocking
+0137 -- Enemy gunshot
+0138 -- Enemy gun twirling
+0139 -- Enemy holstering/unholstering guns
+0140 -- Enemy heavy breathing
+0141 -- Enemy chuckling (after killing Lara)
+0142 -- Monk "poy-yaw!"
+0143 -- Monk "awu!" (dying?)
+0145 -- Lara "oi-ah!" (killed by spikes)
+0146 -- Lara groan (killed by flames/lava)
+0147 -- Boulder(s)/oildrum(s)/snowballs/etc. rolling
+0148 -- Sandbag snapping
+0149 -- Sandbag hitting ground
+0150 -- Burning
+0152 -- Snowmobile start
+0153 -- Snowmobile idle
+0154 -- Snowmobile accelerate
+0155 -- Snowmobile (high engine RPM)
+0156 -- Snowmobile shut off
+0157 -- Enemy gunshot
+0158 -- Enemy "oo-ah" (dying)
+0159 -- Enemy heavy breathing
+0160 -- Stick tapping
+0161 -- Floor trapdoor open
+0162 -- Floor trapdoor close
+0163 -- Yeti growl
+0163 -- Yeti growl
+0164 -- Yeti chest beat
+0165 -- Yeti thump?
+0166 -- Yeti grunt and chest beat
+0167 -- Yeti scream
+0168 -- Yeti scream (dying)
+0169 -- Yeti growl 1
+0170 -- Yeti growl 2
+0171 -- Yeti grunt
+0172 -- Yeti growl 3 (also bird monster)
+0173 -- Yeti footstep
+0173 -- Yeti footstep
+0174 -- Enemy heavy breathing
+0175 -- Enemy flamethrower flame
+0176 -- Enemy flamethrower scrape
+0177 -- Enemy flamethrower click
+0178 -- Enemy "fshoo-ah-oo-we" (dying)
+0179 -- Enemy flamethrower pack hitting ground (dying)
+0180 -- Enemy belt jingle
+0181 -- Wrench "ching" (enemy)
+0182 -- Footstep?
+0183 -- Footstep/Lara hit?
+0184 -- Enemy cocking shotgun
+0186 -- Underwater bubbles
+0188 -- Scuba-diver airflow
+0190 -- Pulley crane-block movement
+0191 -- Curtain open/close
+0192 -- Scuba diver dying
+0193 -- Underwater gurgle
+0194 -- Boat start
+0195 -- Boat idle
+0196 -- Boat accelerate
+0197 -- Boat (high engine RPM)
+0198 -- Boat shut off
+0199 -- Boat (engine hit)
+0200 -- Boat (body hit)
+0201 -- Clatter 1
+0202 -- Clatter 2
+0203 -- Clatter 3
+0204 -- Door slide
+0205 -- Lara flesh wound
+0205 -- Lara flesh wound
+0206 -- saw (high RPM)
+0207 -- saw switched off
+0208 -- Bell chime
+0209 -- ? chain creaking / something snapping?
+0210 -- ? swinging
+0211 -- ? breaking?
+0212 -- Pulley movement
+0213 -- Airplane engine idle
+0215 -- Underwater fan
+0217 -- Vent fan
+0218 -- Swinging box/sandbag/spiky ball
+0219 -- Jump pad upward
+0220 -- Jump pad downward
+0221 -- Something breaking?
+0222 -- ball/rock/snowballs/etc rolling
+0223 -- ball/rock/snowballs/etc settling
+0224 -- Rolling?
+0225 -- Crash?
+0226 -- Crash?
+0227 -- Something rolling
+0228 -- Something hitting wall/settling
+0229 -- Blade slice-hit
+0230 -- Blade "ching"
+0231 -- Rolling spike-wheel
+0232 -- Icicle detaching
+0233 -- Icicle hitting ground
+0234 -- Rotating-handle loosen
+0235 -- Rotating-handle turn
+0236 -- Rotating-handle door-latch open
+0237 -- Rotating-handle door creak and latch
+0238 -- Monk footstep
+0238 -- Monk footstep
+0238 -- Monk footstep
+0238 -- Monk footstep
+0239 -- Monk sword swing (single)
+0240 -- Monk sword swing (multi)
+0241 -- Monk shout 1
+0241 -- Monk shout 1
+0241 -- Monk shout 1
+0242 -- Monk shout 2
+0242 -- Monk shout 2
+0242 -- Monk shout 2
+0243 -- Monk shout 3
+0243 -- Monk shout 3
+0243 -- Monk shout 3
+0244 -- Monk shout 4
+0244 -- Monk shout 4
+0244 -- Monk shout 4
+0245 -- Crunch?
+0245 -- Crunch?
+0246 -- Enemy/monk heavy breathing
+0247 -- Splash (surfacing)
+0248 -- Waterfall
+0249 -- Enemy footstep in snow
+0249 -- Enemy footstep in snow
+0249 -- Enemy footstep in snow
+0250 -- Enemy gunshot
+0251 -- Enemy semiauto gunshot
+0252 -- Enemy "ahaga-hoog-uh!" (dying)
+0253 -- Enemy "euuuh!" (dying)
+0254 -- Shooting-circle blade
+0255 -- Knifethrower footstep
+0255 -- Knifethrower footstep
+0255 -- Knifethrower footstep
+0255 -- Knifethrower footstep
+0256 -- Monk "oye!"
+0257 -- Monk "aweh!"
+0258 -- Shooting circle blade hit
+0259 -- Knifethrower/warrior footstep
+0260 -- Warrior blade swing?
+0260 -- Warrior blade swing?
+0260 -- Warrior blade swing?
+0261 -- Warrior blade swing?
+0262 -- Warrior growl
+0262 -- Warrior growl
+0263 -- Knifethrower hiccup (throwing a knife)
+0264 -- Warrior burp, "wuuhh!"
+0264 -- Warrior burp, "wuuhh!"
+0264 -- Warrior burp, "wuuhh!"
+0265 -- Warrior growl-burp
+0267 -- Warrior awaken
+0268 -- Warrior growl-burp?
+0269 -- Lever pull
+0278 -- Chain pulley
+0279 -- Lara zipline handle grab
+0280 -- Lara zipline slide
+0281 -- Lara zipline handle hit
+0282 -- Body slump?
+0283 -- Big bowl tipping
+0284 -- Pouring from big bowl
+0285 -- Waterfall?
+0286 -- Elevator door open
+0287 -- Elevator door close
+0288 -- Minisub clatter 1
+0289 -- Minisub clatter 2
+0290 -- Minisub clatter 3
+0291 -- Bird monster scream
+0292 -- Bird monster gasp, growl?
+0292 -- Bird monster gasp, growl?
+0292 -- Bird monster gasp, growl?
+0293 -- Bird monster hoarse breathing
+0294 -- Bird monster footstep
+0295 -- Bird monster scream (dying)
+0296 -- Giant spider scrape
+0297 -- Helicopter
+0298 -- Dragon footstep
+0299 -- Dragon growl 1
+0300 -- Dragon growl 2
+0301 -- Dragon body fall
+0302 -- Dragon dying breath
+0303 -- Dragon growl 3
+0304 -- Dragon grunt
+0305 -- Dragon fire-breathing
+0306 -- Dragon leg lift
+0307 -- Dragon leg hit
+0308 -- Warrior blade swing
+0308 -- Warrior blade swing
+0309 -- Warrior blade swing (fast)
+0311 -- Warrior breath? activation?
+0312 -- Warrior hover
+0313 -- Warrior landing
+0314 -- Warrior sword clank (sticking it downward)
+0315 -- Warrior? blade slice
+0315 -- Warrior? blade slice
+0316 -- Birds chirping
+0316 -- Birds chirping
+0317 -- ? crunch
+0318 -- ? crunch
+0318 -- ? crunch
+0318 -- ? crunch
+0319 -- Door creak and close
+0320 -- ? breaking
+0321 -- Giant spider snarl
+0322 -- Giant spider footstep
+0322 -- Giant spider footstep
+0322 -- Giant spider footstep
+0322 -- Giant spider footstep
+0323 -- Giant spider snarl (dying)
+0324 -- Dragon/T-Rex growl 1
+0325 -- Dragon/T-Rex footstep (also from bird monster)
+0326 -- Dragon/T-Rex growl 2
+0327 -- Dragon/T-Rex growl 3 (dying)
+0329 -- Water drip
+0329 -- Water drip
+0329 -- Water drip
+0330 -- Stage-backdrop move
+0331 -- Stone door slide
+0332 -- Platform alarm (Star-Trek-like)
+0333 -- Lara's grandfather clock tick
+0334 -- Lara's house front door chime
+0335 -- Lara's house alarm
+0336 -- Boat engine?
+0337 -- Boat into water?
+0338 -- ?
+0339 -- ?
+0340 -- ?
+0341 -- ?
+0342 -- Butler shuffle
+0343 -- Butler footstep
+0344 -- Butler sounds 1
+0344 -- Butler sounds 1
+0344 -- Butler sounds 1
+0344 -- Butler sounds 1
+0344 -- Butler sounds 1
+0345 -- Butler sounds 2
+0345 -- Butler sounds 2
+0345 -- Butler sounds 2
+0345 -- Butler sounds 2
+0346 -- Butler sounds 3
+0346 -- Butler sounds 3
+0347 -- Butler cup clatter
+0347 -- Butler cup clatter
+0348 -- Brittle ground breaking
+0349 -- Spider explode (dying)/Lara bullet hit?
+0350 -- Shark bite (also black moray)
+0351 -- Lava bubbling
+0352 -- Explosion?
+0353 -- Unwelcome guests at Lara's home
+0354 -- Zipper?

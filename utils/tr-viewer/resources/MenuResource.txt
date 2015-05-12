@@ -1,0 +1,45 @@
+[TR2]
+
+	[Baddies]
+		[Animals]
+			Black doberman:venice.tr2:mvb#15;
+			Rat:venice.tr2:mvb#21;
+		[Humans]
+			Skinhead with a cap:venice.tr2:mvb#32;
+		[Monsters]
+			Icecave big monster:icecave.tr2:mvb#46;
+
+	[Lara clothes]
+		snow:icecave.tr2:mvb#0;mvb#1;mvb#4;mvb#5;
+		sun:boat.tr2:mvb#0;mvb#1;mvb#4;mvb#5;
+		water:deck.tr2:mvb#0;mvb#1;mvb#4;mvb#5;
+
+	[Static meshes]
+		skeleton 1:wall.tr2:msh#2;
+		skeleton 2:wall.tr2:msh#3;
+
+	[Vehicles]
+		Boat:boat.tr2:mvb#11;mvb#14;spr#89;
+		Snow mobile:skidoo.tr2:mvb#10;mvb#13;mvb#91;spr#90;
+
+[END]
+
+[TR3]
+
+	[Lara clothes]
+		snow:antarc.tr2:mvb#1;mvb#4;mvb#5;mvb#315;
+		stealth:area51.tr2:mvb#1;mvb#4;mvb#5;mvb#315;
+		strong sun:crash.tr2:mvb#1;mvb#4;mvb#5;mvb#315;
+		sun:jungle.tr2:mvb#1;mvb#4;mvb#5;mvb#315;
+		water:tower.tr2:mvb#1;mvb#4;mvb#5;mvb#315;
+
+	[Vehicles]
+		Boat:antarc.tr2:mvb#11;mvb#15;
+		hydro-propeller:tower.tr2:mvb#11;mvb#19;
+		kayak:rapids.tr2:mvb#11;mvb#14;
+		Moto quad (brown):nevada.tr2:mvb#11;mvb#16;
+		Moto quad (green):quadchas.tr2:mvb#11;mvb#16;
+		Moto quad (house):house.tr2:mvb#11;mvb#16;
+		tip-waggon:mines.tr2:mvb#11;mvb#17;
+
+[END]

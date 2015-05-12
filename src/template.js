@@ -94,7 +94,6 @@ var config = {
   tr2_mesh: jBinary.Type({
     read: function() {
       var data = {};
-
       data.Centre = this.binary.read('tr2_vertex');
 
       data.CollisionSize = this.binary.read('int32');
@@ -106,12 +105,12 @@ var config = {
       data.NumNormals = this.binary.read('int16');
       
       if(data.NumNormals > 0) {
-        // this.binary.skip(data.NumNormals * 6);
-        data.Normals = this.binary.read(['array', 'tr2_vertex', data.NumNormals]);
+        this.binary.skip(data.NumNormals * 6);
+        // data.Normals = this.binary.read(['array', 'tr2_vertex', data.NumNormals]);
       }
       else {
-        // this.binary.skip(data.NumNormals * -1 * 2);
-        data.Lights = this.binary.read(['array', 'int16', data.NumNormals * -1]);
+        this.binary.skip(data.NumNormals * -1 * 2);
+        // data.Lights = this.binary.read(['array', 'int16', data.NumNormals * -1]);
       }
 
       data.NumTexturedRectangles = this.binary.read('int16');
@@ -130,27 +129,25 @@ var config = {
       this.binary.skip(data.NumColouredTriangles * 8);
       // data.ColouredTriangles = this.binary.read(['array', 'tr2_face3', data.NumColouredTriangles]);
 
-      console.log(data);
-
       return data;
     }
   }),
 
   Textile8: jBinary.Type({
-    read: function(header) {
-      return this.binary.read(['array', 'tr2_textile8', header.NumTextiles]);
+    read: function(context) {
+      return this.binary.read(['array', 'tr2_textile8', context.NumTextiles]);
     }
   }),
 
   Textile16: jBinary.Type({
-    read: function(header) {
-      return this.binary.read(['array', 'tr2_textile16', header.NumTextiles]);      
+    read: function(context) {
+      return this.binary.read(['array', 'tr2_textile16', context.NumTextiles]);      
     }
   }),
 
   Rooms: jBinary.Type({
-    read: function(header) {
-      return this.binary.read(['array', 'Room', header.NumRooms]);
+    read: function(context) {
+      return this.binary.read(['array', 'Room', context.NumRooms]);
     }
   }),
 
@@ -208,17 +205,24 @@ var config = {
   }),
 
   Meshes: jBinary.Type({
-    read: function(header) {
-      var end = this.binary.tell() + header.NumMeshData;
+    read: function(context) {
+      var start = this.binary.tell();
+      var end = this.binary.tell() + context.NumMeshData * 2;
       var data = [];
 
-      console.log(header.NumMeshData);
-      console.log(this.binary.tell(), end);
-      while(this.binary.tell() < end) {
+      var pointers = this.binary.seek(end, function() {
+        var num = this.read('uint32');
+        return this.read(['array', 'uint32', num]);
+      });
+
+      for(var i = 0; i < pointers.length; i++) {
+        var pointer = pointers[i];
+
+        this.binary.seek(start + pointer);
         data.push(this.binary.read('tr2_mesh'));
-        console.log('process', this.binary.tell());
       }
-      console.log(this.binary.tell());
+
+      this.binary.seek(end);
 
       return data;
     }
@@ -248,12 +252,12 @@ var config = {
     FloorData: ['skip',  function(context) { return context.NumFloorData * 2; }],
 
     NumMeshData: 'uint32',
-    // Meshes: 'Meshes',
-    Meshes: ['skip', function(context) { return context.NumMeshData * 2; }],
+    Meshes: 'Meshes',
+    // Meshes: ['skip', function(context) { return context.NumMeshData * 2; }],
     
     NumMeshPointers: 'uint32',
-    // MeshPoints: ['array', 'uint32', function(context) { return context.NumMeshPointers; }],
-    MeshPoints: ['skip', function(context) { return context.NumMeshPointers * 4; }],
+    MeshPoints: ['array', 'uint32', function(context) { return context.NumMeshPointers; }],
+    // MeshPoints: ['skip', function(context) { return context.NumMeshPointers * 4; }],
 
     NumAnimations: 'uint32',
     // Animations: 'Animations',

@@ -1,0 +1,224 @@
+0000 -- Lara footstep
+0000 -- Lara footstep
+0000 -- Lara footstep
+0000 -- Lara footstep
+0001 -- Lara grunt
+0002 -- Lara "no"
+0003 -- Lara sliding
+0004 -- Lara landing on feet
+0005 -- Lara "hut" (stepping up)
+0006 -- Lara unholstering pistols/magnums/UZIs
+0007 -- Lara holstering pistols/magnums/UZIs
+0008 -- Lara firing pistols
+0009 -- Lara cocking shotgun/pistol
+0010 -- Bullet ricochet
+0010 -- Bullet ricochet
+0011 -- Bear growl
+0012 -- Heavy thump
+0013 -- Bear snarl
+0014 -- Bear snarls
+0014 -- Bear snarls
+0016 -- Wolf/bear snarl
+0018 -- Bear howl (dying)
+0019 -- Wolf growl
+0019 -- Wolf growl
+0020 -- Wolf hurt
+0022 -- Wolf whimper (dying)
+0022 -- Wolf whimper (dying)
+0024 -- Wolf snarling/biting
+0025 -- Wolf biting
+0025 -- Wolf biting
+0026 -- Lara grunt (pulling up)
+0027 -- Lara "oof" (hitting wall)
+0027 -- Lara "oof" (hitting wall)
+0028 -- Lara shimmy
+0028 -- Lara shimmy
+0029 -- Lara "hut" (jumping)
+0030 -- Lara scream
+0031 -- Lara getting hurt
+0031 -- Lara getting hurt
+0032 -- Lara roll
+0033 -- Splash (Lara into water)
+0034 -- Splash (Lara surfacing)
+0035 -- Swim (Lara underwater)
+0036 -- Lara catching breath
+0037 -- Underwater gurgle
+0038 -- Lara pulling metal lever
+0039 -- Lara inserting key/card
+0040 -- Lara inserting chip/pryr-whl/scroll/gem/etc.
+0041 -- Lara dying 1
+0042 -- Lara dying 2
+0043 -- Lara firing Uzis
+0044 -- Cowboy firing gun
+0045 -- Lara firing shotgun
+0046 -- Lara grunt (starting to push block)
+0047 -- Lara grunt (pushing/pulling block)
+0047 -- Lara grunt (pushing/pulling block)
+0047 -- Lara grunt (pushing/pulling block)
+0048 -- Click (?)
+0050 -- Bullet hitting Lara?
+0051 -- Lara "heh!" (starting to pull block)
+0052 -- Lara treading water
+0053 -- Lara's bones breaking (dying)
+0054 -- Ledge grab by Lara
+0055 -- Lara "oomph!" (hitting wall after grabbing ledge)
+0056 -- Footstep/ledge shimmy by Lara
+0057 -- Metal-lever reset
+0058 -- Bat chirp
+0059 -- Bat wing flap
+0060 -- Underwater ambience
+0061 -- Underwater lever pull
+0063 -- Block sliding
+0064 -- Door opening/closing (heavy-sounding)
+0065 -- Something swinging
+0066 -- Brittle ground
+0067 -- Brittle ground breaking away/falling
+0068 -- Brittle ground hitting solid ground
+0069 -- T-rex growl (spitting out)
+0070 -- T-rex footstep
+0071 -- T-rex roar
+0072 -- T-rex growl (biting)
+0073 -- Raptor howl
+0074 -- Raptor snarl (biting)
+0075 -- Raptor footstep
+0075 -- Raptor footstep
+0076 -- Mummy/Mutant low groan
+0077 -- Larson firing gun
+0078 -- High-pitched flyby
+0079 -- Water flow 1
+0080 -- Water flow 2
+0081 -- Water flow 3
+0082 -- Rolling door (high-pitched)
+0083 -- Thump
+0084 -- Rolling door (low-pitched) / Cogs
+0085 -- Lion snarl
+0086 -- Lion biting
+0086 -- Lion biting
+0087 -- Lion snarling
+0088 -- Lion dying
+0089 -- Gorilla footsteps
+0090 -- Gorilla pant-hoots
+0091 -- Gorilla howl (dying)
+0092 -- Crocodile moving on land
+0093 -- Crocodile biting
+0093 -- Crocodile biting
+0094 -- Rat running
+0095 -- Rat chirp?
+0096 -- Rat chirp (biting)
+0097 -- Rat chirp (dying)
+0098 -- Chatter/scrape ?
+0099 -- Explosion
+0100 -- Gorilla grunt/howl
+0101 -- Gorilla grunts
+0101 -- Gorilla grunts
+0101 -- Gorilla grunts
+0101 -- Gorilla grunts
+0102 -- Crocodile dying
+0103 -- Tile clatter/scrape?
+0104 -- Explosion
+0108 -- Menu-option movement
+0109 -- Menu option: Lara's home
+0110 -- Low tone (some unused menu sound?)
+0111 -- Menu/menu-option popup
+0112 -- Menu-option escape
+0113 -- Menu-option select?
+0114 -- Menu-option select
+0115 -- Menu game-page turn
+0116 -- Lara sigh ("The-e-ere!") from recharge
+0117 -- Glassy flow
+0118 -- Flowing-air sound (sand?)
+0119 -- Clank
+0120 -- Mutant footstep
+0120 -- Mutant footstep
+0121 -- Mummy/Mutant attack 1
+0122 -- Mummy/Mutant attack 2
+0123 -- Mutant shooting bullet
+0124 -- Mutant shooting fireball
+0125 -- Mutant wing flap
+0126 -- Winged-mummy/mutant footstep
+0126 -- Winged-mummy/mutant footstep
+0126 -- Winged-mummy/mutant footstep
+0126 -- Winged-mummy/mutant footstep
+0127 -- Slamming-door clank
+0128 -- Slamming-door scrape
+0129 -- Skateboard roll
+0130 -- Skateboard scrape
+0131 -- Skateboard kid firing guns
+0132 -- "Uh" [one of Natla's goons]
+0133 -- Skateboard start
+0134 -- "Hellllp" [skateboard kid]
+0135 -- Body fall
+0136 -- Muffled big thump [giant-mutant drop]
+0137 -- Weird growl/wail 1 [giant mutant attacks]
+0138 -- Weird growl/wail 2 [giant mutant attacks]
+0139 -- Weird growl/wail 3 [giant mutant just fell / dying]
+0140 -- Giant-mutant arm swing
+0141 -- Low-pitched scrape [giant mutant pulling self]
+0142 -- "Ren-na" [giant mutant]
+0143 -- Centaur mutant hoofsteps
+0143 -- Centaur mutant hoofsteps
+0143 -- Centaur mutant hoofsteps
+0143 -- Centaur mutant hoofsteps
+0144 -- Centaur mutant neigh
+0145 -- Lara "oi-ah!" (killed by spikes)
+0146 -- Lara groan (killed by flames/lava)
+0147 -- Boulder(s)/oildrum(s)/snowballs/etc. rolling
+0148 -- Underwater bubbling
+0149 -- Choppy water/airflow ?
+0150 -- Burning
+0151 -- Wall-mounted dartgun
+0152 -- Metallic door slam (Thor's Hammer, golden Lara falling down)
+0153 -- Metallic door move (Thor's Hammer moving a little bit)
+0154 -- Scion machine
+0155 -- Low hum
+0156 -- "Uhh-ahh!" [cowboy dying]
+0157 -- "Scumpsucker!" ["Mr. T"]
+0158 -- "*cough* Damn!" [Larson]
+0159 -- "U-ahh!"
+0160 -- "Uh-ah-uh!"
+0161 -- Heavy door slam
+0162 -- Heavy door move
+0163 -- Bubbling [mutant egg incubating]
+0164 -- Glassy smash [mutant egg hatching]
+0165 -- Drill-engine start
+0166 -- Drill-engine running
+0167 -- Conveyor belt
+0168 -- Scrape/clank (shack getting lowered)
+0169 -- Crash (shack hitting ground)
+0170 -- Low-pitched settling sound ?
+0171 -- Mummy/Mutant
+0172 -- Rattling door?
+0173 -- Found a secret
+0174 -- "Welcome to my home"
+0175 -- "Use the direction keys"
+0176 -- "OK. Let's do some tumbling"
+0177 -- "Now press it again"
+0178 -- "Ah, the main hall"
+0179 -- "Run up to a crate"
+0180 -- "This used to be the ballroom"
+0181 -- "I don't actually run everywhere"
+0182 -- "With the walk button down"
+0183 -- "If you want to look around"
+0184 -- "If a jump is too far for me"
+0185 -- "Press forward, and I'll climb up"
+0186 -- "If I do a running jump"
+0187 -- "Walk to the edge with the white line"
+0188 -- "Right. This is a really big one"
+0189 -- "Nice"
+0190 -- "Try to vault up here"
+0191 -- "I can't climb up"
+0192 -- "Great. If there is a long drop"
+0193 -- "Tap backwards, and I'll jump off backwards"
+0194 -- "Then let go"
+0195 -- "Let's go for a swim"
+0196 -- "The jump button, and the directions"
+0197 -- "Wuuh! Ohh! Air!"
+0198 -- "Right. Now I better take off these wet clothes"
+0199 -- "Say cheese!" [Mr. T lookalike]
+0200 -- "Ain't nothin' personal" [the cowboy]
+0201 -- "I still got a pain in my brain from you" [Larson]
+0202 -- "You can't bump off me and my brood so easy, Lara" [Natla]
+0203 -- "A little late for the prize giving?" [Pierre]
+0204 -- "You firin' at me? You firin' at me?" [the skateboard kid]
+0205 -- "Right. Let's go adventuring"
+0255 -- ! Not used (id #255) !
