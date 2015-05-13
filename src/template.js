@@ -27,9 +27,9 @@ var config = {
 
       var textile = {
         a: (ARGB >> 15),
-        r: (ARGB & 0x7c00 >> 10),
-        g: (ARGB & 0x03e0 >> 5),
-        b: (ARGB & 0x001f)
+        r: ((ARGB & 0x7c00) >> 10) * 8,
+        g: ((ARGB & 0x03e0) >> 5) * 8,
+        b: (ARGB & 0x001f) * 8
       };
 
       return textile;

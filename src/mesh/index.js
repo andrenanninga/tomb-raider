@@ -4,7 +4,7 @@ var _ = require('underscore');
 var THREE = require('three');
 var Stats = require('stats.js');
 
-var model = require('./face.json');
+var model = require('./models/boat.json');
 
 global.THREE = THREE;
 
@@ -65,8 +65,8 @@ _.each(model.Vertices, function(vert) {
 
 _.each(tris, function(tri) {
   if(colors[tri[3]] === undefined) {
-    // colors[tri[3]] = new THREE.Color(Math.floor(Math.random()*16777215));
-    colors[tri[3]] = new THREE.Color(0xE4DED1);
+    colors[tri[3]] = new THREE.Color(Math.floor(Math.random()*16777215));
+    // colors[tri[3]] = new THREE.Color(0xE4DED1);
   }
 
   geometry.faces.push(new THREE.Face3(
@@ -88,7 +88,9 @@ var mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({
   vertexColors: THREE.VertexColors
 }));
 
-mesh.scale.y = -1;
+mesh.scale.x = 0.1;
+mesh.scale.y = -0.1;
+mesh.scale.z = 0.1;
 console.log(mesh);
 scene.add(mesh);
 
