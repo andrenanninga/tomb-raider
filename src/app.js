@@ -19,5 +19,6 @@ jBinary.load(file, template, function(err, jb) {
   }
 
   // console.log(level);
-  console.log(util.inspect(level, { colors: true, depth: 0 }));
+  // console.log(util.inspect(level, { colors: true, depth: 0 }));
+  console.log(util.inspect(level.Meshes[14], { colors: true, depth: 5 }));
 });

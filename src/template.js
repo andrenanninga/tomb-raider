@@ -99,35 +99,35 @@ var config = {
       data.CollisionSize = this.binary.read('int32');
 
       data.NumVertices = this.binary.read('int16');
-      this.binary.skip(data.NumVertices * 6);
-      // data.Vertices = this.binary.read(['array', 'tr2_vertex', data.NumVertices]);
+      // this.binary.skip(data.NumVertices * 6);
+      data.Vertices = this.binary.read(['array', 'tr2_vertex', data.NumVertices]);
 
       data.NumNormals = this.binary.read('int16');
       
       if(data.NumNormals > 0) {
-        this.binary.skip(data.NumNormals * 6);
-        // data.Normals = this.binary.read(['array', 'tr2_vertex', data.NumNormals]);
+        // this.binary.skip(data.NumNormals * 6);
+        data.Normals = this.binary.read(['array', 'tr2_vertex', data.NumNormals]);
       }
       else {
-        this.binary.skip(data.NumNormals * -1 * 2);
-        // data.Lights = this.binary.read(['array', 'int16', data.NumNormals * -1]);
+        // this.binary.skip(data.NumNormals * -1 * 2);
+        data.Lights = this.binary.read(['array', 'int16', data.NumNormals * -1]);
       }
 
       data.NumTexturedRectangles = this.binary.read('int16');
-      this.binary.skip(data.NumTexturedRectangles * 10);
-      // data.TexturedRectangles = this.binary.read(['array', 'tr2_face4', data.NumTexturedRectangles]);
+      // this.binary.skip(data.NumTexturedRectangles * 10);
+      data.TexturedRectangles = this.binary.read(['array', 'tr2_face4', data.NumTexturedRectangles]);
 
       data.NumTexturedTriangles = this.binary.read('int16');
-      this.binary.skip(data.NumTexturedTriangles * 8);
-      // data.TexturedTriangles = this.binary.read(['array', 'tr2_face3', data.NumTexturedTriangles]);
+      // this.binary.skip(data.NumTexturedTriangles * 8);
+      data.TexturedTriangles = this.binary.read(['array', 'tr2_face3', data.NumTexturedTriangles]);
 
       data.NumColouredRectangles = this.binary.read('int16');
-      this.binary.skip(data.NumColouredRectangles * 10);
-      // data.ColouredRectangles = this.binary.read(['array', 'tr2_face4', data.NumColouredRectangles]);
+      // this.binary.skip(data.NumColouredRectangles * 10);
+      data.ColouredRectangles = this.binary.read(['array', 'tr2_face4', data.NumColouredRectangles]);
 
       data.NumColouredTriangles = this.binary.read('int16');
-      this.binary.skip(data.NumColouredTriangles * 8);
-      // data.ColouredTriangles = this.binary.read(['array', 'tr2_face3', data.NumColouredTriangles]);
+      // this.binary.skip(data.NumColouredTriangles * 8);
+      data.ColouredTriangles = this.binary.read(['array', 'tr2_face3', data.NumColouredTriangles]);
 
       return data;
     }
@@ -256,7 +256,7 @@ var config = {
     // Meshes: ['skip', function(context) { return context.NumMeshData * 2; }],
     
     NumMeshPointers: 'uint32',
-    MeshPoints: ['array', 'uint32', function(context) { return context.NumMeshPointers; }],
+    MeshPointers: ['array', 'uint32', function(context) { return context.NumMeshPointers; }],
     // MeshPoints: ['skip', function(context) { return context.NumMeshPointers * 4; }],
 
     NumAnimations: 'uint32',
