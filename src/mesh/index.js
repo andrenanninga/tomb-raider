@@ -4,7 +4,7 @@ var _ = require('underscore');
 var THREE = require('three');
 var Stats = require('stats.js');
 
-var model = require('./models/boat.json');
+var model = require('./models/face.json');
 
 global.THREE = THREE;
 
