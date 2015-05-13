@@ -1,3 +1,5 @@
+/*jslint bitwise: true */
+
 'use strict';
 
 var util = require('util');
@@ -19,7 +21,20 @@ var config = {
 
   tr2_textile8: ['array', 'uint8', 65536],
 
-  tr2_textile16: ['array', 'uint16', 65536],
+  tr2_textile16: ['array', jBinary.Type({
+    read: function() {
+      var ARGB = this.binary.read('uint16');
+
+      var textile = {
+        a: (ARGB >> 15),
+        r: (ARGB & 0x7c00 >> 10),
+        g: (ARGB & 0x03e0 >> 5),
+        b: (ARGB & 0x001f)
+      };
+
+      return textile;
+    }
+  }), 65536],
 
   tr2_vertex: {
     x: 'int16',
@@ -239,8 +254,8 @@ var config = {
     NumTextiles: 'uint32',
     // Textile8: 'Textile8',
     Textile8: ['skip', function(context) { return context.NumTextiles * 65536; }],
-    // Textile16: 'Textile16',
-    Textile16: ['skip', function(context) { return context.NumTextiles * 131072; }],
+    Textile16: 'Textile16',
+    // Textile16: ['skip', function(context) { return context.NumTextiles * 131072; }],
 
     Unused: ['skip', 4],
     

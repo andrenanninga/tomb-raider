@@ -4,7 +4,7 @@ var _ = require('underscore');
 var THREE = require('three');
 var Stats = require('stats.js');
 
-var model = require('./shotgun.json');
+var model = require('./face.json');
 
 global.THREE = THREE;
 
@@ -17,7 +17,7 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 10000);
 camera.position.x = 200;
 camera.position.y = 200;
 camera.position.z = 200;
@@ -34,11 +34,11 @@ document.body.appendChild(stats.domElement);
 var light = new THREE.AmbientLight(0x222222);
 scene.add(light);
 
-var light = new THREE.PointLight( 0xffffff, 0.8, 1000 );
+var light = new THREE.PointLight( 0xffffff, 0.8, 10000 );
 light.position.set(camera.position.x, camera.position.y, camera.position.z);
 scene.add(light);
 
-var axis = new THREE.AxisHelper(100);
+var axis = new THREE.AxisHelper(100 );
 scene.add(axis);
 
 var geometry = new THREE.Geometry();
@@ -65,7 +65,8 @@ _.each(model.Vertices, function(vert) {
 
 _.each(tris, function(tri) {
   if(colors[tri[3]] === undefined) {
-    colors[tri[3]] = new THREE.Color(Math.floor(Math.random()*16777215));
+    // colors[tri[3]] = new THREE.Color(Math.floor(Math.random()*16777215));
+    colors[tri[3]] = new THREE.Color(0xE4DED1);
   }
 
   geometry.faces.push(new THREE.Face3(
@@ -81,7 +82,7 @@ _.each(tris, function(tri) {
   ));
 });
 
-var mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ 
+var mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({ 
   color: 0xffffff, 
   shading: THREE.FlatShading,
   vertexColors: THREE.VertexColors

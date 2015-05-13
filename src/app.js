@@ -5,7 +5,7 @@ var path     = require('path');
 var jBinary  = require('jbinary');
 var template = require('./template');
 
-var file = path.join(__dirname, '../data/HOUSE.TR2');
+var file = path.join(__dirname, '../data/BOAT.TR2');
 
 jBinary.load(file, template, function(err, jb) {
   var level;
@@ -20,5 +20,7 @@ jBinary.load(file, template, function(err, jb) {
 
   // console.log(level);
   // console.log(util.inspect(level, { colors: true, depth: 0 }));
-  console.log(util.inspect(level.Meshes[14], { colors: true, depth: 5 }));
+  console.log(util.inspect(level.Meshes[171], { colors: true, depth: 5 }));
+
+
 });

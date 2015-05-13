@@ -36847,6 +36847,8 @@ if (typeof exports !== 'undefined') {
 }.call(this));
 
 },{}],4:[function(require,module,exports){
+module.exports={"Centre":{"x":3,"y":-26,"z":9},"CollisionSize":60,"NumVertices":61,"Vertices":[{"x":-2,"y":14,"z":57},{"x":-28,"y":2,"z":9},{"x":23,"y":2,"z":9},{"x":-2,"y":-77,"z":49},{"x":-25,"y":-75,"z":36},{"x":-18,"y":-63,"z":-39},{"x":12,"y":-64,"z":-39},{"x":23,"y":-75,"z":36},{"x":-2,"y":-93,"z":8},{"x":-14,"y":12,"z":1},{"x":-2,"y":-20,"z":70},{"x":30,"y":-33,"z":46},{"x":-34,"y":-33,"z":46},{"x":-2,"y":-34,"z":60},{"x":-2,"y":-17,"z":64},{"x":8,"y":12,"z":50},{"x":-13,"y":12,"z":50},{"x":-15,"y":-17,"z":58},{"x":10,"y":-18,"z":58},{"x":-34,"y":-51,"z":47},{"x":30,"y":-52,"z":48},{"x":-2,"y":-50,"z":61},{"x":28,"y":-79,"z":-10},{"x":12,"y":4,"z":-21},{"x":-31,"y":-79,"z":-10},{"x":-19,"y":5,"z":-21},{"x":-33,"y":-38,"z":15},{"x":29,"y":-38,"z":15},{"x":17,"y":-91,"z":48},{"x":-19,"y":-92,"z":45},{"x":-39,"y":-38,"z":-17},{"x":37,"y":-39,"z":-15},{"x":28,"y":-26,"z":50},{"x":30,"y":-42,"z":45},{"x":-34,"y":-42,"z":44},{"x":-32,"y":-26,"z":51},{"x":-2,"y":-79,"z":48},{"x":-41,"y":-58,"z":34},{"x":38,"y":-56,"z":34},{"x":8,"y":12,"z":1},{"x":5,"y":-84,"z":-20},{"x":-10,"y":-84,"z":-20},{"x":-2,"y":-42,"z":61},{"x":14,"y":-5,"z":-31},{"x":-20,"y":-5,"z":-31},{"x":14,"y":-38,"z":-46},{"x":-20,"y":-38,"z":-46},{"x":17,"y":-12,"z":-48},{"x":7,"y":-13,"z":-65},{"x":5,"y":-30,"z":-60},{"x":14,"y":1,"z":-41},{"x":7,"y":6,"z":-55},{"x":-12,"y":-13,"z":-65},{"x":-10,"y":-30,"z":-60},{"x":-19,"y":1,"z":-41},{"x":-12,"y":6,"z":-55},{"x":-22,"y":-12,"z":-48},{"x":30,"y":-38,"z":-1},{"x":-34,"y":-37,"z":-2},{"x":-36,"y":-78,"z":43},{"x":34,"y":-77,"z":44}],"NumNormals":61,"Normals":[{"x":-200,"y":13572,"z":9025},{"x":-14532,"y":7371,"z":-435},{"x":14466,"y":7461,"z":-875},{"x":-162,"y":-8411,"z":13961},{"x":-3784,"y":1699,"z":15764},{"x":-3982,"y":-8500,"z":-13326},{"x":5492,"y":-8553,"z":-12743},{"x":3055,"y":2782,"z":15768},{"x":113,"y":-16257,"z":-1171},{"x":-2953,"y":15908,"z":-1979},{"x":196,"y":7123,"z":14660},{"x":14705,"y":-668,"z":7001},{"x":-14723,"y":-1107,"z":6907},{"x":-5,"y":-3877,"z":15832},{"x":126,"y":8888,"z":13663},{"x":8694,"y":11433,"z":7706},{"x":-9855,"y":9483,"z":8868},{"x":-8001,"y":3222,"z":13831},{"x":8180,"y":3098,"z":13754},{"x":-12050,"y":-2641,"z":10654},{"x":11934,"y":-2541,"z":10808},{"x":-88,"y":-2777,"z":16061},{"x":11172,"y":-10446,"z":-5635},{"x":8498,"y":12331,"z":-6437},{"x":-11349,"y":-10369,"z":-5420},{"x":-11361,"y":10609,"z":-4904},{"x":-15991,"y":3056,"z":797},{"x":15901,"y":3517,"z":687},{"x":3210,"y":-10498,"z":12049},{"x":-3217,"y":-10974,"z":11615},{"x":-15923,"y":2234,"z":-2675},{"x":15835,"y":2723,"z":-2741},{"x":11671,"y":1739,"z":11245},{"x":12678,"y":711,"z":10220},{"x":-12757,"y":448,"z":10136},{"x":-11622,"y":1725,"z":11298},{"x":-135,"y":-7269,"z":14589},{"x":-9375,"y":9670,"z":9181},{"x":8646,"y":10470,"z":9017},{"x":5007,"y":15352,"z":-2225},{"x":2364,"y":-13603,"z":-8664},{"x":-3301,"y":-13988,"z":-7689},{"x":-63,"y":2729,"z":16070},{"x":12391,"y":10573,"z":610},{"x":-12453,"y":9965,"z":-3361},{"x":10584,"y":-4671,"z":-11483},{"x":-10948,"y":-6192,"z":-10368},{"x":15600,"y":1078,"z":-4601},{"x":6498,"y":-102,"z":-14949},{"x":6342,"y":-9154,"z":-11903},{"x":7723,"y":13719,"z":4222},{"x":7375,"y":10879,"z":-9641},{"x":-6518,"y":2727,"z":-14689},{"x":-6225,"y":-6640,"z":-13522},{"x":-7653,"y":13714,"z":4365},{"x":-7748,"y":13611,"z":-4516},{"x":-15415,"y":1347,"z":-5125},{"x":13739,"y":8626,"z":1584},{"x":-14266,"y":7737,"z":1522},{"x":-13172,"y":-2471,"z":9278},{"x":13385,"y":-1603,"z":9162}],"NumTexturedRectangles":0,"TexturedRectangles":[],"NumTexturedTriangles":118,"TexturedTriangles":[{"Vertices":[4,19,3],"Texture":159},{"Vertices":[0,14,16],"Texture":160},{"Vertices":[46,24,5],"Texture":161},{"Vertices":[43,31,57],"Texture":162},{"Vertices":[7,3,20],"Texture":163},{"Vertices":[0,15,14],"Texture":164},{"Vertices":[9,0,16],"Texture":165},{"Vertices":[9,39,15],"Texture":165},{"Vertices":[36,4,3],"Texture":166},{"Vertices":[41,24,8],"Texture":166},{"Vertices":[40,5,41],"Texture":166},{"Vertices":[10,13,17],"Texture":29},{"Vertices":[10,14,18],"Texture":167},{"Vertices":[20,27,7],"Texture":168},{"Vertices":[18,32,13],"Texture":29},{"Vertices":[35,12,1],"Texture":169},{"Vertices":[4,37,26],"Texture":166},{"Vertices":[11,33,13],"Texture":170},{"Vertices":[42,34,13],"Texture":171},{"Vertices":[12,35,13],"Texture":172},{"Vertices":[11,32,2],"Texture":169},{"Vertices":[15,2,32],"Texture":173},{"Vertices":[9,15,0],"Texture":165},{"Vertices":[9,16,1],"Texture":165},{"Vertices":[17,16,14],"Texture":174},{"Vertices":[10,17,14],"Texture":175},{"Vertices":[17,35,16],"Texture":29},{"Vertices":[10,18,13],"Texture":29},{"Vertices":[18,14,15],"Texture":176},{"Vertices":[34,42,19],"Texture":177},{"Vertices":[34,26,12],"Texture":178},{"Vertices":[60,31,22],"Texture":162},{"Vertices":[21,42,20],"Texture":179},{"Vertices":[21,20,3],"Texture":180},{"Vertices":[21,3,19],"Texture":181},{"Vertices":[27,11,2],"Texture":182},{"Vertices":[40,22,6],"Texture":166},{"Vertices":[57,23,43],"Texture":166},{"Vertices":[29,8,24],"Texture":183},{"Vertices":[19,4,26],"Texture":184},{"Vertices":[1,26,25],"Texture":185},{"Vertices":[26,1,12],"Texture":186},{"Vertices":[2,23,27],"Texture":187},{"Vertices":[20,33,27],"Texture":188},{"Vertices":[22,8,28],"Texture":162},{"Vertices":[29,24,59],"Texture":189},{"Vertices":[8,29,36],"Texture":162},{"Vertices":[28,60,22],"Texture":183},{"Vertices":[59,24,30],"Texture":162},{"Vertices":[58,25,26],"Texture":190},{"Vertices":[11,13,32],"Texture":191},{"Vertices":[15,32,18],"Texture":29},{"Vertices":[42,13,33],"Texture":192},{"Vertices":[33,11,27],"Texture":188},{"Vertices":[12,13,34],"Texture":193},{"Vertices":[19,26,34],"Texture":178},{"Vertices":[13,35,17],"Texture":29},{"Vertices":[16,35,1],"Texture":194},{"Vertices":[36,28,8],"Texture":162},{"Vertices":[3,7,36],"Texture":166},{"Vertices":[29,59,4],"Texture":166},{"Vertices":[36,7,28],"Texture":166},{"Vertices":[27,38,7],"Texture":166},{"Vertices":[25,9,1],"Texture":165},{"Vertices":[23,2,39],"Texture":165},{"Vertices":[25,23,9],"Texture":195},{"Vertices":[39,2,15],"Texture":165},{"Vertices":[39,9,23],"Texture":196},{"Vertices":[23,25,44],"Texture":166},{"Vertices":[6,5,40],"Texture":166},{"Vertices":[8,22,40],"Texture":162},{"Vertices":[5,24,41],"Texture":197},{"Vertices":[8,40,41],"Texture":166},{"Vertices":[21,19,42],"Texture":198},{"Vertices":[33,20,42],"Texture":199},{"Vertices":[43,23,44],"Texture":166},{"Vertices":[44,58,30],"Texture":189},{"Vertices":[45,6,22],"Texture":161},{"Vertices":[46,5,45],"Texture":200},{"Vertices":[6,45,5],"Texture":161},{"Vertices":[45,22,31],"Texture":200},{"Vertices":[31,43,45],"Texture":200},{"Vertices":[44,30,46],"Texture":189},{"Vertices":[46,30,24],"Texture":197},{"Vertices":[46,56,44],"Texture":201},{"Vertices":[53,56,46],"Texture":202},{"Vertices":[44,54,43],"Texture":201},{"Vertices":[50,43,54],"Texture":203},{"Vertices":[43,47,45],"Texture":201},{"Vertices":[50,47,43],"Texture":204},{"Vertices":[45,49,46],"Texture":201},{"Vertices":[53,46,49],"Texture":203},{"Vertices":[49,45,47],"Texture":203},{"Vertices":[54,44,56],"Texture":203},{"Vertices":[48,49,47],"Texture":166},{"Vertices":[50,51,47],"Texture":166},{"Vertices":[51,48,47],"Texture":166},{"Vertices":[52,53,48],"Texture":166},{"Vertices":[53,49,48],"Texture":166},{"Vertices":[54,55,50],"Texture":166},{"Vertices":[55,51,50],"Texture":166},{"Vertices":[55,52,51],"Texture":166},{"Vertices":[52,48,51],"Texture":166},{"Vertices":[55,54,56],"Texture":166},{"Vertices":[53,52,56],"Texture":166},{"Vertices":[52,55,56],"Texture":166},{"Vertices":[57,27,23],"Texture":205},{"Vertices":[44,25,58],"Texture":166},{"Vertices":[57,38,27],"Texture":166},{"Vertices":[31,60,38],"Texture":183},{"Vertices":[59,30,37],"Texture":189},{"Vertices":[58,37,30],"Texture":189},{"Vertices":[29,4,36],"Texture":166},{"Vertices":[7,38,60],"Texture":166},{"Vertices":[59,37,4],"Texture":166},{"Vertices":[7,60,28],"Texture":166},{"Vertices":[38,57,31],"Texture":162},{"Vertices":[58,26,37],"Texture":166}],"NumColouredRectangles":0,"ColouredRectangles":[],"NumColouredTriangles":0,"ColouredTriangles":[]}
+},{}],5:[function(require,module,exports){
 (function (global){
 'use strict';
 
@@ -36854,7 +36856,7 @@ var _ = require('underscore');
 var THREE = require('three');
 var Stats = require('stats.js');
 
-var model = require('./shotgun.json');
+var model = require('./face.json');
 
 global.THREE = THREE;
 
@@ -36867,7 +36869,7 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 10000);
 camera.position.x = 200;
 camera.position.y = 200;
 camera.position.z = 200;
@@ -36884,11 +36886,11 @@ document.body.appendChild(stats.domElement);
 var light = new THREE.AmbientLight(0x222222);
 scene.add(light);
 
-var light = new THREE.PointLight( 0xffffff, 0.8, 1000 );
+var light = new THREE.PointLight( 0xffffff, 0.8, 10000 );
 light.position.set(camera.position.x, camera.position.y, camera.position.z);
 scene.add(light);
 
-var axis = new THREE.AxisHelper(100);
+var axis = new THREE.AxisHelper(100 );
 scene.add(axis);
 
 var geometry = new THREE.Geometry();
@@ -36915,7 +36917,8 @@ _.each(model.Vertices, function(vert) {
 
 _.each(tris, function(tri) {
   if(colors[tri[3]] === undefined) {
-    colors[tri[3]] = new THREE.Color(Math.floor(Math.random()*16777215));
+    // colors[tri[3]] = new THREE.Color(Math.floor(Math.random()*16777215));
+    colors[tri[3]] = new THREE.Color(0xE4DED1);
   }
 
   geometry.faces.push(new THREE.Face3(
@@ -36931,7 +36934,7 @@ _.each(tris, function(tri) {
   ));
 });
 
-var mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ 
+var mesh = new THREE.Mesh(geometry, new THREE.MeshPhongMaterial({ 
   color: 0xffffff, 
   shading: THREE.FlatShading,
   vertexColors: THREE.VertexColors
@@ -36956,273 +36959,7 @@ render();
 
 console.log(model);
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../plugins/OrbitControls":6,"./shotgun.json":5,"stats.js":1,"three":2,"underscore":3}],5:[function(require,module,exports){
-module.exports={
-  "Centre": { "x": -5, "y": 7, "z": 10 },
-  "CollisionSize": 188,
-  "NumVertices": 90,
-  "Vertices": [
-    { "x": -43, "y": 21, "z": 15 },
-    { "x": -167, "y": 21, "z": 15 },
-    { "x": -167, "y": -21, "z": 15 },
-    { "x": -43, "y": -21, "z": 15 },
-    { "x": -43, "y": 21, "z": -15 },
-    { "x": -167, "y": 21, "z": -15 },
-    { "x": -167, "y": -21, "z": -15 },
-    { "x": -43, "y": -21, "z": -15 },
-    { "x": -121, "y": 100, "z": 13 },
-    { "x": -166, "y": 100, "z": 13 },
-    { "x": -155, "y": 21, "z": 13 },
-    { "x": -110, "y": 21, "z": 13 },
-    { "x": -121, "y": 100, "z": -14 },
-    { "x": -166, "y": 100, "z": -14 },
-    { "x": -155, "y": 21, "z": -14 },
-    { "x": -110, "y": 21, "z": -14 },
-    { "x": 1, "y": -21, "z": -15 },
-    { "x": 1, "y": 4, "z": -15 },
-    { "x": -43, "y": 4, "z": -15 },
-    { "x": 1, "y": -21, "z": 15 },
-    { "x": 1, "y": 4, "z": 15 },
-    { "x": -43, "y": 4, "z": 15 },
-    { "x": -88, "y": 36, "z": -5 },
-    { "x": -85, "y": 40, "z": -5 },
-    { "x": -113, "y": 41, "z": -7 },
-    { "x": -112, "y": 36, "z": -7 },
-    { "x": -88, "y": 36, "z": 3 },
-    { "x": -85, "y": 40, "z": 3 },
-    { "x": -113, "y": 41, "z": 5 },
-    { "x": -112, "y": 36, "z": 5 },
-    { "x": -83, "y": 22, "z": -7 },
-    { "x": -77, "y": 22, "z": -7 },
-    { "x": -83, "y": 22, "z": 5 },
-    { "x": -77, "y": 22, "z": 5 },
-    { "x": -97, "y": 21, "z": -4 },
-    { "x": -97, "y": 34, "z": -4 },
-    { "x": -100, "y": 34, "z": -4 },
-    { "x": -104, "y": 21, "z": -4 },
-    { "x": -97, "y": 21, "z": 3 },
-    { "x": -97, "y": 34, "z": 3 },
-    { "x": -100, "y": 34, "z": 3 },
-    { "x": -104, "y": 21, "z": 3 },
-    { "x": 180, "y": -19, "z": 6 },
-    { "x": 180, "y": -7, "z": 13 },
-    { "x": 180, "y": 4, "z": 6 },
-    { "x": 180, "y": 4, "z": -7 },
-    { "x": 180, "y": -7, "z": -14 },
-    { "x": 180, "y": -19, "z": -7 },
-    { "x": 1, "y": -19, "z": 6 },
-    { "x": 1, "y": -7, "z": 13 },
-    { "x": 1, "y": 4, "z": 6 },
-    { "x": 1, "y": 4, "z": -7 },
-    { "x": 1, "y": -7, "z": -14 },
-    { "x": 1, "y": -19, "z": -7 },
-    { "x": 180, "y": 6, "z": 3 },
-    { "x": 180, "y": 12, "z": 6 },
-    { "x": 180, "y": 18, "z": 3 },
-    { "x": 180, "y": 18, "z": -4 },
-    { "x": 180, "y": 12, "z": -7 },
-    { "x": 180, "y": 6, "z": -4 },
-    { "x": 134, "y": 6, "z": 3 },
-    { "x": 134, "y": 12, "z": 6 },
-    { "x": 134, "y": 18, "z": 3 },
-    { "x": 134, "y": 18, "z": -4 },
-    { "x": 134, "y": 12, "z": -7 },
-    { "x": 134, "y": 6, "z": -4 },
-    { "x": 135, "y": 16, "z": -16 },
-    { "x": 135, "y": 28, "z": -8 },
-    { "x": 69, "y": 28, "z": -8 },
-    { "x": 69, "y": 16, "z": -16 },
-    { "x": 135, "y": 16, "z": 14 },
-    { "x": 135, "y": 28, "z": 6 },
-    { "x": 69, "y": 28, "z": 6 },
-    { "x": 69, "y": 16, "z": 14 },
-    { "x": 135, "y": -2, "z": -14 },
-    { "x": 69, "y": -2, "z": -14 },
-    { "x": 135, "y": -2, "z": 13 },
-    { "x": 69, "y": -2, "z": 13 },
-    { "x": 69, "y": 6, "z": 3 },
-    { "x": 69, "y": 12, "z": 6 },
-    { "x": 69, "y": 18, "z": 3 },
-    { "x": 69, "y": 18, "z": -4 },
-    { "x": 69, "y": 12, "z": -7 },
-    { "x": 69, "y": 6, "z": -4 },
-    { "x": -43, "y": 6, "z": 3 },
-    { "x": -43, "y": 12, "z": 6 },
-    { "x": -43, "y": 18, "z": 3 },
-    { "x": -43, "y": 18, "z": -4 },
-    { "x": -43, "y": 12, "z": -7 },
-    { "x": -43, "y": 6, "z": -4 }
-  ],
-  "NumNormals": 90,
-  "Normals": [
-    { "x": 9403, "y": 9456, "z": 9373 },
-    { "x": -9411, "y": 9411, "z": 9411 },
-    { "x": -9411, "y": -9411, "z": 9411 },
-    { "x": -1, "y": -11526, "z": 11526 },
-    { "x": 9383, "y": 9436, "z": -9414 },
-    { "x": -9411, "y": 9411, "z": -9411 },
-    { "x": -9411, "y": -9411, "z": -9411 },
-    { "x": 0, "y": -11525, "z": -11527 },
-    { "x": 8920, "y": 10248, "z": 9006 },
-    { "x": -9781, "y": 8514, "z": 9876 },
-    { "x": -8920, "y": -10248, "z": 9006 },
-    { "x": 9781, "y": -8514, "z": 9876 },
-    { "x": 8920, "y": 10248, "z": -9006 },
-    { "x": -9781, "y": 8514, "z": -9876 },
-    { "x": -8920, "y": -10248, "z": -9006 },
-    { "x": 9781, "y": -8514, "z": -9876 },
-    { "x": 9412, "y": -9409, "z": -9412 },
-    { "x": 9410, "y": 9413, "z": -9410 },
-    { "x": 9382, "y": 9438, "z": -9413 },
-    { "x": 9410, "y": -9411, "z": 9411 },
-    { "x": 9410, "y": 9411, "z": 9411 },
-    { "x": 9403, "y": 9456, "z": 9373 },
-    { "x": -4186, "y": -6401, "z": -14394 },
-    { "x": 4436, "y": 7190, "z": -13940 },
-    { "x": 1514, "y": 6975, "z": -14654 },
-    { "x": 1047, "y": -11439, "z": -11564 },
-    { "x": -3257, "y": -4671, "z": 15273 },
-    { "x": 6010, "y": 8769, "z": 12356 },
-    { "x": 1514, "y": 6975, "z": 14654 },
-    { "x": 1047, "y": -11439, "z": 11564 },
-    { "x": -7431, "y": -1253, "z": -14453 },
-    { "x": 10321, "y": 5761, "z": -11224 },
-    { "x": -10972, "y": -2846, "z": 11714 },
-    { "x": 6121, "y": 4422, "z": 14446 },
-    { "x": 11518, "y": -434, "z": -11526 },
-    { "x": 9524, "y": 9172, "z": -9531 },
-    { "x": -8234, "y": 11125, "z": -8610 },
-    { "x": -11023, "y": 3368, "z": -11526 },
-    { "x": 11518, "y": -434, "z": 11526 },
-    { "x": 9524, "y": 9172, "z": 9531 },
-    { "x": -8234, "y": 11125, "z": 8610 },
-    { "x": -11023, "y": 3368, "z": 11526 },
-    { "x": 8150, "y": -12289, "z": 6946 },
-    { "x": 8150, "y": -129, "z": 14116 },
-    { "x": 12322, "y": 9192, "z": 5420 },
-    { "x": 8150, "y": 12289, "z": -6946 },
-    { "x": 8150, "y": 129, "z": -14116 },
-    { "x": 12322, "y": -9192, "z": -5420 },
-    { "x": 0, "y": -14190, "z": 8021 },
-    { "x": 0, "y": -149, "z": 16299 },
-    { "x": 0, "y": 14041, "z": 8279 },
-    { "x": 0, "y": 14190, "z": -8020 },
-    { "x": 0, "y": 149, "z": -16299 },
-    { "x": 0, "y": -14041, "z": -8279 },
-    { "x": 8150, "y": -12289, "z": 6946 },
-    { "x": 8150, "y": -129, "z": 14116 },
-    { "x": 12322, "y": 9192, "z": 5420 },
-    { "x": 8150, "y": 12289, "z": -6946 },
-    { "x": 8150, "y": 129, "z": -14116 },
-    { "x": 12322, "y": -9192, "z": -5420 },
-    { "x": 0, "y": -14190, "z": 8020 },
-    { "x": 0, "y": -149, "z": 16299 },
-    { "x": 0, "y": 14041, "z": 8279 },
-    { "x": 0, "y": 14190, "z": -8020 },
-    { "x": 0, "y": 149, "z": -16299 },
-    { "x": 0, "y": -14041, "z": -8279 },
-    { "x": 11886, "y": 2787, "z": -10800 },
-    { "x": 8013, "y": 12573, "z": -6588 },
-    { "x": -8013, "y": 12573, "z": -6588 },
-    { "x": -11886, "y": 2787, "z": -10800 },
-    { "x": 11886, "y": 2787, "z": 10800 },
-    { "x": 8013, "y": 12573, "z": 6588 },
-    { "x": -8013, "y": 12573, "z": 6588 },
-    { "x": -11886, "y": 2787, "z": 10800 },
-    { "x": 11526, "y": -1156, "z": -11468 },
-    { "x": -11526, "y": -1156, "z": -11468 },
-    { "x": 11526, "y": -1156, "z": 11468 },
-    { "x": -11526, "y": -1156, "z": 11468 },
-    { "x": 0, "y": -14190, "z": 8020 },
-    { "x": 0, "y": -149, "z": 16299 },
-    { "x": 0, "y": 14041, "z": 8279 },
-    { "x": 0, "y": 14190, "z": -8020 },
-    { "x": 0, "y": 149, "z": -16299 },
-    { "x": 0, "y": -14041, "z": -8279 },
-    { "x": 0, "y": -14190, "z": 8020 },
-    { "x": 0, "y": -149, "z": 16299 },
-    { "x": 0, "y": 14041, "z": 8279 },
-    { "x": 0, "y": 14190, "z": -8020 },
-    { "x": 0, "y": 149, "z": -16299 },
-    { "x": 0, "y": -14041, "z": -8279 }
-  ],
-  "NumTexturedRectangles": 57,
-  "TexturedRectangles": [
-    { "Vertices": [ 3, 2, 1, 0 ], "Texture": 873 },
-    { "Vertices": [ 0, 1, 5, 4 ], "Texture": 874 },
-    { "Vertices": [ 2, 6, 5, 1 ], "Texture": 875 },
-    { "Vertices": [ 2, 3, 7, 6 ], "Texture": 876 },
-    { "Vertices": [ 6, 7, 4, 5 ], "Texture": 877 },
-    { "Vertices": [ 11, 10, 9, 8 ], "Texture": 878 },
-    { "Vertices": [ 8, 9, 13, 12 ], "Texture": 879 },
-    { "Vertices": [ 10, 14, 13, 9 ], "Texture": 880 },
-    { "Vertices": [ 10, 11, 15, 14 ], "Texture": 819 },
-    { "Vertices": [ 11, 8, 12, 15 ], "Texture": 880 },
-    { "Vertices": [ 12, 13, 14, 15 ], "Texture": 878 },
-    { "Vertices": [ 18, 7, 16, 17 ], "Texture": 881 },
-    { "Vertices": [ 20, 17, 16, 19 ], "Texture": 882 },
-    { "Vertices": [ 21, 18, 17, 20 ], "Texture": 874 },
-    { "Vertices": [ 16, 7, 3, 19 ], "Texture": 876 },
-    { "Vertices": [ 19, 3, 21, 20 ], "Texture": 883 },
-    { "Vertices": [ 18, 21, 0, 4 ], "Texture": 882 },
-    { "Vertices": [ 28, 24, 23, 27 ], "Texture": 884 },
-    { "Vertices": [ 26, 22, 25, 29 ], "Texture": 884 },
-    { "Vertices": [ 32, 30, 22, 26 ], "Texture": 884 },
-    { "Vertices": [ 31, 33, 27, 23 ], "Texture": 884 },
-    { "Vertices": [ 36, 37, 34, 35 ], "Texture": 884 },
-    { "Vertices": [ 39, 35, 34, 38 ], "Texture": 884 },
-    { "Vertices": [ 40, 36, 35, 39 ], "Texture": 884 },
-    { "Vertices": [ 41, 37, 36, 40 ], "Texture": 884 },
-    { "Vertices": [ 40, 39, 38, 41 ], "Texture": 884 },
-    { "Vertices": [ 42, 48, 49, 43 ], "Texture": 885 },
-    { "Vertices": [ 43, 49, 50, 44 ], "Texture": 885 },
-    { "Vertices": [ 44, 50, 51, 45 ], "Texture": 885 },
-    { "Vertices": [ 45, 51, 52, 46 ], "Texture": 885 },
-    { "Vertices": [ 46, 52, 53, 47 ], "Texture": 885 },
-    { "Vertices": [ 47, 53, 48, 42 ], "Texture": 885 },
-    { "Vertices": [ 44, 47, 42, 43 ], "Texture": 886 },
-    { "Vertices": [ 47, 44, 45, 46 ], "Texture": 886 },
-    { "Vertices": [ 54, 60, 61, 55 ], "Texture": 887 },
-    { "Vertices": [ 55, 61, 62, 56 ], "Texture": 887 },
-    { "Vertices": [ 56, 62, 63, 57 ], "Texture": 887 },
-    { "Vertices": [ 57, 63, 64, 58 ], "Texture": 887 },
-    { "Vertices": [ 58, 64, 65, 59 ], "Texture": 887 },
-    { "Vertices": [ 59, 65, 60, 54 ], "Texture": 887 },
-    { "Vertices": [ 55, 56, 59, 54 ], "Texture": 888 },
-    { "Vertices": [ 58, 59, 56, 57 ], "Texture": 888 },
-    { "Vertices": [ 67, 68, 69, 66 ], "Texture": 889 },
-    { "Vertices": [ 66, 70, 71, 67 ], "Texture": 890 },
-    { "Vertices": [ 71, 72, 68, 67 ], "Texture": 889 },
-    { "Vertices": [ 73, 69, 68, 72 ], "Texture": 890 },
-    { "Vertices": [ 72, 71, 70, 73 ], "Texture": 889 },
-    { "Vertices": [ 73, 70, 76, 77 ], "Texture": 889 },
-    { "Vertices": [ 77, 75, 69, 73 ], "Texture": 891 },
-    { "Vertices": [ 66, 69, 75, 74 ], "Texture": 889 },
-    { "Vertices": [ 74, 76, 70, 66 ], "Texture": 891 },
-    { "Vertices": [ 78, 84, 85, 79 ], "Texture": 887 },
-    { "Vertices": [ 79, 85, 86, 80 ], "Texture": 887 },
-    { "Vertices": [ 80, 86, 87, 81 ], "Texture": 887 },
-    { "Vertices": [ 81, 87, 88, 82 ], "Texture": 887 },
-    { "Vertices": [ 82, 88, 89, 83 ], "Texture": 887 },
-    { "Vertices": [ 83, 89, 84, 78 ], "Texture": 887 }
-  ],
-  "NumTexturedTriangles": 8,
-  "TexturedTriangles": [
-    { "Vertices": [ 23, 24, 22 ], "Texture": 892 },
-    { "Vertices": [ 24, 25, 22 ], "Texture": 892 },
-    { "Vertices": [ 29, 28, 26 ], "Texture": 892 },
-    { "Vertices": [ 28, 27, 26 ], "Texture": 892 },
-    { "Vertices": [ 26, 27, 33 ], "Texture": 892 },
-    { "Vertices": [ 33, 32, 26 ], "Texture": 892 },
-    { "Vertices": [ 23, 22, 30 ], "Texture": 892 },
-    { "Vertices": [ 30, 31, 23 ], "Texture": 892 }
-  ],
-  "NumColouredRectangles": 0,
-  "ColouredRectangles": [],
-  "NumColouredTriangles": 0,
-  "ColouredTriangles": []
-}
-},{}],6:[function(require,module,exports){
+},{"../plugins/OrbitControls":6,"./face.json":4,"stats.js":1,"three":2,"underscore":3}],6:[function(require,module,exports){
 /**
  * @author qiao / https://github.com/qiao
  * @author mrdoob / http://mrdoob.com
@@ -37929,4 +37666,4 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 THREE.OrbitControls.prototype = Object.create( THREE.EventDispatcher.prototype );
 THREE.OrbitControls.prototype.constructor = THREE.OrbitControls;
-},{}]},{},[4])
+},{}]},{},[5])
