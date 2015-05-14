@@ -22,7 +22,7 @@ var structs = {
       var ARGB = this.binary.read('uint16');
 
       var textile = {
-        a: (ARGB >> 15),
+        a: (ARGB >> 15) * 255,
         r: ((ARGB & 0x7c00) >> 10) * 8,
         g: ((ARGB & 0x03e0) >> 5) * 8,
         b: (ARGB & 0x001f) * 8
@@ -139,6 +139,31 @@ var structs = {
       data.NumColouredTriangles = this.binary.read('int16');
       // this.binary.skip(data.NumColouredTriangles * 8);
       data.ColouredTriangles = this.binary.read(['array', 'tr2_face3', data.NumColouredTriangles]);
+
+      return data;
+    }
+  }),
+
+  tr2_object_texture: jBinary.Type({
+    read: function() {
+      var data = {};
+
+      data.Attribute = this.binary.read('uint16');
+      data.Tile = this.binary.read('uint16');
+      data.Vertices = this.binary.read(['array', 'tr2_object_texture_vert', 4]);
+
+      return data;
+    }
+  }),
+
+  tr2_object_texture_vert: jBinary.Type({
+    read: function() {
+      var data = {};
+
+      data.Xcoordinate = this.binary.read('uint8');
+      data.Xpixel = this.binary.read('uint8');
+      data.Ycoordinate = this.binary.read('uint8');
+      data.Ypixel = this.binary.read('uint8');
 
       return data;
     }

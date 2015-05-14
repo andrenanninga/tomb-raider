@@ -91,6 +91,13 @@ var config = _.extend({}, structs, {
     }
   }),
 
+  ObjectTextures: jBinary.Type({
+    read: function(context) {
+      return this.binary.read(['array', 'tr2_object_texture', context.NumObjectTextures]);
+    }
+  }),
+
+
   Level: ['object', {
     Version: 'uint32',
     
@@ -151,8 +158,8 @@ var config = _.extend({}, structs, {
     StaticMeshes: ['skip', function(context) { return context.NumStaticMeshes * 32; }],
 
     NumObjectTextures: 'uint32',
-    // ObjectTextures: 'ObjectTextures',
-    ObjectTextures: ['skip', function(context) { return context.NumObjectTextures * 20; }],
+    ObjectTextures: 'ObjectTextures',
+    // ObjectTextures: ['skip', function(context) { return context.NumObjectTextures * 20; }],
 
     NumSpriteTextures: 'uint32',
     // SpriteTextures: 'SpriteTextures',

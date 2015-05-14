@@ -22,7 +22,7 @@ var loadTextiles16 = function(levelPath, callback) {
     }
 
     for(var i = 0; i < textiles16.length; i++) {
-      var image = zeros([256, 256, 3]);
+      var image = zeros([256, 256, 4]);
       var textile16 = textiles16[i];
       
       for(var j = 0; j < textile16.length; j++) {
@@ -33,6 +33,7 @@ var loadTextiles16 = function(levelPath, callback) {
         image.set(x, y, 0, pixel.r);
         image.set(x, y, 1, pixel.g);
         image.set(x, y, 2, pixel.b);
+        image.set(x, y, 3, pixel.a);
       }
       
       images.push(image);
