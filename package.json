@@ -22,7 +22,8 @@
     "stats": "mrdoob/stats.js",
     "three": "^0.71.0",
     "underscore": "^1.8.3",
-    "zeros": "^1.0.0"
+    "zeros": "^1.0.0",
+    "simple-get-json": "^0.3.2"
   },
   "devDependencies": {
     "gulp-filesize": "0.0.6",

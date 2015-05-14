@@ -84,20 +84,20 @@ gulp.task('build-house:level', function(cb) {
   });
 });
 
-gulp.task('build-venice', function(cb) {
+gulp.task('build-boat', function(cb) {
   return runSequence(
-    'build-venice:clean',
-    ['build-venice:level', 'build-venice:textiles16'],
+    'build-boat:clean',
+    ['build-boat:level', 'build-boat:textiles16'],
     cb
   );
 });
 
-gulp.task('build-venice:clean', function() {
-  return gulp.src('./build/levels/venice', { read: false })
+gulp.task('build-boat:clean', function() {
+  return gulp.src('./build/levels/boat', { read: false })
     .pipe(clean());
 });
 
-gulp.task('build-venice:textiles16', function(cb) {
+gulp.task('build-boat:textiles16', function(cb) {
   var levelPath = path.resolve('./data/BOAT.TR2');
 
   loaderTextiles16(levelPath, function(err, images) {
@@ -108,14 +108,14 @@ gulp.task('build-venice:textiles16', function(cb) {
     _.each(images, function(image, i) {
       savePixels(image, 'png')
         .pipe(source('textile16_' + i + '.png'))
-        .pipe(gulp.dest('./build/levels/venice/textiles'));
+        .pipe(gulp.dest('./build/levels/boat/textiles'));
     });
 
     cb();
   });
 });
 
-gulp.task('build-venice:level', function(cb) {
+gulp.task('build-boat:level', function(cb) {
   var levelPath = path.resolve('./data/BOAT.TR2');
 
   loaderLevel(levelPath, function(err, level) {
@@ -124,7 +124,7 @@ gulp.task('build-venice:level', function(cb) {
     }
 
     file('level.json', JSON.stringify(level), { src: true })
-      .pipe(gulp.dest('./build/levels/venice'));
+      .pipe(gulp.dest('./build/levels/boat'));
 
     cb();
   });

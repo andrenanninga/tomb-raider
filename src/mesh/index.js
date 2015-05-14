@@ -4,8 +4,8 @@ var _ = require('underscore');
 var THREE = require('three');
 var Stats = require('stats.js');
 
-var level = require('../../build/levels/venice/level.json');
-var model = level.Meshes[14];
+var level = require('../../build/levels/boat/level.json');
+var model = level.Meshes[171];
 
 global.THREE = THREE;
 global.model = model;
@@ -17,11 +17,17 @@ var materials = [];
 var textures = [];
 
 _.times(level.NumTextiles, function(i) {
-  var texture = THREE.ImageUtils.loadTexture('/levels/venice/textiles/textile16_' + i + '.png');
+  var texture = THREE.ImageUtils.loadTexture('/levels/boat/textiles/textile16_' + i + '.png');
   texture.magFilter = THREE.NearestFilter;
   texture.minFilter = THREE.NearestMipMapLinearFilter;
 
-  var material = new THREE.MeshPhongMaterial({ map: texture });
+  var material = new THREE.MeshPhongMaterial({ 
+    map: texture, 
+    shininess: 10, 
+    wireframe: false,
+    transparent: true
+  });
+  
   materials.push(material);
 });
 
@@ -101,7 +107,7 @@ _.each(model.Vertices, function(vert) {
   geometry.vertices.push(new THREE.Vector3(vert.x, vert.y, vert.z));
 });
 
-_.each(model.TexturedRectangles, function(rect, i) {
+_.each(model.TexturedRectangles, function(rect) {
   var texture = textures[rect.Texture];
   var uv = texture.uv;
 
