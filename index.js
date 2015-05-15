@@ -41340,8 +41340,6 @@ var movables = {
   shotgunAmmo: function() { loadMoveable(390); }, 
 };
 
-movables.laraFace();
-
 var gui = new Dat.GUI();
 
 gui.add(movables, 'laraFace');
@@ -41399,6 +41397,9 @@ var Level = function(levelName) {
     self.definition = definition;
     self.textiles16 = self._prepareTextiles16();
     self.objectTextures = self._prepareObjectTextures();
+
+    var moveable = new Moveable(self, self.definition.Meshes[14]);
+    self.container.add(moveable.getMesh());
   });
 };
 
