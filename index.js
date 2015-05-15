@@ -41304,63 +41304,67 @@ document.body.appendChild(stats.domElement);
 var light = new THREE.AmbientLight(0x666666);
 scene.add(light);
 
-var light = new THREE.PointLight(0xffffff, 0.8, 10000);
+var light = new THREE.PointLight(0xffffff, 2, 10000);
 light.position.set(camera.position.x, camera.position.y, camera.position.z);
 scene.add(light);
 
 var axis = new THREE.AxisHelper(100 );
 scene.add(axis);
 
-var level = new Level('boat');
+var level = new Level('house');
 global.level = level;
 scene.add(level.container);
 
-var loadMoveable = function(id) {
-  level.empty();
-  level.loadMoveable(id);
+var loadLevel = function(levelName) {
+  scene.remove(level.container);
+
+  level = new Level(levelName);
+  scene.add(level.container);
 };
 
-var movables = { 
-  laraFace: function() { loadMoveable(14); }, 
-  laraFaceAngry: function() { loadMoveable(80); }, 
-  maskedGoonFace: function() { loadMoveable(201); }, 
-  stickWieldingGoonFace: function() { loadMoveable(309); }, 
-  ratFace: function() { loadMoveable(281); }, 
-  boat: function() { loadMoveable(171); }, 
-  door: function() { loadMoveable(348); }, 
-  passport: function() { loadMoveable(369); }, 
-  sunglasses: function() { loadMoveable(372); }, 
-  cdPlayer: function() { loadMoveable(373); }, 
-  pistol: function() { loadMoveable(376); }, 
-  shotgun: function() { loadMoveable(378); }, 
-  autoPistol: function() { loadMoveable(380); }, 
-  uzi: function() { loadMoveable(383); }, 
-  harpoonGun: function() { loadMoveable(385); }, 
-  m16: function() { loadMoveable(386); }, 
-  grenadeLauncher: function() { loadMoveable(387); }, 
-  shotgunAmmo: function() { loadMoveable(390); }, 
+var levels = {
+  assault: function() { loadLevel('assault'); },
+  boat: function() { loadLevel('boat'); },
+  catacomb: function() { loadLevel('catacomb'); },
+  deck: function() { loadLevel('deck'); },
+  emprtomb: function() { loadLevel('emprtomb'); },
+  floating: function() { loadLevel('floating'); },
+  house: function() { loadLevel('house'); },
+  icecave: function() { loadLevel('icecave'); },
+  keel: function() { loadLevel('keel'); },
+  living: function() { loadLevel('living'); },
+  monastry: function() { loadLevel('monastry'); },
+  opera: function() { loadLevel('opera'); },
+  platform: function() { loadLevel('platform'); },
+  rig: function() { loadLevel('rig'); },
+  skidoo: function() { loadLevel('skidoo'); },
+  unwater: function() { loadLevel('unwater'); },
+  venice: function() { loadLevel('venice'); },
+  wall: function() { loadLevel('wall'); },
+  xian: function() { loadLevel('xian'); },
 };
 
 var gui = new Dat.GUI();
 
-gui.add(movables, 'laraFace');
-gui.add(movables, 'laraFaceAngry');
-gui.add(movables, 'maskedGoonFace');
-gui.add(movables, 'stickWieldingGoonFace');
-gui.add(movables, 'ratFace');
-gui.add(movables, 'boat');
-gui.add(movables, 'door');
-gui.add(movables, 'passport');
-gui.add(movables, 'sunglasses');
-gui.add(movables, 'cdPlayer');
-gui.add(movables, 'pistol');
-gui.add(movables, 'shotgun');
-gui.add(movables, 'autoPistol');
-gui.add(movables, 'uzi');
-gui.add(movables, 'harpoonGun');
-gui.add(movables, 'm16');
-gui.add(movables, 'grenadeLauncher');
-gui.add(movables, 'shotgunAmmo');
+gui.add(levels, 'assault');
+gui.add(levels, 'boat');
+gui.add(levels, 'catacomb');
+gui.add(levels, 'deck');
+gui.add(levels, 'emprtomb');
+gui.add(levels, 'floating');
+gui.add(levels, 'house');
+gui.add(levels, 'icecave');
+gui.add(levels, 'keel');
+gui.add(levels, 'living');
+gui.add(levels, 'monastry');
+gui.add(levels, 'opera');
+gui.add(levels, 'platform');
+gui.add(levels, 'rig');
+gui.add(levels, 'skidoo');
+gui.add(levels, 'unwater');
+gui.add(levels, 'venice');
+gui.add(levels, 'wall');
+gui.add(levels, 'xian');
 
 var render = function () {
   stats.begin();
@@ -41375,20 +41379,23 @@ var render = function () {
 
 render();
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../objects/level":8,"../plugins/OrbitControls":10,"dat-gui":1,"stats.js":4,"three":5,"underscore":6}],8:[function(require,module,exports){
+},{"../objects/level":8,"../plugins/OrbitControls":11,"dat-gui":1,"stats.js":4,"three":5,"underscore":6}],8:[function(require,module,exports){
 'use strict';
 
-var _ = require('underscore');
-var THREE = require('three');
-var getJSON = require('../utils/getJSON');
+var _        = require('underscore');
+var THREE    = require('three');
+var getJSON  = require('../utils/getJSON');
 
 var Moveable = require('./moveable');
+var Room     = require('./room');
 
 var Level = function(levelName) {
   var self = this;
   this.levelName = levelName;
   this.container = new THREE.Group();
-  this.container.scale.y = -1;
+  this.container.scale.x = 0.01;
+  this.container.scale.y = -0.01;
+  this.container.scale.z = 0.01;
 
   this._loadDefinition(function(err, definition) {
     if(err) {
@@ -41400,8 +41407,23 @@ var Level = function(levelName) {
     self.objectTextures = self._prepareObjectTextures();
     self.palette16 = self._preparePalette16();
 
-    var moveable = new Moveable(self, self.definition.Meshes[14]);
-    self.container.add(moveable.getMesh());
+    // var moveable = new Moveable(self, self.definition.Meshes[14]);
+    // self.container.add(moveable.getMesh());
+    var center = new THREE.Vector3(0, 0, 0);
+
+    _.each(self.definition.Rooms, function(definition) {
+      center.x += definition.RoomInfo.x;
+      center.z += definition.RoomInfo.z;
+
+      var room = new Room(self, definition);
+      var mesh = room.getMesh();
+      self.container.add(mesh);
+    });
+
+    center.divideScalar(self.definition.NumRooms);
+    center.divideScalar(100);
+
+    self.container.position.sub(center);
   });
 };
 
@@ -41431,12 +41453,14 @@ Level.prototype._prepareTextiles16 = function() {
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestMipMapLinearFilter;
 
-    var material = new THREE.MeshPhongMaterial({ 
+    var material = new THREE.MeshBasicMaterial({ 
       map: texture, 
-      shininess: 10, 
+      shininess: 100, 
       wireframe: false,
-      transparent: true
+      transparent: true,
     });
+
+    material.alphaTest = 0.5;
     
     textiles16.push(material);
   });
@@ -41480,7 +41504,7 @@ Level.prototype._preparePalette16 = function() {
 }
 
 module.exports = Level;
-},{"../utils/getJSON":11,"./moveable":9,"three":5,"underscore":6}],9:[function(require,module,exports){
+},{"../utils/getJSON":12,"./moveable":9,"./room":10,"three":5,"underscore":6}],9:[function(require,module,exports){
 'use strict';
 
 var _ = require('underscore');
@@ -41598,6 +41622,82 @@ Movable.prototype._placeColouredTriangles = function(geometry) {
 
 module.exports = Movable;
 },{"three":5,"underscore":6}],10:[function(require,module,exports){
+'use strict';
+
+var _ = require('underscore');
+var THREE = require('three');
+
+var Room = function(level, definition) {
+  this.level = level;
+  this.definition = definition;
+
+  this.vertices = this._prepareVertices();
+};
+
+Room.prototype.getMesh = function() { 
+  var material = new THREE.MeshFaceMaterial(this.level.textiles16);
+  var geometry = new THREE.Geometry();
+
+  geometry.vertices = this.vertices;
+
+  this._placeRectangles(geometry);
+  this._placeTriangles(geometry);
+
+  geometry.computeFaceNormals();
+
+  var mesh = new THREE.Mesh(geometry, material);
+  mesh.position.x = this.definition.RoomInfo.x;
+  mesh.position.z = this.definition.RoomInfo.z;
+
+  return mesh;
+};
+
+Room.prototype._prepareVertices = function() {
+  return _.map(this.definition.RoomData.Vertices, function(vert) {
+    return new THREE.Vector3(vert.Vertex.x, vert.Vertex.y, vert.Vertex.z);
+  });
+};
+
+Room.prototype._placeRectangles = function(geometry) {
+  _.each(this.definition.RoomData.Rectangles, function(rect) {
+    var texture = this.level.objectTextures[rect.Texture];
+    var uv = texture.uv;
+
+    geometry.faces.push(new THREE.Face3(
+      rect.Vertices[0], rect.Vertices[1], rect.Vertices[2],
+      new THREE.Vector3(0, -1, 0),
+      0xff0000,
+      texture.tile
+    ));
+    geometry.faceVertexUvs[0].push([uv[0], uv[1], uv[2]]);
+
+    geometry.faces.push(new THREE.Face3(
+      rect.Vertices[0], rect.Vertices[2], rect.Vertices[3],
+      new THREE.Vector3(0, -1, 0),
+      0xff0000,
+      texture.tile
+    ));
+    geometry.faceVertexUvs[0].push([uv[0], uv[2], uv[3]]);
+  }, this);
+};
+
+Room.prototype._placeTriangles = function(geometry) {
+  _.each(this.definition.RoomData.Triangles, function(tri) {
+    var texture = this.level.objectTextures[tri.Texture];
+    var uv = texture.uv;
+
+    geometry.faces.push(new THREE.Face3(
+      tri.Vertices[0], tri.Vertices[1], tri.Vertices[2],
+      new THREE.Vector3(0, -1, 0),
+      0xff0000,
+      texture.tile
+    ));
+    geometry.faceVertexUvs[0].push([uv[0], uv[1], uv[2]]);
+  }, this);
+};
+
+module.exports = Room;
+},{"three":5,"underscore":6}],11:[function(require,module,exports){
 /**
  * @author qiao / https://github.com/qiao
  * @author mrdoob / http://mrdoob.com
@@ -42304,7 +42404,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 THREE.OrbitControls.prototype = Object.create( THREE.EventDispatcher.prototype );
 THREE.OrbitControls.prototype.constructor = THREE.OrbitControls;
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 var getJSON = function(url, callback) {
