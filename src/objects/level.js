@@ -1,16 +1,19 @@
 'use strict';
 
-var _ = require('underscore');
-var THREE = require('three');
-var getJSON = require('../utils/getJSON');
+var _        = require('underscore');
+var THREE    = require('three');
+var getJSON  = require('../utils/getJSON');
 
 var Moveable = require('./moveable');
+var Room     = require('./room');
 
 var Level = function(levelName) {
   var self = this;
   this.levelName = levelName;
   this.container = new THREE.Group();
-  this.container.scale.y = -1;
+  this.container.scale.x = 0.01;
+  this.container.scale.y = -0.01;
+  this.container.scale.z = 0.01;
 
   this._loadDefinition(function(err, definition) {
     if(err) {
@@ -22,8 +25,24 @@ var Level = function(levelName) {
     self.objectTextures = self._prepareObjectTextures();
     self.palette16 = self._preparePalette16();
 
-    var moveable = new Moveable(self, self.definition.Meshes[14]);
-    self.container.add(moveable.getMesh());
+    // var moveable = new Moveable(self, self.definition.Meshes[14]);
+    // self.container.add(moveable.getMesh());
+    var center = new THREE.Vector3(0, 0, 0);
+
+    _.each(self.definition.Rooms, function(definition) {
+      center.x += definition.RoomInfo.x;
+      center.z += definition.RoomInfo.z;
+
+      var room = new Room(self, definition);
+      var mesh = room.getMesh();
+      self.container.add(mesh);
+    });
+
+    center.divideScalar(self.definition.NumRooms);
+    center.divideScalar(100);
+    console.log(center);
+
+    self.container.position.sub(center);
   });
 };
 

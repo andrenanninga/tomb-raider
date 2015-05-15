@@ -41,7 +41,7 @@ scene.add(light);
 var axis = new THREE.AxisHelper(100 );
 scene.add(axis);
 
-var level = new Level('boat');
+var level = new Level('house');
 global.level = level;
 scene.add(level.container);
 
