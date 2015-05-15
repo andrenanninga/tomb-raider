@@ -15,6 +15,28 @@ var browserify       = require('gulp-browserify');
 var loaderTextiles16 = require('./src/loader/textiles16');
 var loaderLevel      = require('./src/loader/level');
 
+var levelNames = [
+  // 'assault',
+  // 'boat',
+  // 'catacomb',
+  // 'deck',
+  // 'emprtomb',
+  // 'floating',
+  'house',
+  // 'icecave',
+  // 'keel',
+  // 'living',
+  // 'monastry',
+  // 'opera',
+  // 'platform',
+  // 'rig',
+  // 'skidoo',
+  // 'unwater',
+  // 'venice',
+  // 'wall',
+  // 'xian'
+];
+
 gulp.task('webserver', function() {
   connect.server({
     root: 'build',
@@ -38,94 +60,82 @@ gulp.task('build-mesh', function() {
     .pipe(connect.reload());
 });
 
-gulp.task('build-house', function(cb) {
-  return runSequence(
-    'build-house:clean',
-    ['build-house:level', 'build-house:textiles16'],
+gulp.task('build-levels', function(cb) {
+  runSequence(
+    'build-levels:clean',
+    ['build-levels:level', 'build-levels:textiles16'],
     cb
   );
 });
 
-gulp.task('build-house:clean', function() {
-  return gulp.src('./build/levels/house', { read: false })
+gulp.task('build-levels:clean', function() {
+  var paths = _.map(levelNames, function(levelName) {
+    return  './build/levels/' + levelName;
+  });
+
+  return gulp.src(paths, { read: false })
     .pipe(clean());
 });
 
-gulp.task('build-house:textiles16', function(cb) {
-  var levelPath = path.resolve('./data/HOUSE.TR2');
-
-  loaderTextiles16(levelPath, function(err, images) {
+gulp.task('build-levels:level', function(cb) {
+  var numLevels = levelNames.length;
+  var loadedLevels = 0;
+  var afterLevelLoad = function(err) {
     if(err) {
-      return cb(err);
+      cb(err);
     }
 
-    _.each(images, function(image, i) {
-      savePixels(image, 'png')
-        .pipe(source('textile16_' + i + '.png'))
-        .pipe(gulp.dest('./build/levels/house/textiles'));
+    loadedLevels += 1;
+    if(loadedLevels === numLevels) {
+      cb();
+    }
+  };
+
+  _.each(levelNames, function(levelName) {
+    var path = './data/' + levelName.toUpperCase() + '.TR2';
+
+    loaderLevel(path, function(err, level) {
+      if(err) {
+        afterLevelLoad(err);
+      }
+
+      file('level.json', JSON.stringify(level), { src: true })
+        .pipe(gulp.dest('./build/levels/' + levelName));
+
+      afterLevelLoad();
     });
-
-    cb();
   });
 });
 
-gulp.task('build-house:level', function(cb) {
-  var levelPath = path.resolve('./data/HOUSE.TR2');
-
-  loaderLevel(levelPath, function(err, level) {
+gulp.task('build-levels:textiles16', function(cb) {
+  var numLevels = levelNames.length;
+  var loadedLevels = 0;
+  var afterTextilesLoad = function(err) {
     if(err) {
       return cb(err);
     }
 
-    file('level.json', JSON.stringify(level), { src: true })
-      .pipe(gulp.dest('./build/levels/house'));
-
-    cb();
-  });
-});
-
-gulp.task('build-boat', function(cb) {
-  return runSequence(
-    'build-boat:clean',
-    ['build-boat:level', 'build-boat:textiles16'],
-    cb
-  );
-});
-
-gulp.task('build-boat:clean', function() {
-  return gulp.src('./build/levels/boat', { read: false })
-    .pipe(clean());
-});
-
-gulp.task('build-boat:textiles16', function(cb) {
-  var levelPath = path.resolve('./data/BOAT.TR2');
-
-  loaderTextiles16(levelPath, function(err, images) {
-    if(err) {
-      return cb(err);
+    loadedLevels += 1;
+    if(loadedLevels === numLevels) {
+      cb();
     }
+  };
 
-    _.each(images, function(image, i) {
-      savePixels(image, 'png')
-        .pipe(source('textile16_' + i + '.png'))
-        .pipe(gulp.dest('./build/levels/boat/textiles'));
+  _.each(levelNames, function(levelName) {
+    var path = './data/' + levelName.toUpperCase() + '.TR2';
+
+    loaderTextiles16(path, function(err, images) {
+      if(err) {
+        return afterTextilesLoad(err);
+      }
+
+      _.each(images, function(image, i) {
+        savePixels(image, 'png')
+          .pipe(source('textile16_' + i + '.png'))
+          .pipe(gulp.dest('./build/levels/' + levelName + '/textiles'));
+      });
+
+      afterTextilesLoad();
     });
-
-    cb();
-  });
-});
-
-gulp.task('build-boat:level', function(cb) {
-  var levelPath = path.resolve('./data/BOAT.TR2');
-
-  loaderLevel(levelPath, function(err, level) {
-    if(err) {
-      return cb(err);
-    }
-
-    file('level.json', JSON.stringify(level), { src: true })
-      .pipe(gulp.dest('./build/levels/boat'));
-
-    cb();
   });
 });
