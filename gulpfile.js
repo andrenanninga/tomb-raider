@@ -18,7 +18,7 @@ var loaderLevel      = require('./src/loader/level');
 
 var levelNames = [
   // 'assault',
-  // 'boat',
+  'boat',
   // 'catacomb',
   // 'deck',
   // 'emprtomb',
@@ -45,44 +45,13 @@ gulp.task('webserver', function() {
   });
 });
 
-gulp.task('watch-mesh', ['webserver', 'build-mesh'], function() {
-  gulp.watch('src/**/*.*', ['build-mesh']);
-});
-
-gulp.task('build-mesh', function() { 
-  gulp.src('./src/mesh/index.html')
-    .pipe(plumber())
-    .pipe(gulp.dest('./build/mesh'));
-
-  gulp.src('./src/mesh/index.js')
-    .pipe(plumber())
-    .pipe(browserify())
-    .pipe(gulp.dest('./build/mesh'))
-    .pipe(connect.reload());
-});
-
-gulp.task('watch-app', ['webserver', 'build-app'], function() {
-  gulp.watch('src/**/*.*', ['build-app']);
-});
-
-gulp.task('build-app', function() { 
-  gulp.src('./src/app/index.html')
-    .pipe(plumber())
-    .pipe(gulp.dest('./build/app'));
-
-  gulp.src('./src/app/index.js')
-    .pipe(plumber())
-    .pipe(browserify())
-    .pipe(gulp.dest('./build/app'))
-    .pipe(connect.reload());
+gulp.task('clean', function() {
+  return gulp.src('./build', { read: false })
+    .pipe(clean());
 });
 
 gulp.task('build-levels', function(cb) {
-  runSequence(
-    'build-levels:clean',
-    ['build-levels:level', 'build-levels:textiles16'],
-    cb
-  );
+  runSequence('build-levels:clean', ['build-levels:level', 'build-levels:textiles16'], cb);
 });
 
 gulp.task('build-levels:clean', function() {
@@ -155,4 +124,47 @@ gulp.task('build-levels:textiles16', function(cb) {
       afterTextilesLoad();
     });
   });
+});
+
+gulp.task('build-js', function() {
+  return gulp.src('./src/app/index.js')
+    .pipe(plumber())
+    .pipe(browserify())
+    .pipe(gulp.dest('./build'));
+});
+
+gulp.task('build-html', function() {
+  return gulp.src('./src/app/index.html')
+    .pipe(plumber())
+    .pipe(gulp.dest('./build'));
+});
+
+gulp.task('reload', function() {
+  return gulp.src('build/*.*')
+    .pipe(plumber())
+    .pipe(connect.reload());
+});
+
+gulp.task('watch', ['webserver', 'build'], function() {
+  return gulp.watch('src/**/*.*', ['build']);
+});
+
+gulp.task('build', function(callback) {
+  runSequence(
+    'build-js',
+    'build-html',
+    'reload',
+    callback
+  );
+});
+
+gulp.task('deploy', ['deploy:prepare'], function() {
+  return gulp.src('./build/**/*.*')
+    .pipe(ghPages());
+});
+
+gulp.task('deploy:prepare', function(cb) {
+  runSequence('clean', 
+    ['build-js', 'build-html', 'build-levels'], 
+  cb);
 });

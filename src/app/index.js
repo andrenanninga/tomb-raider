@@ -42,6 +42,7 @@ var axis = new THREE.AxisHelper(100 );
 scene.add(axis);
 
 var level = new Level('boat');
+global.level = level;
 scene.add(level.container);
 
 var loadMoveable = function(id) {
@@ -69,6 +70,7 @@ var movables = {
   grenadeLauncher: function() { loadMoveable(387); }, 
   shotgunAmmo: function() { loadMoveable(390); }, 
 };
+
 var gui = new Dat.GUI();
 
 gui.add(movables, 'laraFace');

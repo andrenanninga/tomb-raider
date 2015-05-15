@@ -20,15 +20,14 @@ var Level = function(levelName) {
     self.definition = definition;
     self.textiles16 = self._prepareTextiles16();
     self.objectTextures = self._prepareObjectTextures();
+    self.palette16 = self._preparePalette16();
 
-    var moveable = new Moveable(self, self.definition.Meshes[171]);
-    var mesh = moveable.getMesh();
-    console.log(moveable, mesh);
-    self.container.add(mesh);
+    var moveable = new Moveable(self, self.definition.Meshes[14]);
+    self.container.add(moveable.getMesh());
   });
 };
 
-Level.BASEPATH = '/levels/';
+Level.BASEPATH = 'levels/';
 
 Level.prototype.empty = function() {
   this.container.remove.apply(this.container, this.container.children);
@@ -95,5 +94,11 @@ Level.prototype._prepareObjectTextures = function() {
 
   return textures;
 };
+
+Level.prototype._preparePalette16 = function() {
+  return _.map(this.definition.Palette16, function(color) {
+    return new THREE.Color(color.r / 255, color.g / 255, color.b / 255);
+  });
+}
 
 module.exports = Level;

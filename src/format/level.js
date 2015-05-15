@@ -102,7 +102,9 @@ var config = _.extend({}, structs, {
     Version: 'uint32',
     
     Palette: ['skip', 768],
-    Palette16: ['skip', 1024],
+    
+    // Palette16: ['skip', 1024],
+    Palette16: ['array', 'tr2_colour4', 256],
 
     NumTextiles: 'uint32',
     Textile8: ['skip', function(context) { return context.NumTextiles * 65536; }],

@@ -52,15 +52,29 @@ var structs = {
     Lighting2: 'int16' // absent in TR1
   },
 
-  tr2_face4: {
-    Vertices: ['array', 'uint16', 4],
-    Texture: 'uint16'
-  },
+  tr2_face4: jBinary.Type({
+    read: function() {
+      var data = {};
 
-  tr2_face3: {
-    Vertices: ['array', 'uint16', 3],
-    Texture: 'uint16'
-  },
+      data.Vertices = this.binary.read(['array', 'uint16', 4]);
+      data.Texture = this.binary.read('uint16');
+      data.Palette = data.Texture >> 8;
+
+      return data;
+    }
+  }),
+
+  tr2_face3: jBinary.Type({
+    read: function() {
+      var data = {};
+
+      data.Vertices = this.binary.read(['array', 'uint16', 3]);
+      data.Texture = this.binary.read('uint16');
+      data.Palette = data.Texture >> 8;
+
+      return data;
+    }
+  }),
 
   tr2_room_sprite: {
     Vertex: 'int16',
