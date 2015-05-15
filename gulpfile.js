@@ -11,6 +11,7 @@ var connect          = require('gulp-connect');
 var file             = require('gulp-file');
 var plumber          = require('gulp-plumber');
 var browserify       = require('gulp-browserify');
+var ghPages          = require('gulp-gh-pages');
 
 var loaderTextiles16 = require('./src/loader/textiles16');
 var loaderLevel      = require('./src/loader/level');
@@ -45,7 +46,7 @@ gulp.task('webserver', function() {
 });
 
 gulp.task('watch-mesh', ['webserver', 'build-mesh'], function() {
-  gulp.watch('src/mesh/*.*', ['build-mesh']);
+  gulp.watch('src/**/*.*', ['build-mesh']);
 });
 
 gulp.task('build-mesh', function() { 
@@ -57,6 +58,22 @@ gulp.task('build-mesh', function() {
     .pipe(plumber())
     .pipe(browserify())
     .pipe(gulp.dest('./build/mesh'))
+    .pipe(connect.reload());
+});
+
+gulp.task('watch-app', ['webserver', 'build-app'], function() {
+  gulp.watch('src/**/*.*', ['build-app']);
+});
+
+gulp.task('build-app', function() { 
+  gulp.src('./src/app/index.html')
+    .pipe(plumber())
+    .pipe(gulp.dest('./build/app'));
+
+  gulp.src('./src/app/index.js')
+    .pipe(plumber())
+    .pipe(browserify())
+    .pipe(gulp.dest('./build/app'))
     .pipe(connect.reload());
 });
 

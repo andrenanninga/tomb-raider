@@ -4,6 +4,9 @@ var _ = require('underscore');
 var THREE = require('three');
 var Stats = require('stats.js');
 
+var Level = require('../objects/level');
+new Level('boat');
+
 var level = require('../../build/levels/boat/level.json');
 var model = level.Meshes[171];
 
