@@ -41312,6 +41312,7 @@ var axis = new THREE.AxisHelper(100 );
 scene.add(axis);
 
 var level = new Level('boat');
+global.level = level;
 scene.add(level.container);
 
 var loadMoveable = function(id) {
@@ -41397,6 +41398,7 @@ var Level = function(levelName) {
     self.definition = definition;
     self.textiles16 = self._prepareTextiles16();
     self.objectTextures = self._prepareObjectTextures();
+    self.palette16 = self._preparePalette16();
 
     var moveable = new Moveable(self, self.definition.Meshes[14]);
     self.container.add(moveable.getMesh());
@@ -41471,6 +41473,12 @@ Level.prototype._prepareObjectTextures = function() {
   return textures;
 };
 
+Level.prototype._preparePalette16 = function() {
+  return _.map(this.definition.Palette16, function(color) {
+    return new THREE.Color(color.r / 255, color.g / 255, color.b / 255);
+  });
+}
+
 module.exports = Level;
 },{"../utils/getJSON":11,"./moveable":9,"three":5,"underscore":6}],9:[function(require,module,exports){
 'use strict';
@@ -41487,14 +41495,24 @@ var Movable = function(level, definition) {
 };
 
 Movable.prototype.getMesh = function() {
-  var material = new THREE.MeshFaceMaterial(this.level.textiles16);
-  var geometry = new THREE.Geometry();
+  var texturedMaterial = new THREE.MeshFaceMaterial(this.level.textiles16);
+  var texturedGeometry = new THREE.Geometry();
+  var colouredMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff, vertexColors: THREE.FaceColors });
+  var colouredGeometry = new THREE.Geometry();
 
-  geometry.vertices = this.vertices;
-  this._placeTexturedRectangles(geometry);
-  this._placeTexturedTriangles(geometry);
+  texturedGeometry.vertices = this.vertices;
+  colouredGeometry.vertices = this.vertices;
 
-  return new THREE.Mesh(geometry, material);
+  this._placeTexturedRectangles(texturedGeometry);
+  this._placeTexturedTriangles(texturedGeometry);
+  this._placeColouredRectangles(colouredGeometry);
+  this._placeColouredTriangles(colouredGeometry);
+
+  var group = new THREE.Group();
+  group.add(new THREE.Mesh(texturedGeometry, texturedMaterial));
+  group.add(new THREE.Mesh(colouredGeometry, colouredMaterial));
+
+  return group;
 };
 
 Movable.prototype._prepareNormals = function() {
@@ -41544,6 +41562,37 @@ Movable.prototype._placeTexturedTriangles = function(geometry) {
       texture.tile
     ));
     geometry.faceVertexUvs[0].push([uv[0], uv[1], uv[2]]);
+  }, this);
+};
+
+Movable.prototype._placeColouredRectangles = function(geometry) {
+  _.each(this.definition.ColouredRectangles, function(rect) {
+    geometry.faces.push(new THREE.Face3(
+      rect.Vertices[0], rect.Vertices[1], rect.Vertices[2],
+      [ this.normals[rect.Vertices[0]], this.normals[rect.Vertices[1]], this.normals[rect.Vertices[2]] ],
+      this.level.palette16[rect.Palette]
+    ));
+
+  }, this);
+
+  _.each(this.definition.ColouredRectangles, function(rect) {
+    geometry.faces.push(new THREE.Face3(
+      rect.Vertices[0], rect.Vertices[2], rect.Vertices[3],
+      [ this.normals[rect.Vertices[0]], this.normals[rect.Vertices[2]], this.normals[rect.Vertices[3]] ],
+      this.level.palette16[rect.Palette]
+    ));
+
+  }, this);
+};
+
+Movable.prototype._placeColouredTriangles = function(geometry) {
+  _.each(this.definition.ColouredTriangles, function(tri) {
+    geometry.faces.push(new THREE.Face3(
+      tri.Vertices[0], tri.Vertices[1], tri.Vertices[2],
+      [ this.normals[tri.Vertices[0]], this.normals[tri.Vertices[1]], this.normals[tri.Vertices[2]] ],
+      this.level.palette16[tri.Palette]
+    ));
+
   }, this);
 };
 
