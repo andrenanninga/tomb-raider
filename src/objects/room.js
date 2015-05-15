@@ -19,6 +19,8 @@ Room.prototype.getMesh = function() {
   this._placeRectangles(geometry);
   this._placeTriangles(geometry);
 
+  geometry.computeFaceNormals();
+
   var mesh = new THREE.Mesh(geometry, material);
   mesh.position.x = this.definition.RoomInfo.x;
   mesh.position.z = this.definition.RoomInfo.z;
@@ -39,7 +41,7 @@ Room.prototype._placeRectangles = function(geometry) {
 
     geometry.faces.push(new THREE.Face3(
       rect.Vertices[0], rect.Vertices[1], rect.Vertices[2],
-      [ new THREE.Vector3(1, 0, 0), new THREE.Vector3(1, 0, 0), new THREE.Vector3(1, 0, 0), ],
+      new THREE.Vector3(0, -1, 0),
       0xff0000,
       texture.tile
     ));
@@ -47,7 +49,7 @@ Room.prototype._placeRectangles = function(geometry) {
 
     geometry.faces.push(new THREE.Face3(
       rect.Vertices[0], rect.Vertices[2], rect.Vertices[3],
-      [ new THREE.Vector3(1, 0, 0), new THREE.Vector3(1, 0, 0), new THREE.Vector3(1, 0, 0), ],
+      new THREE.Vector3(0, -1, 0),
       0xff0000,
       texture.tile
     ));
@@ -62,7 +64,7 @@ Room.prototype._placeTriangles = function(geometry) {
 
     geometry.faces.push(new THREE.Face3(
       tri.Vertices[0], tri.Vertices[1], tri.Vertices[2],
-      [ new THREE.Vector3(1, 0, 0), new THREE.Vector3(1, 0, 0), new THREE.Vector3(1, 0, 0), ],
+      new THREE.Vector3(0, -1, 0),
       0xff0000,
       texture.tile
     ));

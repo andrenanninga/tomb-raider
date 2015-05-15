@@ -8,6 +8,7 @@ var runSequence      = require('run-sequence');
 var gulp             = require('gulp');
 var clean            = require('gulp-clean');
 var connect          = require('gulp-connect');
+var gutil            = require('gulp-util');
 var file             = require('gulp-file');
 var plumber          = require('gulp-plumber');
 var browserify       = require('gulp-browserify');
@@ -88,6 +89,7 @@ gulp.task('build-levels:level', function(cb) {
       file('level.json', JSON.stringify(level), { src: true })
         .pipe(gulp.dest('./build/levels/' + levelName));
 
+      gutil.log('finished build-levels:level - ' + levelName);
       afterLevelLoad();
     });
   });
@@ -121,6 +123,7 @@ gulp.task('build-levels:textiles16', function(cb) {
           .pipe(gulp.dest('./build/levels/' + levelName + '/textiles'));
       });
 
+      gutil.log('finished build-levels:textiles16 - ' + levelName);
       afterTextilesLoad();
     });
   });

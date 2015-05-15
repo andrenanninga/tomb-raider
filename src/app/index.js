@@ -34,7 +34,7 @@ document.body.appendChild(stats.domElement);
 var light = new THREE.AmbientLight(0x666666);
 scene.add(light);
 
-var light = new THREE.PointLight(0xffffff, 0.8, 10000);
+var light = new THREE.PointLight(0xffffff, 2, 10000);
 light.position.set(camera.position.x, camera.position.y, camera.position.z);
 scene.add(light);
 
@@ -45,52 +45,56 @@ var level = new Level('house');
 global.level = level;
 scene.add(level.container);
 
-var loadMoveable = function(id) {
-  level.empty();
-  level.loadMoveable(id);
+var loadLevel = function(levelName) {
+  scene.remove(level.container);
+
+  level = new Level(levelName);
+  scene.add(level.container);
 };
 
-var movables = { 
-  laraFace: function() { loadMoveable(14); }, 
-  laraFaceAngry: function() { loadMoveable(80); }, 
-  maskedGoonFace: function() { loadMoveable(201); }, 
-  stickWieldingGoonFace: function() { loadMoveable(309); }, 
-  ratFace: function() { loadMoveable(281); }, 
-  boat: function() { loadMoveable(171); }, 
-  door: function() { loadMoveable(348); }, 
-  passport: function() { loadMoveable(369); }, 
-  sunglasses: function() { loadMoveable(372); }, 
-  cdPlayer: function() { loadMoveable(373); }, 
-  pistol: function() { loadMoveable(376); }, 
-  shotgun: function() { loadMoveable(378); }, 
-  autoPistol: function() { loadMoveable(380); }, 
-  uzi: function() { loadMoveable(383); }, 
-  harpoonGun: function() { loadMoveable(385); }, 
-  m16: function() { loadMoveable(386); }, 
-  grenadeLauncher: function() { loadMoveable(387); }, 
-  shotgunAmmo: function() { loadMoveable(390); }, 
+var levels = {
+  assault: function() { loadLevel('assault'); },
+  boat: function() { loadLevel('boat'); },
+  catacomb: function() { loadLevel('catacomb'); },
+  deck: function() { loadLevel('deck'); },
+  emprtomb: function() { loadLevel('emprtomb'); },
+  floating: function() { loadLevel('floating'); },
+  house: function() { loadLevel('house'); },
+  icecave: function() { loadLevel('icecave'); },
+  keel: function() { loadLevel('keel'); },
+  living: function() { loadLevel('living'); },
+  monastry: function() { loadLevel('monastry'); },
+  opera: function() { loadLevel('opera'); },
+  platform: function() { loadLevel('platform'); },
+  rig: function() { loadLevel('rig'); },
+  skidoo: function() { loadLevel('skidoo'); },
+  unwater: function() { loadLevel('unwater'); },
+  venice: function() { loadLevel('venice'); },
+  wall: function() { loadLevel('wall'); },
+  xian: function() { loadLevel('xian'); },
 };
 
 var gui = new Dat.GUI();
 
-gui.add(movables, 'laraFace');
-gui.add(movables, 'laraFaceAngry');
-gui.add(movables, 'maskedGoonFace');
-gui.add(movables, 'stickWieldingGoonFace');
-gui.add(movables, 'ratFace');
-gui.add(movables, 'boat');
-gui.add(movables, 'door');
-gui.add(movables, 'passport');
-gui.add(movables, 'sunglasses');
-gui.add(movables, 'cdPlayer');
-gui.add(movables, 'pistol');
-gui.add(movables, 'shotgun');
-gui.add(movables, 'autoPistol');
-gui.add(movables, 'uzi');
-gui.add(movables, 'harpoonGun');
-gui.add(movables, 'm16');
-gui.add(movables, 'grenadeLauncher');
-gui.add(movables, 'shotgunAmmo');
+gui.add(levels, 'assault');
+gui.add(levels, 'boat');
+gui.add(levels, 'catacomb');
+gui.add(levels, 'deck');
+gui.add(levels, 'emprtomb');
+gui.add(levels, 'floating');
+gui.add(levels, 'house');
+gui.add(levels, 'icecave');
+gui.add(levels, 'keel');
+gui.add(levels, 'living');
+gui.add(levels, 'monastry');
+gui.add(levels, 'opera');
+gui.add(levels, 'platform');
+gui.add(levels, 'rig');
+gui.add(levels, 'skidoo');
+gui.add(levels, 'unwater');
+gui.add(levels, 'venice');
+gui.add(levels, 'wall');
+gui.add(levels, 'xian');
 
 var render = function () {
   stats.begin();

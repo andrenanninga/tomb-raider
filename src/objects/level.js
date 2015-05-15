@@ -40,7 +40,6 @@ var Level = function(levelName) {
 
     center.divideScalar(self.definition.NumRooms);
     center.divideScalar(100);
-    console.log(center);
 
     self.container.position.sub(center);
   });
@@ -72,12 +71,14 @@ Level.prototype._prepareTextiles16 = function() {
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestMipMapLinearFilter;
 
-    var material = new THREE.MeshPhongMaterial({ 
+    var material = new THREE.MeshBasicMaterial({ 
       map: texture, 
-      shininess: 10, 
+      shininess: 100, 
       wireframe: false,
-      transparent: true
+      transparent: true,
     });
+
+    material.alphaTest = 0.5;
     
     textiles16.push(material);
   });
