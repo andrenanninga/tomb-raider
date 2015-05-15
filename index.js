@@ -41404,7 +41404,7 @@ var Level = function(levelName) {
   });
 };
 
-Level.BASEPATH = '../levels/';
+Level.BASEPATH = 'levels/';
 
 Level.prototype.empty = function() {
   this.container.remove.apply(this.container, this.container.children);
