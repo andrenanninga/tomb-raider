@@ -197,6 +197,55 @@ var structs = {
     Mesh: 'uint16',
     BoundingBox: ['array', 'tr2_vertex', 4],
     Flags: 'uint16'
+  },
+
+  tr2_moveable: {
+    ObjectID: 'uint32',
+    NumMeshes: 'uint16',
+    StartingMesh: 'uint16',
+    MeshTree: 'uint32',
+    FrameOffset: 'uint32',
+    Animation: 'uint16'
+  },
+
+  tr2_item: jBinary.Type({
+    read: function() {
+      var data = {};
+
+      data.ObjectID = this.binary.read('int16');
+      data.Room = this.binary.read('int16');
+      data.x = this.binary.read('int16');
+      data.y = this.binary.read('int16');
+      data.z = this.binary.read('int16');
+
+      data.Rotation = this.binary.read('int16');
+      data.Rotation = (data.Rotation >> 14) * 90;
+
+      data.Intensity1 = this.binary.read('int16');
+      data.Intensity2 = this.binary.read('int16');
+
+      data.Flags = this.binary.read('uint16');
+
+      return data;
+    }
+  }),
+
+  tr2_sprite_texture: {
+    Tile: 'uint16',
+    x: 'int8',
+    y: 'int8',
+    Width: 'uint16',
+    Height: 'uint16',
+    LeftSide: 'int16',
+    TopSide: 'int16',
+    RightSide: 'int16',
+    BottomSide: 'int16',
+  },
+
+  tr2_sprite_sequence: {
+    ObjectID: 'int32',
+    NegativeLength: 'int16',
+    Offset: 'int16'
   }
 };
 
