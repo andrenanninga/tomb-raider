@@ -41311,16 +41311,20 @@ scene.add(light);
 var axis = new THREE.AxisHelper(100 );
 scene.add(axis);
 
-var level = new Level('house');
-global.level = level;
-scene.add(level.container);
+var level;
 
 var loadLevel = function(levelName) {
-  scene.remove(level.container);
+  if(level) {
+    scene.remove(level.container);
+  }
 
   level = new Level(levelName);
   scene.add(level.container);
+
+  global.level = level;
 };
+
+loadLevel('assault');
 
 var levels = {
   assault: function() { loadLevel('assault'); },
@@ -41379,15 +41383,15 @@ var render = function () {
 
 render();
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../objects/level":8,"../plugins/OrbitControls":11,"dat-gui":1,"stats.js":4,"three":5,"underscore":6}],8:[function(require,module,exports){
+},{"../objects/level":8,"../plugins/OrbitControls":12,"dat-gui":1,"stats.js":4,"three":5,"underscore":6}],8:[function(require,module,exports){
 'use strict';
 
-var _        = require('underscore');
-var THREE    = require('three');
-var getJSON  = require('../utils/getJSON');
+var _       = require('underscore');
+var THREE   = require('three');
+var getJSON = require('../utils/getJSON');
 
-var Moveable = require('./moveable');
-var Room     = require('./room');
+var Mesh    = require('./mesh');
+var Room    = require('./room');
 
 var Level = function(levelName) {
   var self = this;
@@ -41395,7 +41399,7 @@ var Level = function(levelName) {
   this.container = new THREE.Group();
   this.container.scale.x = 0.01;
   this.container.scale.y = -0.01;
-  this.container.scale.z = 0.01;
+  this.container.scale.z = -0.01;
 
   this._loadDefinition(function(err, definition) {
     if(err) {
@@ -41403,20 +41407,20 @@ var Level = function(levelName) {
     }
 
     self.definition = definition;
-    self.textiles16 = self._prepareTextiles16();
-    self.objectTextures = self._prepareObjectTextures();
-    self.palette16 = self._preparePalette16();
 
-    // var moveable = new Moveable(self, self.definition.Meshes[14]);
-    // self.container.add(moveable.getMesh());
+    self.textiles16     = self._prepareTextiles16();
+    self.objectTextures = self._prepareObjectTextures();
+    self.palette16      = self._preparePalette16();
+    self.meshes         = self._prepateMeshes();
+
     var center = new THREE.Vector3(0, 0, 0);
 
     _.each(self.definition.Rooms, function(definition) {
       center.x += definition.RoomInfo.x;
-      center.z += definition.RoomInfo.z;
+      center.z -= definition.RoomInfo.z;
 
       var room = new Room(self, definition);
-      var mesh = room.getMesh();
+      var mesh = room.getModel();
       self.container.add(mesh);
     });
 
@@ -41431,11 +41435,6 @@ Level.BASEPATH = 'levels/';
 
 Level.prototype.empty = function() {
   this.container.remove.apply(this.container, this.container.children);
-};
-
-Level.prototype.loadMoveable = function(id) {
-  var moveable = new Moveable(this, this.definition.Meshes[id]);
-  this.container.add(moveable.getMesh());
 };
 
 Level.prototype._loadDefinition = function(callback) {
@@ -41501,16 +41500,23 @@ Level.prototype._preparePalette16 = function() {
   return _.map(this.definition.Palette16, function(color) {
     return new THREE.Color(color.r / 255, color.g / 255, color.b / 255);
   });
-}
+};
+
+Level.prototype._prepateMeshes = function() {
+  return _.map(this.definition.Meshes, function(definition) {
+    var mesh = new Mesh(this, definition);
+    return mesh.getModel();
+  }, this);
+};
 
 module.exports = Level;
-},{"../utils/getJSON":12,"./moveable":9,"./room":10,"three":5,"underscore":6}],9:[function(require,module,exports){
+},{"../utils/getJSON":13,"./mesh":9,"./room":10,"three":5,"underscore":6}],9:[function(require,module,exports){
 'use strict';
 
 var _ = require('underscore');
 var THREE = require('three');
 
-var Movable = function(level, definition) {
+var Mesh = function(level, definition) {
   this.level = level;
   this.definition = definition;
 
@@ -41518,7 +41524,7 @@ var Movable = function(level, definition) {
   this.vertices = this._prepareVertices();
 };
 
-Movable.prototype.getMesh = function() {
+Mesh.prototype.getModel = function() {
   var texturedMaterial = new THREE.MeshFaceMaterial(this.level.textiles16);
   var texturedGeometry = new THREE.Geometry();
   var colouredMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff, vertexColors: THREE.FaceColors });
@@ -41532,6 +41538,11 @@ Movable.prototype.getMesh = function() {
   this._placeColouredRectangles(colouredGeometry);
   this._placeColouredTriangles(colouredGeometry);
 
+  if(this.normals.length === 0) {
+    texturedGeometry.computeFaceNormals();
+    colouredGeometry.computeFaceNormals();
+  }
+
   var group = new THREE.Group();
   group.add(new THREE.Mesh(texturedGeometry, texturedMaterial));
   group.add(new THREE.Mesh(colouredGeometry, colouredMaterial));
@@ -41539,93 +41550,117 @@ Movable.prototype.getMesh = function() {
   return group;
 };
 
-Movable.prototype._prepareNormals = function() {
+Mesh.prototype._prepareNormals = function() {
   return _.map(this.definition.Normals, function(normal) {
     return new THREE.Vector3(normal.x, normal.y, normal.z).normalize();
   });
 };
 
-Movable.prototype._prepareVertices = function() {
+Mesh.prototype._prepareVertices = function() {
   return _.map(this.definition.Vertices, function(vert) {
     return new THREE.Vector3(vert.x, vert.y, vert.z);
   });
 };
 
-Movable.prototype._placeTexturedRectangles = function(geometry) {
+Mesh.prototype._placeTexturedRectangles = function(geometry) {
   _.each(this.definition.TexturedRectangles, function(rect) {
     var texture = this.level.objectTextures[rect.Texture];
     var uv = texture.uv;
+    var normals1 = null;
+    var normals2 = null;
+
+    if(this.normals.length) {
+      normals1 = [ this.normals[rect.Vertices[2]], this.normals[rect.Vertices[1]], this.normals[rect.Vertices[0]] ];
+      normals2 = [ this.normals[rect.Vertices[3]], this.normals[rect.Vertices[2]], this.normals[rect.Vertices[0]] ];
+    }
 
     geometry.faces.push(new THREE.Face3(
-      rect.Vertices[0], rect.Vertices[1], rect.Vertices[2],
-      [ this.normals[rect.Vertices[0]], this.normals[rect.Vertices[1]], this.normals[rect.Vertices[2]] ],
+      rect.Vertices[2], rect.Vertices[1], rect.Vertices[0],
+      normals1,
       0xff0000,
       texture.tile
     ));
-    geometry.faceVertexUvs[0].push([uv[0], uv[1], uv[2]]);
+    geometry.faceVertexUvs[0].push([uv[2], uv[1], uv[0]]);
 
     geometry.faces.push(new THREE.Face3(
-      rect.Vertices[0], rect.Vertices[2], rect.Vertices[3],
-      [ this.normals[rect.Vertices[0]], this.normals[rect.Vertices[2]], this.normals[rect.Vertices[3]] ],
+      rect.Vertices[3], rect.Vertices[2], rect.Vertices[0],
+      normals2,
       0xff0000,
       texture.tile
     ));
-    geometry.faceVertexUvs[0].push([uv[0], uv[2], uv[3]]);
+    geometry.faceVertexUvs[0].push([uv[3], uv[2], uv[0]]);
   }, this);
 };
 
-Movable.prototype._placeTexturedTriangles = function(geometry) {
+Mesh.prototype._placeTexturedTriangles = function(geometry) {
   _.each(this.definition.TexturedTriangles, function(tri) {
     var texture = this.level.objectTextures[tri.Texture];
     var uv = texture.uv;
+    var normals = null;
+
+    if(this.normals.length) {
+      normals = [ this.normals[tri.Vertices[2]], this.normals[tri.Vertices[1]], this.normals[tri.Vertices[0]] ];
+    }
 
     geometry.faces.push(new THREE.Face3(
-      tri.Vertices[0], tri.Vertices[1], tri.Vertices[2],
-      [ this.normals[tri.Vertices[0]], this.normals[tri.Vertices[1]], this.normals[tri.Vertices[2]] ],
+      tri.Vertices[2], tri.Vertices[1], tri.Vertices[0],
+      normals,
       0xff0000,
       texture.tile
     ));
-    geometry.faceVertexUvs[0].push([uv[0], uv[1], uv[2]]);
+    geometry.faceVertexUvs[0].push([uv[2], uv[1], uv[0]]);
   }, this);
 };
 
-Movable.prototype._placeColouredRectangles = function(geometry) {
+Mesh.prototype._placeColouredRectangles = function(geometry) {
   _.each(this.definition.ColouredRectangles, function(rect) {
+    var normals1 = null;
+    var normals2 = null;
+
+    if(this.normals.length) {
+      normals1 = [ this.normals[rect.Vertices[2]], this.normals[rect.Vertices[1]], this.normals[rect.Vertices[0]] ];
+      normals2 = [ this.normals[rect.Vertices[3]], this.normals[rect.Vertices[2]], this.normals[rect.Vertices[0]] ];
+    }
+
     geometry.faces.push(new THREE.Face3(
-      rect.Vertices[0], rect.Vertices[1], rect.Vertices[2],
-      [ this.normals[rect.Vertices[0]], this.normals[rect.Vertices[1]], this.normals[rect.Vertices[2]] ],
+      rect.Vertices[2], rect.Vertices[1], rect.Vertices[0],
+      normals1,
+      this.level.palette16[rect.Palette]
+    ));
+
+    geometry.faces.push(new THREE.Face3(
+      rect.Vertices[3], rect.Vertices[2], rect.Vertices[0],
+      normals2,
       this.level.palette16[rect.Palette]
     ));
 
   }, this);
-
-  _.each(this.definition.ColouredRectangles, function(rect) {
-    geometry.faces.push(new THREE.Face3(
-      rect.Vertices[0], rect.Vertices[2], rect.Vertices[3],
-      [ this.normals[rect.Vertices[0]], this.normals[rect.Vertices[2]], this.normals[rect.Vertices[3]] ],
-      this.level.palette16[rect.Palette]
-    ));
-
-  }, this);
 };
 
-Movable.prototype._placeColouredTriangles = function(geometry) {
+Mesh.prototype._placeColouredTriangles = function(geometry) {
   _.each(this.definition.ColouredTriangles, function(tri) {
+    var normals = null;
+
+    if(this.normals.length) {
+      normals = [ this.normals[tri.Vertices[2]], this.normals[tri.Vertices[1]], this.normals[tri.Vertices[0]] ];
+    }
+
     geometry.faces.push(new THREE.Face3(
-      tri.Vertices[0], tri.Vertices[1], tri.Vertices[2],
-      [ this.normals[tri.Vertices[0]], this.normals[tri.Vertices[1]], this.normals[tri.Vertices[2]] ],
+      tri.Vertices[2], tri.Vertices[1], tri.Vertices[0],
+      normals,
       this.level.palette16[tri.Palette]
     ));
 
   }, this);
 };
 
-module.exports = Movable;
+module.exports = Mesh;
 },{"three":5,"underscore":6}],10:[function(require,module,exports){
 'use strict';
 
 var _ = require('underscore');
 var THREE = require('three');
+var Static = require('./static');
 
 var Room = function(level, definition) {
   this.level = level;
@@ -41634,7 +41669,7 @@ var Room = function(level, definition) {
   this.vertices = this._prepareVertices();
 };
 
-Room.prototype.getMesh = function() { 
+Room.prototype.getModel = function() { 
   var material = new THREE.MeshFaceMaterial(this.level.textiles16);
   var geometry = new THREE.Geometry();
 
@@ -41645,11 +41680,16 @@ Room.prototype.getMesh = function() {
 
   geometry.computeFaceNormals();
 
-  var mesh = new THREE.Mesh(geometry, material);
-  mesh.position.x = this.definition.RoomInfo.x;
-  mesh.position.z = this.definition.RoomInfo.z;
+  var group = new THREE.Group();
 
-  return mesh;
+  var room = new THREE.Mesh(geometry, material);
+  room.position.x = this.definition.RoomInfo.x;
+  room.position.z = this.definition.RoomInfo.z;
+  group.add(room);
+
+  this._placeStaticMeshes(group);
+
+  return group;
 };
 
 Room.prototype._prepareVertices = function() {
@@ -41664,20 +41704,20 @@ Room.prototype._placeRectangles = function(geometry) {
     var uv = texture.uv;
 
     geometry.faces.push(new THREE.Face3(
-      rect.Vertices[0], rect.Vertices[1], rect.Vertices[2],
+      rect.Vertices[2], rect.Vertices[1], rect.Vertices[0],
       new THREE.Vector3(0, -1, 0),
       0xff0000,
       texture.tile
     ));
-    geometry.faceVertexUvs[0].push([uv[0], uv[1], uv[2]]);
+    geometry.faceVertexUvs[0].push([uv[2], uv[1], uv[0]]);
 
     geometry.faces.push(new THREE.Face3(
-      rect.Vertices[0], rect.Vertices[2], rect.Vertices[3],
+      rect.Vertices[3], rect.Vertices[2], rect.Vertices[0],
       new THREE.Vector3(0, -1, 0),
       0xff0000,
       texture.tile
     ));
-    geometry.faceVertexUvs[0].push([uv[0], uv[2], uv[3]]);
+    geometry.faceVertexUvs[0].push([uv[3], uv[2], uv[0]]);
   }, this);
 };
 
@@ -41687,17 +41727,54 @@ Room.prototype._placeTriangles = function(geometry) {
     var uv = texture.uv;
 
     geometry.faces.push(new THREE.Face3(
-      tri.Vertices[0], tri.Vertices[1], tri.Vertices[2],
+      tri.Vertices[2], tri.Vertices[1], tri.Vertices[0],
       new THREE.Vector3(0, -1, 0),
       0xff0000,
       texture.tile
     ));
-    geometry.faceVertexUvs[0].push([uv[0], uv[1], uv[2]]);
+    geometry.faceVertexUvs[0].push([uv[2], uv[1], uv[0]]);
+  }, this);
+};
+
+Room.prototype._placeStaticMeshes = function(container) {
+  _.each(this.definition.StaticMeshes, function(definition) {
+    var staticMesh = new Static(this.level, definition);
+
+    container.add(staticMesh.getModel());
   }, this);
 };
 
 module.exports = Room;
-},{"three":5,"underscore":6}],11:[function(require,module,exports){
+},{"./static":11,"three":5,"underscore":6}],11:[function(require,module,exports){
+'use strict';
+
+var _ = require('underscore');
+var THREE = require('three');
+
+var Static = function(level, definition) {
+  this.level = level;
+  this.definition = definition;
+};
+
+Static.prototype.getModel = function() {
+  var staticMeshInfo = _.findWhere(
+    this.level.definition.StaticMeshes,
+    { ObjectID: this.definition.ObjectID }
+  );
+
+  var model = this.level.meshes[staticMeshInfo.Mesh].clone();
+
+  model.position.x = this.definition.x;
+  model.position.y = this.definition.y;
+  model.position.z = this.definition.z;
+
+  model.rotation.y = this.definition.Rotation * (Math.PI / 180);
+
+  return model;
+};
+
+module.exports = Static;
+},{"three":5,"underscore":6}],12:[function(require,module,exports){
 /**
  * @author qiao / https://github.com/qiao
  * @author mrdoob / http://mrdoob.com
@@ -42404,7 +42481,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 THREE.OrbitControls.prototype = Object.create( THREE.EventDispatcher.prototype );
 THREE.OrbitControls.prototype.constructor = THREE.OrbitControls;
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 var getJSON = function(url, callback) {
