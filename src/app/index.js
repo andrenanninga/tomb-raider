@@ -41,16 +41,20 @@ scene.add(light);
 var axis = new THREE.AxisHelper(100 );
 scene.add(axis);
 
-var level = new Level('house');
-global.level = level;
-scene.add(level.container);
+var level;
 
 var loadLevel = function(levelName) {
-  scene.remove(level.container);
+  if(level) {
+    scene.remove(level.container);
+  }
 
   level = new Level(levelName);
   scene.add(level.container);
+
+  global.level = level;
 };
+
+loadLevel('assault');
 
 var levels = {
   assault: function() { loadLevel('assault'); },

@@ -91,6 +91,12 @@ var config = _.extend({}, structs, {
     }
   }),
 
+  StaticMeshes: jBinary.Type({
+    read: function(context) {
+      return this.binary.read(['array', 'tr2_staticmesh', context.NumStaticMeshes]);
+    }
+  }),
+
   ObjectTextures: jBinary.Type({
     read: function(context) {
       return this.binary.read(['array', 'tr2_object_texture', context.NumObjectTextures]);
@@ -156,8 +162,8 @@ var config = _.extend({}, structs, {
     Moveables: ['skip', function(context) { return context.NumMoveables * 18; }],
 
     NumStaticMeshes: 'uint32',
-    // StaticMeshes: 'StaticMeshes',
-    StaticMeshes: ['skip', function(context) { return context.NumStaticMeshes * 32; }],
+    StaticMeshes: 'StaticMeshes',
+    // StaticMeshes: ['skip', function(context) { return context.NumStaticMeshes * 32; }],
 
     NumObjectTextures: 'uint32',
     ObjectTextures: 'ObjectTextures',

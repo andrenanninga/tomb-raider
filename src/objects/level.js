@@ -1,11 +1,11 @@
 'use strict';
 
-var _        = require('underscore');
-var THREE    = require('three');
-var getJSON  = require('../utils/getJSON');
+var _       = require('underscore');
+var THREE   = require('three');
+var getJSON = require('../utils/getJSON');
 
-var Moveable = require('./moveable');
-var Room     = require('./room');
+var Mesh    = require('./mesh');
+var Room    = require('./room');
 
 var Level = function(levelName) {
   var self = this;
@@ -13,7 +13,7 @@ var Level = function(levelName) {
   this.container = new THREE.Group();
   this.container.scale.x = 0.01;
   this.container.scale.y = -0.01;
-  this.container.scale.z = 0.01;
+  this.container.scale.z = -0.01;
 
   this._loadDefinition(function(err, definition) {
     if(err) {
@@ -21,20 +21,20 @@ var Level = function(levelName) {
     }
 
     self.definition = definition;
-    self.textiles16 = self._prepareTextiles16();
-    self.objectTextures = self._prepareObjectTextures();
-    self.palette16 = self._preparePalette16();
 
-    // var moveable = new Moveable(self, self.definition.Meshes[14]);
-    // self.container.add(moveable.getMesh());
+    self.textiles16     = self._prepareTextiles16();
+    self.objectTextures = self._prepareObjectTextures();
+    self.palette16      = self._preparePalette16();
+    self.meshes         = self._prepateMeshes();
+
     var center = new THREE.Vector3(0, 0, 0);
 
     _.each(self.definition.Rooms, function(definition) {
       center.x += definition.RoomInfo.x;
-      center.z += definition.RoomInfo.z;
+      center.z -= definition.RoomInfo.z;
 
       var room = new Room(self, definition);
-      var mesh = room.getMesh();
+      var mesh = room.getModel();
       self.container.add(mesh);
     });
 
@@ -49,11 +49,6 @@ Level.BASEPATH = 'levels/';
 
 Level.prototype.empty = function() {
   this.container.remove.apply(this.container, this.container.children);
-};
-
-Level.prototype.loadMoveable = function(id) {
-  var moveable = new Moveable(this, this.definition.Meshes[id]);
-  this.container.add(moveable.getMesh());
 };
 
 Level.prototype._loadDefinition = function(callback) {
@@ -119,6 +114,13 @@ Level.prototype._preparePalette16 = function() {
   return _.map(this.definition.Palette16, function(color) {
     return new THREE.Color(color.r / 255, color.g / 255, color.b / 255);
   });
-}
+};
+
+Level.prototype._prepateMeshes = function() {
+  return _.map(this.definition.Meshes, function(definition) {
+    var mesh = new Mesh(this, definition);
+    return mesh.getModel();
+  }, this);
+};
 
 module.exports = Level;

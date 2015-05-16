@@ -106,15 +106,24 @@ var structs = {
     Fade2: 'uint32' // absent in TR1
   },
 
-  tr2_room_staticmesh: {
-    x: 'uint32',
-    y: 'uint32',
-    z: 'uint32',
-    Rotation: 'uint16',
-    Intensity1: 'uint16',
-    Intensity2: 'uint16', // absent in TR1
-    ObjectID: 'uint16'
-  },
+  tr2_room_staticmesh: jBinary.Type({
+    read: function() {
+      var data = {};
+
+      data.x = this.binary.read('uint32');
+      data.y = this.binary.read('uint32');
+      data.z = this.binary.read('uint32');
+
+      data.Rotation = this.binary.read('uint16');
+      data.Rotation = (data.Rotation >> 14) * 90;
+
+      data.Intensity1 = this.binary.read('uint16');
+      data.Intensity2 = this.binary.read('uint16'); // absent in TR1
+      data.ObjectID = this.binary.read('uint16');
+
+      return data; 
+    }
+  }),
 
   tr2_mesh: jBinary.Type({
     read: function() {
@@ -181,7 +190,14 @@ var structs = {
 
       return data;
     }
-  })
+  }),
+
+  tr2_staticmesh: {
+    ObjectID: 'uint32',
+    Mesh: 'uint16',
+    BoundingBox: ['array', 'tr2_vertex', 4],
+    Flags: 'uint16'
+  }
 };
 
 module.exports = structs;

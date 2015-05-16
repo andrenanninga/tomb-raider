@@ -18,25 +18,25 @@ var loaderTextiles16 = require('./src/loader/textiles16');
 var loaderLevel      = require('./src/loader/level');
 
 var levelNames = [
-  // 'assault',
+  'assault',
   'boat',
-  // 'catacomb',
-  // 'deck',
-  // 'emprtomb',
-  // 'floating',
+  'catacomb',
+  'deck',
+  'emprtomb',
+  'floating',
   'house',
-  // 'icecave',
-  // 'keel',
-  // 'living',
-  // 'monastry',
-  // 'opera',
-  // 'platform',
-  // 'rig',
-  // 'skidoo',
-  // 'unwater',
-  // 'venice',
-  // 'wall',
-  // 'xian'
+  'icecave',
+  'keel',
+  'living',
+  'monastry',
+  'opera',
+  'platform',
+  'rig',
+  'skidoo',
+  'unwater',
+  'venice',
+  'wall',
+  'xian'
 ];
 
 gulp.task('webserver', function() {

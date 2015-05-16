@@ -2,6 +2,7 @@
 
 var _ = require('underscore');
 var THREE = require('three');
+var Static = require('./static');
 
 var Room = function(level, definition) {
   this.level = level;
@@ -10,7 +11,7 @@ var Room = function(level, definition) {
   this.vertices = this._prepareVertices();
 };
 
-Room.prototype.getMesh = function() { 
+Room.prototype.getModel = function() { 
   var material = new THREE.MeshFaceMaterial(this.level.textiles16);
   var geometry = new THREE.Geometry();
 
@@ -21,11 +22,16 @@ Room.prototype.getMesh = function() {
 
   geometry.computeFaceNormals();
 
-  var mesh = new THREE.Mesh(geometry, material);
-  mesh.position.x = this.definition.RoomInfo.x;
-  mesh.position.z = this.definition.RoomInfo.z;
+  var group = new THREE.Group();
 
-  return mesh;
+  var room = new THREE.Mesh(geometry, material);
+  room.position.x = this.definition.RoomInfo.x;
+  room.position.z = this.definition.RoomInfo.z;
+  group.add(room);
+
+  this._placeStaticMeshes(group);
+
+  return group;
 };
 
 Room.prototype._prepareVertices = function() {
@@ -40,20 +46,20 @@ Room.prototype._placeRectangles = function(geometry) {
     var uv = texture.uv;
 
     geometry.faces.push(new THREE.Face3(
-      rect.Vertices[0], rect.Vertices[1], rect.Vertices[2],
+      rect.Vertices[2], rect.Vertices[1], rect.Vertices[0],
       new THREE.Vector3(0, -1, 0),
       0xff0000,
       texture.tile
     ));
-    geometry.faceVertexUvs[0].push([uv[0], uv[1], uv[2]]);
+    geometry.faceVertexUvs[0].push([uv[2], uv[1], uv[0]]);
 
     geometry.faces.push(new THREE.Face3(
-      rect.Vertices[0], rect.Vertices[2], rect.Vertices[3],
+      rect.Vertices[3], rect.Vertices[2], rect.Vertices[0],
       new THREE.Vector3(0, -1, 0),
       0xff0000,
       texture.tile
     ));
-    geometry.faceVertexUvs[0].push([uv[0], uv[2], uv[3]]);
+    geometry.faceVertexUvs[0].push([uv[3], uv[2], uv[0]]);
   }, this);
 };
 
@@ -63,12 +69,20 @@ Room.prototype._placeTriangles = function(geometry) {
     var uv = texture.uv;
 
     geometry.faces.push(new THREE.Face3(
-      tri.Vertices[0], tri.Vertices[1], tri.Vertices[2],
+      tri.Vertices[2], tri.Vertices[1], tri.Vertices[0],
       new THREE.Vector3(0, -1, 0),
       0xff0000,
       texture.tile
     ));
-    geometry.faceVertexUvs[0].push([uv[0], uv[1], uv[2]]);
+    geometry.faceVertexUvs[0].push([uv[2], uv[1], uv[0]]);
+  }, this);
+};
+
+Room.prototype._placeStaticMeshes = function(container) {
+  _.each(this.definition.StaticMeshes, function(definition) {
+    var staticMesh = new Static(this.level, definition);
+
+    container.add(staticMesh.getModel());
   }, this);
 };
 
