@@ -31,8 +31,16 @@ Mesh.prototype.getModel = function() {
   }
 
   var group = new THREE.Group();
-  group.add(new THREE.Mesh(texturedGeometry, texturedMaterial));
-  group.add(new THREE.Mesh(colouredGeometry, colouredMaterial));
+  var texturedMesh = new THREE.Mesh(texturedGeometry, texturedMaterial);
+  var colouredMesh = new THREE.Mesh(colouredGeometry, colouredMaterial);
+
+  // texturedMesh.castShadow = true;
+  // texturedMesh.receiveShadow = true;
+  // colouredMesh.castShadow = true;
+  // colouredMesh.receiveShadow = true;
+
+  group.add(texturedMesh);
+  group.add(colouredMesh);
 
   return group;
 };

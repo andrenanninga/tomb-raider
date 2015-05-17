@@ -25,8 +25,13 @@ Room.prototype.getModel = function() {
   var group = new THREE.Group();
 
   var room = new THREE.Mesh(geometry, material);
+  
   room.position.x = this.definition.RoomInfo.x;
   room.position.z = this.definition.RoomInfo.z;
+
+  room.castShadow = true;
+  room.receiveShadow = true;
+
   group.add(room);
 
   this._placeStaticMeshes(group);

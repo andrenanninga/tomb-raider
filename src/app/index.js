@@ -16,6 +16,7 @@ var renderer = new THREE.WebGLRenderer();
 renderer.setClearColor(0xf0f0f0);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
+// renderer.shadowMapEnabled = true;
 document.body.appendChild(renderer.domElement);
 
 var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 10000);
@@ -32,10 +33,15 @@ stats.domElement.style.left = '0px';
 stats.domElement.style.top = '0px';
 document.body.appendChild(stats.domElement);
 
-var light = new THREE.AmbientLight(0x666666);
+var light = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.5);
 scene.add(light);
 
-var light = new THREE.PointLight(0xffffff, 2, 10000);
+var light = new THREE.DirectionalLight(0xffffff, 0.5);
+// light.castShadow = true;
+// light.shadowDarkness = 0.5;
+// light.shadowMapSoft = true;
+// light.shadowMapWidth = 1024;
+// light.shadowMapHeight = 1024;
 light.position.set(camera.position.x, camera.position.y, camera.position.z);
 scene.add(light);
 

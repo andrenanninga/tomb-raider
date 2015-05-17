@@ -78,9 +78,9 @@ Level.prototype._prepareTextiles16 = function() {
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestMipMapLinearFilter;
 
-    var material = new THREE.MeshBasicMaterial({ 
+    var material = new THREE.MeshPhongMaterial({ 
       map: texture, 
-      shininess: 100, 
+      shininess: 1, 
       wireframe: false,
       transparent: true,
     });

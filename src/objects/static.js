@@ -22,6 +22,9 @@ Static.prototype.getModel = function() {
 
   model.rotation.y = this.definition.Rotation * (Math.PI / 180);
 
+  model.castShadow = true;
+  model.receiveShadow = true;
+
   return model;
 };
 
