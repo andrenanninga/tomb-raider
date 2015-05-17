@@ -41276,6 +41276,7 @@ var Stats = require('stats.js');
 var Dat   = require('dat-gui');
 var Level = require('../objects/level');
 
+global._ = _;
 global.THREE = THREE;
 
 require('../plugins/OrbitControls');
@@ -41319,7 +41320,14 @@ var loadLevel = function(levelName) {
   }
 
   level = new Level(levelName);
-  scene.add(level.container);
+  level.prepare(function(err) {
+    if(err) {
+      return console.error(err);
+    }
+
+    level.build();
+    scene.add(level.container);
+  });
 
   global.level = level;
 };
@@ -41383,27 +41391,34 @@ var render = function () {
 
 render();
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../objects/level":8,"../plugins/OrbitControls":12,"dat-gui":1,"stats.js":4,"three":5,"underscore":6}],8:[function(require,module,exports){
+},{"../objects/level":8,"../plugins/OrbitControls":13,"dat-gui":1,"stats.js":4,"three":5,"underscore":6}],8:[function(require,module,exports){
 'use strict';
 
-var _       = require('underscore');
-var THREE   = require('three');
-var getJSON = require('../utils/getJSON');
+var _        = require('underscore');
+var THREE    = require('three');
+var getJSON  = require('../utils/getJSON');
 
-var Mesh    = require('./mesh');
-var Room    = require('./room');
+var Mesh     = require('./mesh');
+var Moveable = require('./moveable');
+var Room     = require('./room');
 
 var Level = function(levelName) {
-  var self = this;
   this.levelName = levelName;
   this.container = new THREE.Group();
   this.container.scale.x = 0.01;
   this.container.scale.y = -0.01;
   this.container.scale.z = -0.01;
+};
+
+Level.BASEPATH = 'levels/';
+
+Level.prototype.prepare = function(cb) {
+  var self = this;
+  cb = cb || _.noop;
 
   this._loadDefinition(function(err, definition) {
     if(err) {
-      return console.error(err);
+      return cb(err);
     }
 
     self.definition = definition;
@@ -41411,27 +41426,32 @@ var Level = function(levelName) {
     self.textiles16     = self._prepareTextiles16();
     self.objectTextures = self._prepareObjectTextures();
     self.palette16      = self._preparePalette16();
-    self.meshes         = self._prepateMeshes();
+    self.meshes         = self._prepareMeshes();
+    self.objects        = self._prepareObjects();
 
-    var center = new THREE.Vector3(0, 0, 0);
-
-    _.each(self.definition.Rooms, function(definition) {
-      center.x += definition.RoomInfo.x;
-      center.z -= definition.RoomInfo.z;
-
-      var room = new Room(self, definition);
-      var mesh = room.getModel();
-      self.container.add(mesh);
-    });
-
-    center.divideScalar(self.definition.NumRooms);
-    center.divideScalar(100);
-
-    self.container.position.sub(center);
+    cb(null, self);
   });
 };
 
-Level.BASEPATH = 'levels/';
+Level.prototype.build = function() {
+  var center = new THREE.Vector3(0, 0, 0);
+
+  _.each(this.definition.Rooms, function(definition) {
+    center.x += definition.RoomInfo.x;
+    center.z -= definition.RoomInfo.z;
+
+    var room = new Room(this, definition);
+    var mesh = room.getModel();
+    this.container.add(mesh);
+  }, this);
+
+  center.divideScalar(this.definition.NumRooms);
+  center.divideScalar(100);
+
+  this.container.position.sub(center);
+
+  this._placeItems(this.container);
+};
 
 Level.prototype.empty = function() {
   this.container.remove.apply(this.container, this.container.children);
@@ -41502,15 +41522,42 @@ Level.prototype._preparePalette16 = function() {
   });
 };
 
-Level.prototype._prepateMeshes = function() {
+Level.prototype._prepareMeshes = function() {
   return _.map(this.definition.Meshes, function(definition) {
     var mesh = new Mesh(this, definition);
     return mesh.getModel();
   }, this);
 };
 
+Level.prototype._prepareObjects = function() {
+  var moveables = _.object(_.pluck(this.definition.Moveables, 'ObjectID'), this.definition.Moveables);
+  moveables = _.mapObject(moveables, function(moveable) {
+    moveable.Type = 'Moveable';
+    return moveable;
+  });
+
+  var spriteSequences = _.object(_.pluck(this.definition.SpriteSequences, 'ObjectID'), this.definition.SpriteSequences);
+  spriteSequences = _.mapObject(spriteSequences, function(spriteSequence) {
+    spriteSequence.Type = 'SpriteSequence';
+    return spriteSequence;
+  });
+
+  return _.extend({}, moveables, spriteSequences);
+};
+
+Level.prototype._placeItems = function(container) {
+  _.each(this.definition.Items, function(definition) {
+    var object = this.objects[definition.ObjectID];
+
+    if(object.Type === 'Moveable') {
+      var moveable = new Moveable(this, definition);
+      container.add(moveable.getModel());
+    }
+  }, this);
+};
+
 module.exports = Level;
-},{"../utils/getJSON":13,"./mesh":9,"./room":10,"three":5,"underscore":6}],9:[function(require,module,exports){
+},{"../utils/getJSON":14,"./mesh":9,"./moveable":10,"./room":11,"three":5,"underscore":6}],9:[function(require,module,exports){
 'use strict';
 
 var _ = require('underscore');
@@ -41660,6 +41707,93 @@ module.exports = Mesh;
 
 var _ = require('underscore');
 var THREE = require('three');
+
+var Moveable = function(level, definition) {
+  this.level = level;
+  this.definition = definition;
+  this.object = this.level.objects[this.definition.ObjectID];
+
+  this.meshes = this._prepareMeshes();
+  this.meshtrees = this._prepareMeshtrees();
+};
+
+Moveable.prototype.getModel = function() {
+  var stack = [];
+  var group = new THREE.Group();
+
+  var parent = group;
+  parent.depth = 0;
+ 
+  _.each(this.meshes, function(mesh, i) {
+    var model = this.meshes[i].clone();
+
+    if(i === 0) {
+      model.position.x = this.object.Frame.OffsetX;
+      model.position.y = this.object.Frame.OffsetY;
+      model.position.z = this.object.Frame.OffsetZ;
+
+      group.add(model);
+      parent = model;
+    }
+    else {
+      var frame = this.object.Frame.Meshes[i - 1];
+      var meshtree = this.meshtrees[i - 1];
+
+      if(meshtree.Pop) {
+        parent = stack.pop();
+      }
+      if(meshtree.Push) {
+        stack.push(parent);
+      }
+
+      model.position.x = meshtree.x;
+      model.position.y = meshtree.y;
+      model.position.z = meshtree.z;
+
+      // model.rotation.x = frame.RotationX * (Math.PI / 180);
+      // model.rotation.y = frame.RotationY * (Math.PI / 180);
+      // model.rotation.z = frame.RotationZ * (Math.PI / 180);
+      
+      parent.add(model);
+      parent = model;
+    }
+  }, this);
+
+  group.position.x = this.definition.x;
+  group.position.y = this.definition.y;
+  group.position.z = this.definition.z;
+
+  group.rotation.y = this.definition.Rotation * (Math.PI / 180);
+
+  return group;
+};
+
+Moveable.prototype._prepareMeshes = function() {
+  var meshes = [];
+
+  _.times(this.object.NumMeshes, function(i) {
+    meshes.push(this.level.meshes[this.object.StartingMesh + i]);
+  }, this);
+
+  return meshes;
+};
+
+Moveable.prototype._prepareMeshtrees = function() {
+  var meshtrees = [];
+
+  _.times(this.object.NumMeshes, function(i) {
+    meshtrees.push(this.level.definition.MeshTrees[this.object.MeshTree + i]);
+  }, this);
+
+  return meshtrees;
+};
+
+module.exports = Moveable;
+},{"three":5,"underscore":6}],11:[function(require,module,exports){
+'use strict';
+
+var _ = require('underscore');
+var THREE = require('three');
 var Static = require('./static');
 
 var Room = function(level, definition) {
@@ -41745,7 +41879,7 @@ Room.prototype._placeStaticMeshes = function(container) {
 };
 
 module.exports = Room;
-},{"./static":11,"three":5,"underscore":6}],11:[function(require,module,exports){
+},{"./static":12,"three":5,"underscore":6}],12:[function(require,module,exports){
 'use strict';
 
 var _ = require('underscore');
@@ -41774,7 +41908,7 @@ Static.prototype.getModel = function() {
 };
 
 module.exports = Static;
-},{"three":5,"underscore":6}],12:[function(require,module,exports){
+},{"three":5,"underscore":6}],13:[function(require,module,exports){
 /**
  * @author qiao / https://github.com/qiao
  * @author mrdoob / http://mrdoob.com
@@ -42481,7 +42615,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 THREE.OrbitControls.prototype = Object.create( THREE.EventDispatcher.prototype );
 THREE.OrbitControls.prototype.constructor = THREE.OrbitControls;
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 var getJSON = function(url, callback) {
