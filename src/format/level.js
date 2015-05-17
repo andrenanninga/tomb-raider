@@ -8,9 +8,9 @@ var config = _.extend({}, structs, {
   'jBinary.all': 'Level',
   'jBinary.littleEndian': true,
 
-  Rooms: jBinary.Type({
-    read: function(context) {
-      return this.binary.read(['array', 'Room', context.NumRooms]);
+  tell: jBinary.Type({
+    read: function() {
+      return this.binary.tell();
     }
   }),
 
@@ -91,20 +91,9 @@ var config = _.extend({}, structs, {
     }
   }),
 
-  StaticMeshes: jBinary.Type({
-    read: function(context) {
-      return this.binary.read(['array', 'tr2_staticmesh', context.NumStaticMeshes]);
-    }
-  }),
-
-  ObjectTextures: jBinary.Type({
-    read: function(context) {
-      return this.binary.read(['array', 'tr2_object_texture', context.NumObjectTextures]);
-    }
-  }),
-
-
   Level: ['object', {
+    _frameCounter: 0,
+
     Version: 'uint32',
     
     Palette: ['skip', 768],
@@ -119,7 +108,7 @@ var config = _.extend({}, structs, {
     Unused: ['skip', 4],
     
     NumRooms: 'uint16',
-    Rooms: 'Rooms',
+    Rooms: ['array', 'Room', function(context) { return context.NumRooms; }],
 
     NumFloorData: 'uint32',
     // FloorData: ['array', 'uint16', function(context) { return context.NumFloorData; }],
@@ -150,32 +139,33 @@ var config = _.extend({}, structs, {
     AnimCommands: ['skip', function(context) { return context.NumAnimCommands * 2; }],
 
     NumMeshTrees: 'uint32',
-    // MeshTrees: 'MeshTrees',
-    MeshTrees: ['skip', function(context) { return context.NumMeshTrees * 4; }],
+    MeshTrees: ['array', 'tr2_meshtree', function(context) { return context.NumMeshTrees / 4; }],
+    // MeshTrees: ['skip', function(context) { return context.NumMeshTrees * 4; }],
 
     NumFrames: 'uint32',
-    // Frames: 'Frames',
+    FramesStart: 'tell',
+    // Frames: ['array', 'tr2_frame', function(context) { return context.NumFrames; }],
     Frames: ['skip', function(context) { return context.NumFrames * 2; }],
 
     NumMoveables: 'uint32',
-    // Moveables: 'Moveables',
-    Moveables: ['skip', function(context) { return context.NumMoveables * 18; }],
+    Moveables: ['array', 'tr2_moveable', function(context) { return context.NumMoveables; }],
+    // Moveables: ['skip', function(context) { return context.NumMoveables * 18; }],
 
     NumStaticMeshes: 'uint32',
-    StaticMeshes: 'StaticMeshes',
+    StaticMeshes: ['array', 'tr2_staticmesh', function(context) { return context.NumStaticMeshes; }],
     // StaticMeshes: ['skip', function(context) { return context.NumStaticMeshes * 32; }],
 
     NumObjectTextures: 'uint32',
-    ObjectTextures: 'ObjectTextures',
+    ObjectTextures: ['array', 'tr2_object_texture', function(context) { return context.NumObjectTextures; }],
     // ObjectTextures: ['skip', function(context) { return context.NumObjectTextures * 20; }],
 
     NumSpriteTextures: 'uint32',
-    // SpriteTextures: 'SpriteTextures',
-    SpriteTextures: ['skip', function(context) { return context.NumSpriteTextures * 16; }],
+    SpriteTextures: ['array', 'tr2_sprite_texture', function(context) { return context.NumSpriteTextures; }],
+    // SpriteTextures: ['skip', function(context) { return context.NumSpriteTextures * 16; }],
 
     NumSpriteSequences: 'uint32',
-    // SpriteSequences: 'SpriteSequences',
-    SpriteSequences: ['skip', function(context) { return context.NumSpriteSequences * 8; }],
+    SpriteSequences: ['array', 'tr2_sprite_sequence', function(context) { return context.NumSpriteSequences; }],
+    // SpriteSequences: ['skip', function(context) { return context.NumSpriteSequences * 8; }],
 
     NumCameras: 'uint32',
     // Cameras: 'Cameras',
@@ -200,8 +190,8 @@ var config = _.extend({}, structs, {
     AnimatedTextures: ['skip', function(context) { return context.NumAnimatedTextures * 2; }],
 
     NumItems: 'uint32',
-    // Items: 'Items',
-    Items: ['skip', function(context) { return context.NumItems * 24; }],
+    Items: ['array', 'tr2_item', function(context) { return context.NumItems; }],
+    // Items: ['skip', function(context) { return context.NumItems * 24; }],
 
     // LightMap: ['array', 'uint8', 8192],
     LightMap: ['skip', 8192],

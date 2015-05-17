@@ -2,6 +2,7 @@
 
 'use strict';
 
+var _ = require('underscore');
 var jBinary = require('jbinary');
 
 var structs = {
@@ -199,14 +200,26 @@ var structs = {
     Flags: 'uint16'
   },
 
-  tr2_moveable: {
-    ObjectID: 'uint32',
-    NumMeshes: 'uint16',
-    StartingMesh: 'uint16',
-    MeshTree: 'uint32',
-    FrameOffset: 'uint32',
-    Animation: 'uint16'
-  },
+  tr2_moveable: jBinary.Type({
+    read: function(context) {
+      var self = this;
+      var data = {};
+
+      data.ObjectID = this.binary.read('uint32');
+      data.NumMeshes = this.binary.read('uint16');
+      data.StartingMesh = this.binary.read('uint16');
+      data.MeshTree = this.binary.read('uint32') / 4;
+      data.FrameOffset = this.binary.read('uint32');
+      data.Animation = this.binary.read('uint16');
+
+      var frame = context.FramesStart + data.FrameOffset;
+      this.binary.seek(frame, function() {
+        data.Frame = self.binary.read(['tr2_frame', data]);
+      });
+
+      return data;
+    }
+  }),
 
   tr2_item: jBinary.Type({
     read: function() {
@@ -214,17 +227,33 @@ var structs = {
 
       data.ObjectID = this.binary.read('int16');
       data.Room = this.binary.read('int16');
-      data.x = this.binary.read('int16');
-      data.y = this.binary.read('int16');
-      data.z = this.binary.read('int16');
+      data.x = this.binary.read('int32');
+      data.y = this.binary.read('int32');
+      data.z = this.binary.read('int32');
 
       data.Rotation = this.binary.read('int16');
       data.Rotation = (data.Rotation >> 14) * 90;
 
       data.Intensity1 = this.binary.read('int16');
-      data.Intensity2 = this.binary.read('int16');
+      data.Intensity2 = this.binary.read('int16'); // absent in TR1
 
       data.Flags = this.binary.read('uint16');
+
+      return data;
+    }
+  }),
+
+  tr2_meshtree: jBinary.Type({
+    read: function() {
+      var data = {};
+
+      var flags = this.binary.read('int32');
+      data.Push = (flags & 0x0002) === 2;
+      data.Pop = (flags & 0x0001) === 1;
+
+      data.x = this.binary.read('int32');
+      data.y = this.binary.read('int32');
+      data.z = this.binary.read('int32');
 
       return data;
     }
@@ -246,7 +275,67 @@ var structs = {
     ObjectID: 'int32',
     NegativeLength: 'int16',
     Offset: 'int16'
-  }
+  },
+
+  tr2_frame: jBinary.Type({
+    params: ['moveable'],
+    read: function(context) {
+      var data = {};
+
+      data.BB1x = this.binary.read('int16');
+      data.BB1y = this.binary.read('int16');
+      data.BB1z = this.binary.read('int16');
+      
+      data.BB2x = this.binary.read('int16');
+      data.BB2y = this.binary.read('int16');
+      data.BB2z = this.binary.read('int16');
+
+      data.OffsetX = this.binary.read('int16');
+      data.OffsetY = this.binary.read('int16');
+      data.OffsetZ = this.binary.read('int16');
+
+      data.Meshes = [];
+      data.NumValues = this.moveable.NumMeshes;
+
+      _.times(data.NumValues, function() {
+        var mesh = {};
+
+        mesh.RotationX = 0;
+        mesh.RotationY = 0;
+        mesh.RotationZ = 0;
+
+        var rotation1 = this.binary.read('uint16');
+        var rotation2 = this.binary.read('uint16');
+
+        if(rotation1 & 0xC000) {
+          // sinlge angle
+          if((rotation1 & 0x8000) && (rotation1 & 0x4000)) {
+            mesh.RotationZ = (rotation1 & 0x03FF);
+          }
+          else if((rotation1 & 0x4000)) {
+            mesh.RotationY = (rotation1 & 0x03FF);
+          }
+          else {
+            mesh.RotationX = (rotation1 & 0x03FF);
+          }
+        }
+        else {
+          // three angles
+          mesh.RotationX = (rotation1 & 0x3FF0) >> 4;
+          mesh.RotationY = ((rotation1 & 0x000f) << 6) | ((rotation2 & 0xFC00) >> 10);
+          mesh.RotationZ = (rotation2 & 0x03FF);
+        }
+
+        mesh.RotationX = mesh.RotationX * 360 / 1024;
+        mesh.RotationY = mesh.RotationY * 360 / 1024;
+        mesh.RotationZ = mesh.RotationZ * 360 / 1024;
+
+        data.Meshes.push(mesh);
+      }, this);
+
+      return data;
+    }
+  })
 };
 
 module.exports = structs;

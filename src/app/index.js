@@ -6,6 +6,7 @@ var Stats = require('stats.js');
 var Dat   = require('dat-gui');
 var Level = require('../objects/level');
 
+global._ = _;
 global.THREE = THREE;
 
 require('../plugins/OrbitControls');
@@ -49,7 +50,14 @@ var loadLevel = function(levelName) {
   }
 
   level = new Level(levelName);
-  scene.add(level.container);
+  level.prepare(function(err) {
+    if(err) {
+      return console.error(err);
+    }
+
+    level.build();
+    scene.add(level.container);
+  });
 
   global.level = level;
 };

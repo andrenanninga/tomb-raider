@@ -70,7 +70,7 @@ gulp.task('build-levels:level', function(cb) {
   var loadedLevels = 0;
   var afterLevelLoad = function(err) {
     if(err) {
-      cb(err);
+      return cb(err);
     }
 
     loadedLevels += 1;
@@ -84,7 +84,7 @@ gulp.task('build-levels:level', function(cb) {
 
     loaderLevel(path, function(err, level) {
       if(err) {
-        afterLevelLoad(err);
+        return afterLevelLoad(err);
       }
 
       file('level.json', JSON.stringify(level), { src: true })
@@ -135,7 +135,7 @@ gulp.task('build-audio', function(cb) {
 
   loaderAudio(path, function(err, audio) {
     if(err) {
-      cb(err);
+      return cb(err);
     }
 
     _.each(audio, function(clip, i) {
@@ -148,14 +148,14 @@ gulp.task('build-audio', function(cb) {
 });
 
 gulp.task('build-js', function() {
-  return gulp.src('./src/app/index.js')
+  return gulp.src('./src/app/*.js')
     .pipe(plumber())
     .pipe(browserify())
     .pipe(gulp.dest('./build'));
 });
 
 gulp.task('build-html', function() {
-  return gulp.src('./src/app/index.html')
+  return gulp.src('./src/app/*.html')
     .pipe(plumber())
     .pipe(gulp.dest('./build'));
 });

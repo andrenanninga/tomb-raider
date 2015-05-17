@@ -1,0 +1,30 @@
+9:01 PM 10/1/2006
+
+This program was downloaded from Larashome..Thankyou Bex and all the others for keeping Lara alive!
+
+FexinspectSK prototype
+
+Add these files to your Fexinspect folder. Make a shortcut to desktop for the .exe.
+
+This program was modified from the Fexinspect program sources by Turbopascal. He deserves 99% of the credit for this program. The other 1%
+(The bugs!)belong to me LOL!
+
+What can you do with it?
+Well. First you can inspect TR levels as Fexinspect. However ther are a few mods I have made. The rooms gridbox view has been modified so that it shows only what I believe to be the true side portals so if you are recreating a level with TrePhoenix use this program to find the side portals a little easier. Dont understand what I mean? Look at the first room in TR2 level "boat" and compare to Fexinspect.(This is the main reason Im releasing the prog)
+OK..Next Ive added better ways to view the rooms and ability to click on a static mesh. Also you can resize but you will get errors only if you resize after loading a level. So try to get into habit of resizing BEFORE loading the level.
+
+Now the extras!(editing portion)
+You can edit an original level and save it. It will be playable! Its not 100% and I suggest you back up the level frequently. I didnt..So my example level is corrupted!(only after editing and saving 20 or so times) Ill try again later..
+I succeded in importing a few baddies with TRViewer so you are not limited to the originals. However its very touchy so try one at a time. You can experiment with that. I was importing a baddie over a baddie but
+you can experiment with that. You might be able to add them and change the Id of an existing baddie to
+the new imported baddie. Thereby not losing a baddie in the process.
+Duplicate: you can duplicate a movable of static mesh. Note that there is no sense duplicating something
+that is triggered. There wont be a trigger and the Invis bitbutton will be activated anyway. But you can duplicate something like TR2spikes.(I think I still need to duplicate the internal lighting though as they may seem very bright)You could also duplicate an animating object and change ID to another animating. Watch out for that Invis bitbutton Im not changing those and the bitbuttons dont edit yet.
+If you change the rooms properties of a movable you wont see it change to the new room until you save and reload. If you need an an animating in another room that have none to duplicate from you may have to duplicate from another room and change its rooms property to the empty room and then if you need more (animatings in the empty room)you can duplicate from the new one..Static meshes cant be changed that way yet.
+OK..Thats enuff for now..Ill have to work on my example again to show that alot of chages to originals can be done this way but rember this is not fully tested and I dont think Turbo ever meant his loading/saving rutines to ever be used in this manner so some things may not work.(I know TRC levels dont do it all)
+
+Again..Thanks Turbopascal for your work and help. And remember all..Im a newbie programmer!
+
+EDIT>>>Rotate dont work the best and XYZ values are true values so for Y up direction is less. Down is more.
+
+---Skateboard Kid---
