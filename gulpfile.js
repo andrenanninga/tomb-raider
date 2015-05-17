@@ -16,6 +16,7 @@ var ghPages          = require('gulp-gh-pages');
 
 var loaderTextiles16 = require('./src/loader/textiles16');
 var loaderLevel      = require('./src/loader/level');
+var loaderAudio      = require('./src/loader/audio');
 
 var levelNames = [
   'assault',
@@ -129,6 +130,23 @@ gulp.task('build-levels:textiles16', function(cb) {
   });
 });
 
+gulp.task('build-audio', function(cb) {
+  var path = './data/MAIN.SFX';
+
+  loaderAudio(path, function(err, audio) {
+    if(err) {
+      cb(err);
+    }
+
+    _.each(audio, function(clip, i) {
+      file(i + '.wav', clip, { src: true })
+        .pipe(gulp.dest('./build/audio'));
+    });
+
+    cb();
+  });
+});
+
 gulp.task('build-js', function() {
   return gulp.src('./src/app/index.js')
     .pipe(plumber())
@@ -168,6 +186,6 @@ gulp.task('deploy', ['deploy:prepare'], function() {
 
 gulp.task('deploy:prepare', function(cb) {
   runSequence('clean', 
-    ['build-js', 'build-html', 'build-levels'], 
+    ['build-js', 'build-html', 'build-levels', 'build-audio'], 
   cb);
 });
