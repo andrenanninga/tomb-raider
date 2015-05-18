@@ -12,9 +12,18 @@ var Mesh = function(level, definition) {
 };
 
 Mesh.prototype.getModel = function() {
+  if(this.definition.Dummy) {
+    var model = new THREE.Mesh(
+      new THREE.SphereGeometry(20, 4, 4),
+      new THREE.MeshNormalMaterial({ wireframe: true })
+    );
+
+    return model;
+  }
+
   var texturedMaterial = new THREE.MeshFaceMaterial(this.level.textiles16);
   var texturedGeometry = new THREE.Geometry();
-  var colouredMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff, vertexColors: THREE.FaceColors });
+  var colouredMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff, vertexColors: THREE.FaceColors, shininess: 1 });
   var colouredGeometry = new THREE.Geometry();
 
   texturedGeometry.vertices = this.vertices;

@@ -57,7 +57,13 @@ level.prepare(function(err) {
 });
 
 var loadMoveable = function(objectId) {
-  var definition = _.findWhere(level.definition.Items, { ObjectID: objectId });
+  var definition = {
+    ObjectID: objectId,
+    Rotation: 0,
+    x: 0,
+    y: 0,
+    z: 0,
+  };
 
   scene.remove(model);
 
@@ -75,19 +81,43 @@ var gui = new Dat.GUI();
 
 var moveables = {
   lara: function() { loadMoveable(0); },
+  laraPistol: function() { loadMoveable(1); },
+  laraShotgun: function() { loadMoveable(3); },
+  laraAutoPistol: function() { loadMoveable(4); },
+  laraUzi: function() { loadMoveable(5); },
+  laraM16: function() { loadMoveable(6); },
+  laraGrenadeLauncher: function() { loadMoveable(7); },
+  laraHarpoon: function() { loadMoveable(8); },
+  laraFlare: function() { loadMoveable(9); },
   spider: function() { loadMoveable(36); },
   crow: function() { loadMoveable(38); },
   tiger: function() { loadMoveable(39); },
   collapsibleFloor: function() { loadMoveable(55); },
+  smallMedipack: function() { loadMoveable(171); },
+  largeMedipack: function() { loadMoveable(172); },
+  flares: function() { loadMoveable(173); },
+  trex: function() { loadMoveable(214); },
   skybox: function() { loadMoveable(254); },
   helicopter: function() { loadMoveable(259); },
 };
 
 gui.add(moveables, 'lara');
+gui.add(moveables, 'laraPistol');
+gui.add(moveables, 'laraShotgun');
+gui.add(moveables, 'laraAutoPistol');
+gui.add(moveables, 'laraUzi');
+gui.add(moveables, 'laraM16');
+gui.add(moveables, 'laraGrenadeLauncher');
+gui.add(moveables, 'laraHarpoon');
+gui.add(moveables, 'laraFlare');
 gui.add(moveables, 'spider');
 gui.add(moveables, 'crow');
 gui.add(moveables, 'tiger');
 gui.add(moveables, 'collapsibleFloor');
+gui.add(moveables, 'smallMedipack');
+gui.add(moveables, 'largeMedipack');
+gui.add(moveables, 'flares');
+gui.add(moveables, 'trex');
 gui.add(moveables, 'skybox');
 gui.add(moveables, 'helicopter');
 

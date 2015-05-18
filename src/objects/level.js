@@ -130,7 +130,11 @@ Level.prototype._preparePalette16 = function() {
 };
 
 Level.prototype._prepareMeshes = function() {
-  return _.map(this.definition.Meshes, function(definition) {
+  return _.map(this.definition.Meshes, function(definition, i) {
+    if(i !== 0 && _.isEqual(this.definition.Meshes[0], definition)) {
+      definition.Dummy = true;
+    }
+
     var mesh = new Mesh(this, definition);
     return mesh.getModel();
   }, this);

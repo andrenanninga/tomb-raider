@@ -50,7 +50,7 @@ Moveable.prototype.getModel = function() {
       
     parent.add(model);
     parent = model;
-    
+
   }, this);
 
   group.position.x = this.definition.x;

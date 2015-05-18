@@ -55,6 +55,11 @@ var loadLevel = function(levelName) {
     scene.remove(level.container);
   }
 
+  camera.position.x = 200;
+  camera.position.y = 200;
+  camera.position.z = 200;
+  camera.lookAt(new THREE.Vector3());
+
   level = new Level(levelName);
   level.prepare(function(err) {
     if(err) {
