@@ -12,14 +12,18 @@ global.THREE = THREE;
 
 require('../plugins/OrbitControls');
 
+var width = window.innerWidth;
+var height = window.innerHeight;
+
 var scene = new THREE.Scene();
 var renderer = new THREE.WebGLRenderer();
 renderer.setClearColor(0xf0f0f0);
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(width, height);
 document.body.appendChild(renderer.domElement);
 
-var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 10000);
+var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 10000);
+// var camera = new THREE.OrthographicCamera(width / - 2, width / 2, height / 2, height / - 2, 1, 10000);
 camera.position.x = 200;
 camera.position.y = 200;
 camera.position.z = 200;
@@ -69,6 +73,7 @@ var loadMoveable = function(objectId) {
 
   moveable = new Moveable(level, definition);
   model = moveable.getModel();
+  global.model = model;
 
   model.scale.x = 0.1;
   model.scale.y = -0.1;

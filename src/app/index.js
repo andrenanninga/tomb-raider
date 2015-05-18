@@ -11,15 +11,21 @@ global.THREE = THREE;
 
 require('../plugins/OrbitControls');
 
+var width = window.innerWidth;
+var height = window.innerHeight;
+
 var scene = new THREE.Scene();
 var renderer = new THREE.WebGLRenderer();
 renderer.setClearColor(0xf0f0f0);
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(window.innerWidth, window.innerHeight);
-// renderer.shadowMapEnabled = true;
+renderer.setSize(width, height);
+renderer.shadowMapEnabled = true;
+renderer.shadowMapSoft = true;
+renderer.shadowMapType = THREE.PCFShadowMap;
 document.body.appendChild(renderer.domElement);
 
-var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 10000);
+var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 10000);
+// var camera = new THREE.OrthographicCamera(width / - 2, width / 2, height / 2, height / - 2, 1, 10000);
 camera.position.x = 200;
 camera.position.y = 200;
 camera.position.z = 200;
@@ -37,11 +43,13 @@ var light = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.5);
 scene.add(light);
 
 var light = new THREE.DirectionalLight(0xffffff, 0.5);
-// light.castShadow = true;
-// light.shadowDarkness = 0.5;
-// light.shadowMapSoft = true;
-// light.shadowMapWidth = 1024;
-// light.shadowMapHeight = 1024;
+light.shadowCameraFov = THREE.VIEW_ANGLE;
+light.castShadow = true;
+light.shadowBias = 0.0001;
+light.shadowDarkness = 0.5;
+light.shadowMapSoft = true;
+light.shadowMapWidth = 4096;
+light.shadowMapHeight = 4096;
 light.position.set(camera.position.x, camera.position.y, camera.position.z);
 scene.add(light);
 
@@ -55,16 +63,16 @@ var loadLevel = function(levelName) {
     scene.remove(level.container);
   }
 
-  camera.position.x = 200;
-  camera.position.y = 200;
-  camera.position.z = 200;
-  camera.lookAt(new THREE.Vector3());
-
   level = new Level(levelName);
   level.prepare(function(err) {
     if(err) {
       return console.error(err);
     }
+
+    camera.position.x = 200;
+    camera.position.y = 200;
+    camera.position.z = 200;
+    camera.lookAt(new THREE.Vector3());
 
     level.build();
     scene.add(level.container);
@@ -123,7 +131,7 @@ var render = function () {
   stats.begin();
 
   controls.update();
-  light.position.set(camera.position.x, camera.position.y, camera.position.z);
+  // light.position.set(camera.position.x, camera.position.y, camera.position.z);
   renderer.render(scene, camera);
   
   stats.end();

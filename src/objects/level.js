@@ -80,7 +80,7 @@ Level.prototype._prepareTextiles16 = function() {
 
     var material = new THREE.MeshPhongMaterial({ 
       map: texture, 
-      // color: Math.floor(Math.random()*16777215),
+      // color: 0xB7C5D3,
       shininess: 1, 
       wireframe: false,
       transparent: true,
