@@ -1,7 +1,6 @@
 'use strict';
 
 var _                = require('underscore');
-var path             = require('path');
 var savePixels       = require('save-pixels');
 var source           = require('vinyl-source-stream');
 var runSequence      = require('run-sequence');
@@ -19,25 +18,25 @@ var loaderLevel      = require('./src/loader/level');
 var loaderAudio      = require('./src/loader/audio');
 
 var levelNames = [
-  'assault',
-  'boat',
-  'catacomb',
-  'deck',
-  'emprtomb',
-  'floating',
-  'house',
-  'icecave',
-  'keel',
-  'living',
-  'monastry',
-  'opera',
-  'platform',
-  'rig',
-  'skidoo',
-  'unwater',
-  'venice',
+  // 'assault',
+  // 'boat',
+  // 'catacomb',
+  // 'deck',
+  // 'emprtomb',
+  // 'floating',
+  // 'house',
+  // 'icecave',
+  // 'keel',
+  // 'living',
+  // 'monastry',
+  // 'opera',
+  // 'platform',
+  // 'rig',
+  // 'skidoo',
+  // 'unwater',
+  // 'venice',
   'wall',
-  'xian'
+  // 'xian'
 ];
 
 gulp.task('webserver', function() {

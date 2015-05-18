@@ -91,6 +91,33 @@ var config = _.extend({}, structs, {
     }
   }),
 
+  Animations: jBinary.Type({
+    read: function(context) {
+      var self = this;
+      var data = [];
+
+      this.binary.seek(context.AnimationsStart, function() {
+        data = self.binary.read(['array', 'tr2_animation', context.NumAnimations]);
+      });
+
+      return data;
+    }
+  }),
+
+  Frames: jBinary.Type({
+    read: function(context) {
+      var end = this.binary.tell() + context.NumFrames * 2;
+
+      var data = [];
+
+      while(this.binary.tell() < end) {
+        data.push(this.binary.read('tr2_frame'));
+      }
+
+      return data;
+    }
+  }),
+
   Level: ['object', {
     _frameCounter: 0,
 
@@ -123,8 +150,9 @@ var config = _.extend({}, structs, {
     MeshPoints: ['skip', function(context) { return context.NumMeshPointers * 4; }],
 
     NumAnimations: 'uint32',
-    // Animations: 'Animations',
-    Animations: ['skip', function(context) { return context.NumAnimations * 32; }],
+    AnimationsStart: 'tell',
+    // Animations: ['array', 'tr2_animation', function(context) { return context.NumAnimations; }],
+    _Animations: ['skip', function(context) { return context.NumAnimations * 32; }],
 
     NumStateChanges: 'uint32',
     // StateChanges: 'StateChanges',
@@ -144,8 +172,10 @@ var config = _.extend({}, structs, {
 
     NumFrames: 'uint32',
     FramesStart: 'tell',
-    // Frames: ['array', 'tr2_frame', function(context) { return context.NumFrames; }],
     Frames: ['skip', function(context) { return context.NumFrames * 2; }],
+    // Frames: 'Frames',
+
+    Animations: 'Animations',
 
     NumMoveables: 'uint32',
     Moveables: ['array', 'tr2_moveable', function(context) { return context.NumMoveables; }],

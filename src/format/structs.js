@@ -277,62 +277,115 @@ var structs = {
     Offset: 'int16'
   },
 
-  tr2_frame: jBinary.Type({
-    params: ['moveable'],
+  tr2_animation: jBinary.Type({
     read: function(context) {
+      var self = this;
       var data = {};
 
-      data.BB1x = this.binary.read('int16');
-      data.BB2x = this.binary.read('int16');
+      data.FrameOffset = this.binary.read('uint32');
+      data.FrameRate = this.binary.read('uint8');
+      data.FrameSize = this.binary.read('uint8');
+      data.StateID = this.binary.read('uint16');
 
-      data.BB1y = this.binary.read('int16');
-      data.BB2y = this.binary.read('int16');
+      // Unknown
+      this.binary.skip(8);
+
+      data.FrameStart = this.binary.read('uint16');
+      data.FrameEnd = this.binary.read('uint16');
+      data.NumFrames = data.FrameEnd - data.FrameStart + 1;
+
+      data.Frames = [];
+
+      this.binary.seek(context.FramesStart + data.FrameOffset, function() {
+        _.times(data.NumFrames, function() {
+          var frame = this.binary.read(['tr2_frame', null, data.FrameSize]);
+          data.Frames.push(frame);
+        }, self);
+      });
+
+      data.NextAnimation = this.binary.read('uint16');
+      data.NextFrame = this.binary.read('uint16');
+      data.NumStateChanges = this.binary.read('uint16');
+      data.StateChangeOffset = this.binary.read('uint16');
+      data.NumAnimCommands = this.binary.read('uint16');
+      data.AnimCommandOffset = this.binary.read('uint16');
+
+      return data;
+    }
+  }),
+
+  tr2_frame: jBinary.Type({
+    params: ['moveable', 'frameSize'],
+    read: function() {
+      var data = {};
+
+      this.binary.skip(12);
+      // data.BB1x = this.binary.read('int16');
+      // data.BB2x = this.binary.read('int16');
+
+      // data.BB1y = this.binary.read('int16');
+      // data.BB2y = this.binary.read('int16');
       
-      data.BB1z = this.binary.read('int16');
-      data.BB2z = this.binary.read('int16');
+      // data.BB1z = this.binary.read('int16');
+      // data.BB2z = this.binary.read('int16');
 
-      data.OffsetX = this.binary.read('int16');
-      data.OffsetY = this.binary.read('int16');
-      data.OffsetZ = this.binary.read('int16');
+      data.x = this.binary.read('int16');
+      data.y = this.binary.read('int16');
+      data.z = this.binary.read('int16');
 
-      data.Meshes = [];
-      data.NumValues = this.moveable.NumMeshes;
+      var getMesh = function() {
+        var X = 0;
+        var Y = 1;
+        var Z = 2;
 
-      _.times(data.NumValues, function() {
-        var mesh = {};
-
-        mesh.RotationX = 0;
-        mesh.RotationY = 0;
-        mesh.RotationZ = 0;
+        var rotation = [0, 0, 0];
 
         var rotation1 = this.binary.read('uint16');
 
         if(rotation1 & 0xC000) {
           // single angle
           if((rotation1 & 0x8000) && (rotation1 & 0x4000)) {
-            mesh.RotationZ = (rotation1 & 0x03FF);
+            rotation[Z] = (rotation1 & 0x03FF);
           }
           else if((rotation1 & 0x4000)) {
-            mesh.RotationX = (rotation1 & 0x03FF);
+            rotation[X] = (rotation1 & 0x03FF);
           }
           else {
-            mesh.RotationY = (rotation1 & 0x03FF);
+            rotation[Y] = (rotation1 & 0x03FF);
           }
         }
         else {
           // three angles
           var rotation2 = this.binary.read('uint16');
-          mesh.RotationX = (rotation1 & 0x3FF0) >> 4;
-          mesh.RotationY = ((rotation1 & 0x000f) << 6) | ((rotation2 & 0xFC00) >> 10);
-          mesh.RotationZ = (rotation2 & 0x03FF);
+          rotation[X] = (rotation1 & 0x3FF0) >> 4;
+          rotation[Y] = ((rotation1 & 0x000f) << 6) | ((rotation2 & 0xFC00) >> 10);
+          rotation[Z] = (rotation2 & 0x03FF);
         }
 
-        mesh.RotationX = Math.round(mesh.RotationX * 360 / 1024);
-        mesh.RotationY = Math.round(mesh.RotationY * 360 / 1024);
-        mesh.RotationZ = Math.round(mesh.RotationZ * 360 / 1024);
+        rotation[X] = Math.round(rotation[X] * 360 / 1024);
+        rotation[Y] = Math.round(rotation[Y] * 360 / 1024);
+        rotation[Z] = Math.round(rotation[Z] * 360 / 1024);
 
-        data.Meshes.push(mesh);
-      }, this);
+        data.Meshes.push(rotation);
+      };
+
+      data.Meshes = [];
+
+      if(this.moveable) {
+        data.NumValues = this.moveable.NumMeshes;
+        _.times(data.NumValues, getMesh, this);
+      }
+      else if(this.frameSize) {
+        var end = this.binary.tell() + this.frameSize * 2 - 18;
+
+        while(this.binary.tell() < end) {
+          var next = this.binary.tell() + 2;
+          getMesh.apply(this);
+          this.binary.seek(next);
+        }
+
+        data.NumValues = data.Meshes.length;
+      }
 
       return data;
     }

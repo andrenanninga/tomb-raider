@@ -21,37 +21,31 @@ Mesh.prototype.getModel = function() {
     return model;
   }
 
-  var texturedMaterial = new THREE.MeshFaceMaterial(this.level.textiles16);
-  var texturedGeometry = new THREE.Geometry();
-  var colouredMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff, vertexColors: THREE.FaceColors, shininess: 1 });
-  var colouredGeometry = new THREE.Geometry();
+  var geometry = new THREE.Geometry();
+  var material = new THREE.MeshFaceMaterial(this.level.textiles16);
+  material.materials.push(new THREE.MeshPhongMaterial({ 
+    color: 0xffffff, 
+    vertexColors: THREE.FaceColors, 
+    shininess: 1 })
+  );
 
-  texturedGeometry.vertices = this.vertices;
-  colouredGeometry.vertices = this.vertices;
+  geometry.vertices = this.vertices;
 
-  this._placeTexturedRectangles(texturedGeometry);
-  this._placeTexturedTriangles(texturedGeometry);
-  this._placeColouredRectangles(colouredGeometry);
-  this._placeColouredTriangles(colouredGeometry);
+  this._placeTexturedRectangles(geometry);
+  this._placeTexturedTriangles(geometry);
+  this._placeColouredRectangles(geometry);
+  this._placeColouredTriangles(geometry);
 
   if(this.normals.length === 0) {
-    texturedGeometry.computeFaceNormals();
-    colouredGeometry.computeFaceNormals();
+    geometry.computeFaceNormals();
   }
 
-  var group = new THREE.Group();
-  var texturedMesh = new THREE.Mesh(texturedGeometry, texturedMaterial);
-  var colouredMesh = new THREE.Mesh(colouredGeometry, colouredMaterial);
+  var mesh = new THREE.Mesh(geometry, material);
 
-  // texturedMesh.castShadow = true;
-  // texturedMesh.receiveShadow = true;
-  // colouredMesh.castShadow = true;
-  // colouredMesh.receiveShadow = true;
+  // mesh.castShadow = true;
+  // mesh.receiveShadow = true;
 
-  group.add(texturedMesh);
-  group.add(colouredMesh);
-
-  return group;
+  return mesh;
 };
 
 Mesh.prototype._prepareNormals = function() {
@@ -129,13 +123,15 @@ Mesh.prototype._placeColouredRectangles = function(geometry) {
     geometry.faces.push(new THREE.Face3(
       rect.Vertices[2], rect.Vertices[1], rect.Vertices[0],
       normals1,
-      this.level.palette16[rect.Palette]
+      this.level.palette16[rect.Palette],
+      this.level.textiles16.length
     ));
 
     geometry.faces.push(new THREE.Face3(
       rect.Vertices[3], rect.Vertices[2], rect.Vertices[0],
       normals2,
-      this.level.palette16[rect.Palette]
+      this.level.palette16[rect.Palette],
+      this.level.textiles16.length
     ));
 
   }, this);
@@ -152,7 +148,8 @@ Mesh.prototype._placeColouredTriangles = function(geometry) {
     geometry.faces.push(new THREE.Face3(
       tri.Vertices[2], tri.Vertices[1], tri.Vertices[0],
       normals,
-      this.level.palette16[tri.Palette]
+      this.level.palette16[tri.Palette],
+      this.level.textiles16.length
     ));
 
   }, this);

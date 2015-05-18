@@ -24,9 +24,9 @@ Moveable.prototype.getModel = function() {
     var frame = this.object.Frame.Meshes[i];
 
     if(i === 0) {
-      model.position.x = this.object.Frame.OffsetX;
-      model.position.y = this.object.Frame.OffsetY;
-      model.position.z = this.object.Frame.OffsetZ;
+      model.position.x = this.object.Frame.x;
+      model.position.y = this.object.Frame.y;
+      model.position.z = this.object.Frame.z;
     }
     else {
       var meshtree = this.meshtrees[i - 1];
@@ -43,9 +43,9 @@ Moveable.prototype.getModel = function() {
       model.position.z = meshtree.z;
     }
 
-    model.rotation.x = frame.RotationX * (Math.PI / 180);
-    model.rotation.y = frame.RotationY * (Math.PI / 180);
-    model.rotation.z = frame.RotationZ * (Math.PI / 180);
+    model.rotation.x = frame[0] * (Math.PI / 180);
+    model.rotation.y = frame[1] * (Math.PI / 180);
+    model.rotation.z = frame[2] * (Math.PI / 180);
     model.rotation.order = 'YXZ';
       
     parent.add(model);

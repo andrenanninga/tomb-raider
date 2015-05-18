@@ -73,6 +73,8 @@ var loadMoveable = function(objectId) {
 
   moveable = new Moveable(level, definition);
   model = moveable.getModel();
+  
+  global.moveable = moveable;
   global.model = model;
 
   model.scale.x = 0.1;

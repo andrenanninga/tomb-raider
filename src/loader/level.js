@@ -15,6 +15,7 @@ var loadLevel = function(levelPath, callback) {
       level = jb.readAll();
     }
     catch(err) {
+      console.log(err.stack);
       return callback(err);
     }
 
