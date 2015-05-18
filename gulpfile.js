@@ -6,6 +6,7 @@ var source           = require('vinyl-source-stream');
 var runSequence      = require('run-sequence');
 var gulp             = require('gulp');
 var clean            = require('gulp-clean');
+var size             = require('gulp-size');
 var connect          = require('gulp-connect');
 var gutil            = require('gulp-util');
 var file             = require('gulp-file');
@@ -24,18 +25,18 @@ var levelNames = [
   // 'deck',
   // 'emprtomb',
   // 'floating',
-  // 'house',
+  'house',
   // 'icecave',
   // 'keel',
   // 'living',
   // 'monastry',
-  // 'opera',
+  'opera',
   // 'platform',
   // 'rig',
   // 'skidoo',
   // 'unwater',
   // 'venice',
-  'wall',
+  // 'wall',
   // 'xian'
 ];
 
@@ -87,6 +88,7 @@ gulp.task('build-levels:level', function(cb) {
       }
 
       file('level.json', JSON.stringify(level), { src: true })
+        .pipe(size({ title: levelName }))
         .pipe(gulp.dest('./build/levels/' + levelName));
 
       gutil.log('finished build-levels:level - ' + levelName);
@@ -139,6 +141,7 @@ gulp.task('build-audio', function(cb) {
 
     _.each(audio, function(clip, i) {
       file(i + '.wav', clip, { src: true })
+        .pipe(size())
         .pipe(gulp.dest('./build/audio'));
     });
 

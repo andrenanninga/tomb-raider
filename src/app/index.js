@@ -19,9 +19,9 @@ var renderer = new THREE.WebGLRenderer();
 renderer.setClearColor(0xf0f0f0);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(width, height);
-renderer.shadowMapEnabled = true;
-renderer.shadowMapSoft = true;
-renderer.shadowMapType = THREE.PCFShadowMap;
+// renderer.shadowMapEnabled = true;
+// renderer.shadowMapSoft = true;
+// renderer.shadowMapType = THREE.PCFShadowMap;
 document.body.appendChild(renderer.domElement);
 
 var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 10000);
@@ -44,12 +44,12 @@ scene.add(light);
 
 var light = new THREE.DirectionalLight(0xffffff, 0.5);
 light.shadowCameraFov = THREE.VIEW_ANGLE;
-light.castShadow = true;
-light.shadowBias = 0.0001;
-light.shadowDarkness = 0.5;
-light.shadowMapSoft = true;
-light.shadowMapWidth = 4096;
-light.shadowMapHeight = 4096;
+// light.castShadow = true;
+// light.shadowBias = 0.0001;
+// light.shadowDarkness = 0.5;
+// light.shadowMapSoft = true;
+// light.shadowMapWidth = 4096;
+// light.shadowMapHeight = 4096;
 light.position.set(camera.position.x, camera.position.y, camera.position.z);
 scene.add(light);
 
