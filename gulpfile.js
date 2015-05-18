@@ -19,25 +19,25 @@ var loaderLevel      = require('./src/loader/level');
 var loaderAudio      = require('./src/loader/audio');
 
 var levelNames = [
-  'assault',
-  'boat',
-  'catacomb',
-  'deck',
-  'emprtomb',
-  'floating',
-  'house',
-  'icecave',
-  'keel',
-  'living',
-  'monastry',
-  'opera',
-  'platform',
-  'rig',
-  'skidoo',
-  'unwater',
-  'venice',
+  // 'assault',
+  // 'boat',
+  // 'catacomb',
+  // 'deck',
+  // 'emprtomb',
+  // 'floating',
+  // 'house',
+  // 'icecave',
+  // 'keel',
+  // 'living',
+  // 'monastry',
+  // 'opera',
+  // 'platform',
+  // 'rig',
+  // 'skidoo',
+  // 'unwater',
+  // 'venice',
   'wall',
-  'xian'
+  // 'xian'
 ];
 
 gulp.task('webserver', function() {
@@ -179,13 +179,20 @@ gulp.task('build', function(callback) {
   );
 });
 
-gulp.task('deploy', ['deploy:prepare'], function() {
+gulp.task('build:full', function(callback) {
+  runSequence(
+    'clean',
+    [
+      'build-js',
+      'build-html',
+      'build-levels',
+      'build-audio',
+    ],
+    callback
+  );
+})
+
+gulp.task('deploy', ['build:full'], function() {
   return gulp.src('./build/**/*.*')
     .pipe(ghPages());
-});
-
-gulp.task('deploy:prepare', function(cb) {
-  runSequence('clean', 
-    ['build-js', 'build-html', 'build-levels', 'build-audio'], 
-  cb);
 });

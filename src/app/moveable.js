@@ -36,7 +36,7 @@ document.body.appendChild(stats.domElement);
 var light = new THREE.AmbientLight(0x666666);
 scene.add(light);
 
-var light = new THREE.PointLight(0xffffff, 2, 10000);
+var light = new THREE.PointLight(0xffffff, 0.5, 10000);
 light.position.set(camera.position.x, camera.position.y, camera.position.z);
 scene.add(light);
 

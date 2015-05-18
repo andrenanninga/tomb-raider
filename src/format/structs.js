@@ -283,11 +283,12 @@ var structs = {
       var data = {};
 
       data.BB1x = this.binary.read('int16');
-      data.BB1y = this.binary.read('int16');
-      data.BB1z = this.binary.read('int16');
-      
       data.BB2x = this.binary.read('int16');
+
+      data.BB1y = this.binary.read('int16');
       data.BB2y = this.binary.read('int16');
+      
+      data.BB1z = this.binary.read('int16');
       data.BB2z = this.binary.read('int16');
 
       data.OffsetX = this.binary.read('int16');
@@ -305,30 +306,30 @@ var structs = {
         mesh.RotationZ = 0;
 
         var rotation1 = this.binary.read('uint16');
-        var rotation2 = this.binary.read('uint16');
 
         if(rotation1 & 0xC000) {
-          // sinlge angle
+          // single angle
           if((rotation1 & 0x8000) && (rotation1 & 0x4000)) {
             mesh.RotationZ = (rotation1 & 0x03FF);
           }
           else if((rotation1 & 0x4000)) {
-            mesh.RotationY = (rotation1 & 0x03FF);
+            mesh.RotationX = (rotation1 & 0x03FF);
           }
           else {
-            mesh.RotationX = (rotation1 & 0x03FF);
+            mesh.RotationY = (rotation1 & 0x03FF);
           }
         }
         else {
           // three angles
+          var rotation2 = this.binary.read('uint16');
           mesh.RotationX = (rotation1 & 0x3FF0) >> 4;
           mesh.RotationY = ((rotation1 & 0x000f) << 6) | ((rotation2 & 0xFC00) >> 10);
           mesh.RotationZ = (rotation2 & 0x03FF);
         }
 
-        mesh.RotationX = mesh.RotationX * 360 / 1024;
-        mesh.RotationY = mesh.RotationY * 360 / 1024;
-        mesh.RotationZ = mesh.RotationZ * 360 / 1024;
+        mesh.RotationX = Math.round(mesh.RotationX * 360 / 1024);
+        mesh.RotationY = Math.round(mesh.RotationY * 360 / 1024);
+        mesh.RotationZ = Math.round(mesh.RotationZ * 360 / 1024);
 
         data.Meshes.push(mesh);
       }, this);

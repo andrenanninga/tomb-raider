@@ -18,20 +18,17 @@ Moveable.prototype.getModel = function() {
 
   var parent = group;
   parent.depth = 0;
- 
+
   _.each(this.meshes, function(mesh, i) {
     var model = this.meshes[i].clone();
+    var frame = this.object.Frame.Meshes[i];
 
     if(i === 0) {
       model.position.x = this.object.Frame.OffsetX;
       model.position.y = this.object.Frame.OffsetY;
       model.position.z = this.object.Frame.OffsetZ;
-
-      group.add(model);
-      parent = model;
     }
     else {
-      var frame = this.object.Frame.Meshes[i - 1];
       var meshtree = this.meshtrees[i - 1];
 
       if(meshtree.Pop) {
@@ -44,14 +41,16 @@ Moveable.prototype.getModel = function() {
       model.position.x = meshtree.x;
       model.position.y = meshtree.y;
       model.position.z = meshtree.z;
-
-      // model.rotation.x = frame.RotationX * (Math.PI / 180);
-      // model.rotation.y = frame.RotationY * (Math.PI / 180);
-      // model.rotation.z = frame.RotationZ * (Math.PI / 180);
-      
-      parent.add(model);
-      parent = model;
     }
+
+    model.rotation.x = frame.RotationX * (Math.PI / 180);
+    model.rotation.y = frame.RotationY * (Math.PI / 180);
+    model.rotation.z = frame.RotationZ * (Math.PI / 180);
+    model.rotation.order = 'YXZ';
+      
+    parent.add(model);
+    parent = model;
+    
   }, this);
 
   group.position.x = this.definition.x;
