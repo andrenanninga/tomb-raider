@@ -25,18 +25,18 @@ var levelNames = [
   // 'deck',
   // 'emprtomb',
   // 'floating',
-  'house',
+  // 'house',
   // 'icecave',
   // 'keel',
   // 'living',
   // 'monastry',
-  'opera',
+  // 'opera',
   // 'platform',
   // 'rig',
   // 'skidoo',
   // 'unwater',
   // 'venice',
-  // 'wall',
+  'wall',
   // 'xian'
 ];
 

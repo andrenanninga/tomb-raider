@@ -15,6 +15,7 @@ require('../plugins/OrbitControls');
 var width = window.innerWidth;
 var height = window.innerHeight;
 
+var clock = new THREE.Clock();
 var scene = new THREE.Scene();
 var renderer = new THREE.WebGLRenderer();
 renderer.setClearColor(0xf0f0f0);
@@ -73,15 +74,15 @@ var loadMoveable = function(objectId) {
 
   moveable = new Moveable(level, definition);
   model = moveable.getModel();
-  
-  global.moveable = moveable;
-  global.model = model;
 
   model.scale.x = 0.1;
   model.scale.y = -0.1;
   model.scale.z = -0.1;
   model.position.set(0, 0, 0);
   scene.add(model);
+  
+  global.moveable = moveable;
+  global.model = model;
 };
 
 var gui = new Dat.GUI();
@@ -131,10 +132,14 @@ gui.add(moveables, 'helicopter');
 var render = function () {
   stats.begin();
 
+  var delta = clock.getDelta();
+
+  THREE.AnimationHandler.update(delta);
+
   controls.update();
   light.position.set(camera.position.x, camera.position.y, camera.position.z);
   renderer.render(scene, camera);
-  
+
   stats.end();
   requestAnimationFrame(render);
 };

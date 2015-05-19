@@ -167,15 +167,15 @@ var config = _.extend({}, structs, {
     AnimCommands: ['skip', function(context) { return context.NumAnimCommands * 2; }],
 
     NumMeshTrees: 'uint32',
-    // MeshTrees: ['array', 'tr2_meshtree', function(context) { return context.NumMeshTrees / 4; }],
-    MeshTrees: ['skip', function(context) { return context.NumMeshTrees * 4; }],
+    MeshTrees: ['array', 'tr2_meshtree', function(context) { return context.NumMeshTrees / 4; }],
+    // MeshTrees: ['skip', function(context) { return context.NumMeshTrees * 4; }],
 
     NumFrames: 'uint32',
     FramesStart: 'tell',
     Frames: ['skip', function(context) { return context.NumFrames * 2; }],
     // Frames: 'Frames',
 
-    // Animations: 'Animations',
+    Animations: 'Animations',
 
     NumMoveables: 'uint32',
     Moveables: ['array', 'tr2_moveable', function(context) { return context.NumMoveables; }],

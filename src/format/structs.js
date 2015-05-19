@@ -319,15 +319,15 @@ var structs = {
     read: function() {
       var data = {};
 
-      this.binary.skip(12);
-      // data.BB1x = this.binary.read('int16');
-      // data.BB2x = this.binary.read('int16');
+      // this.binary.skip(12);
+      data.BB1x = this.binary.read('int16');
+      data.BB2x = this.binary.read('int16');
 
-      // data.BB1y = this.binary.read('int16');
-      // data.BB2y = this.binary.read('int16');
+      data.BB1y = this.binary.read('int16');
+      data.BB2y = this.binary.read('int16');
       
-      // data.BB1z = this.binary.read('int16');
-      // data.BB2z = this.binary.read('int16');
+      data.BB1z = this.binary.read('int16');
+      data.BB2z = this.binary.read('int16');
 
       data.x = this.binary.read('int16');
       data.y = this.binary.read('int16');
@@ -376,14 +376,16 @@ var structs = {
         _.times(data.NumValues, getMesh, this);
       }
       else if(this.frameSize) {
-        var end = this.binary.tell() + this.frameSize * 2 - 18;
+        var current = this.binary.tell();
+        var end = current + this.frameSize * 2 - 18;
 
-        while(this.binary.tell() < end) {
-          var next = this.binary.tell() + 2;
+        while(current < end) {
           getMesh.apply(this);
-          this.binary.seek(next);
+
+          current += 2;
         }
 
+        this.binary.seek(end);
         data.NumValues = data.Meshes.length;
       }
 

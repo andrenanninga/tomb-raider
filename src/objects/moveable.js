@@ -59,6 +59,13 @@ Moveable.prototype.getModel = function() {
 
   group.rotation.y = this.definition.Rotation * (Math.PI / 180);
 
+  var meshes = [];
+  group.traverse(function(mesh) { if(mesh.type === 'Mesh') { meshes.push(mesh); } });
+
+  this.animations = this._prepareAnimations(meshes);
+  var animation = new THREE.Animation(group.children[0], this.animations[0]);
+  animation.play();
+
   return group;
 };
 
@@ -80,6 +87,50 @@ Moveable.prototype._prepareMeshtrees = function() {
   }, this);
 
   return meshtrees;
+};
+
+Moveable.prototype._prepareAnimations = function(meshes) {
+  var animations = [];
+
+  _.times(1, function(i) {
+    var definition = this.level.definition.Animations[this.object.Animation + i];
+
+    var speed = 1;
+
+    var animation = {
+      name: 'animation' + i,
+      fps: 25,
+      length: 1 / speed,
+      hierarchy: []
+    };
+
+    _.times(this.object.NumMeshes, function(j) {
+      var mesh = meshes[j];
+      var keys = _.map(definition.Frames, function(frame, k) {
+
+        var rotation = _.map(frame.Meshes[j], function(rot) { return rot * Math.PI / 180; });
+        var quaternion = new THREE.Quaternion();
+        quaternion.setFromEuler(new THREE.Euler(rotation[0], rotation[1], rotation[2], 'YXZ'));
+
+        return {
+          time: k / definition.NumFrames / speed,
+          pos: mesh.position.toArray(),
+          scl: [1, 1, 1],
+          rot: quaternion.toArray()
+        };
+      }, this);
+
+      animation.hierarchy.push({
+        parent: j,
+        keys: keys
+      });
+    }, this);
+    
+    animations.push(animation);
+
+  }, this);
+
+  return animations;
 };
 
 module.exports = Moveable;
