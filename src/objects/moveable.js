@@ -63,8 +63,8 @@ Moveable.prototype.getModel = function() {
   group.traverse(function(mesh) { if(mesh.type === 'Mesh') { meshes.push(mesh); } });
 
   this.animations = this._prepareAnimations(meshes);
-  var animation = new THREE.Animation(group.children[0], this.animations[0]);
-  animation.play();
+  this.animation = new THREE.Animation(group.children[0], this.animations[103]);
+  this.animation.play();
 
   return group;
 };
@@ -92,7 +92,7 @@ Moveable.prototype._prepareMeshtrees = function() {
 Moveable.prototype._prepareAnimations = function(meshes) {
   var animations = [];
 
-  _.times(1, function(i) {
+  _.times(218, function(i) {
     var definition = this.level.definition.Animations[this.object.Animation + i];
 
     var speed = 1;

@@ -172,14 +172,14 @@ var config = _.extend({}, structs, {
 
     NumFrames: 'uint32',
     FramesStart: 'tell',
-    Frames: ['skip', function(context) { return context.NumFrames * 2; }],
+    Frames: ['array', 'int16', function(context) { return context.NumFrames; }],
     // Frames: 'Frames',
-
-    Animations: 'Animations',
 
     NumMoveables: 'uint32',
     Moveables: ['array', 'tr2_moveable', function(context) { return context.NumMoveables; }],
     // Moveables: ['skip', function(context) { return context.NumMoveables * 18; }],
+
+    Animations: 'Animations',
 
     NumStaticMeshes: 'uint32',
     StaticMeshes: ['array', 'tr2_staticmesh', function(context) { return context.NumStaticMeshes; }],

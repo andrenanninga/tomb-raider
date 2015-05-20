@@ -296,12 +296,79 @@ var structs = {
 
       data.Frames = [];
 
-      this.binary.seek(context.FramesStart + data.FrameOffset, function() {
-        _.times(data.NumFrames, function() {
-          var frame = this.binary.read(['tr2_frame', null, data.FrameSize]);
-          data.Frames.push(frame);
-        }, self);
+      var frames = [];
+      _.times(data.NumFrames, function(i) {
+        var start = data.FrameOffset / 2 + i * data.FrameSize;
+        frames.push(context.Frames.slice(start, start + data.FrameSize));
       });
+
+      data.Frames = _.map(frames, function(binary) {
+        var frame = {};
+
+        frame.BB1x = binary.shift();
+        frame.BB2x = binary.shift();
+
+        frame.BB1y = binary.shift();
+        frame.BB2y = binary.shift();
+        
+        frame.BB1z = binary.shift();
+        frame.BB2z = binary.shift();
+
+        frame.x = binary.shift();
+        frame.y = binary.shift();
+        frame.z = binary.shift();
+
+        frame.Meshes = [];
+
+        var getMesh = function() {
+          var X = 0;
+          var Y = 1;
+          var Z = 2;
+
+          var rotation = [0, 0, 0];
+
+          var rotation1 = binary.shift();
+
+          if(rotation1 & 0xC000) {
+            // single angle
+            if((rotation1 & 0x8000) && (rotation1 & 0x4000)) {
+              rotation[Z] = (rotation1 & 0x03FF);
+            }
+            else if((rotation1 & 0x4000)) {
+              rotation[X] = (rotation1 & 0x03FF);
+            }
+            else {
+              rotation[Y] = (rotation1 & 0x03FF);
+            }
+          }
+          else {
+            // three angles
+            var rotation2 = binary.shift();
+            rotation[X] = (rotation1 & 0x3FF0) >> 4;
+            rotation[Y] = ((rotation1 & 0x000f) << 6) | ((rotation2 & 0xFC00) >> 10);
+            rotation[Z] = (rotation2 & 0x03FF);
+          }
+
+          rotation[X] = Math.round(rotation[X] * 360 / 1024);
+          rotation[Y] = Math.round(rotation[Y] * 360 / 1024);
+          rotation[Z] = Math.round(rotation[Z] * 360 / 1024);
+
+          frame.Meshes.push(rotation);
+        };
+
+        while(binary.length > 0) {
+          getMesh();
+        }
+
+        return frame;
+      });
+
+      // this.binary.seek(context.FramesStart + data.FrameOffset, function() {
+      //   _.times(data.NumFrames, function() {
+      //     var frame = this.binary.read(['tr2_frame', null, data.FrameSize]);
+      //     data.Frames.push(frame);
+      //   }, self);
+      // });
 
       data.NextAnimation = this.binary.read('uint16');
       data.NextFrame = this.binary.read('uint16');
