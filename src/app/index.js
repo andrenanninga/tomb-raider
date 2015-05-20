@@ -14,6 +14,7 @@ require('../plugins/OrbitControls');
 var width = window.innerWidth;
 var height = window.innerHeight;
 
+var clock = new THREE.Clock();
 var scene = new THREE.Scene();
 var renderer = new THREE.WebGLRenderer();
 renderer.setClearColor(0xf0f0f0);
@@ -130,6 +131,9 @@ gui.add(levels, 'xian');
 var render = function () {
   stats.begin();
 
+  var delta = clock.getDelta();
+  THREE.AnimationHandler.update(delta);
+  
   controls.update();
   // light.position.set(camera.position.x, camera.position.y, camera.position.z);
   renderer.render(scene, camera);

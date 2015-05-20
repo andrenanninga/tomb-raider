@@ -162,7 +162,6 @@ Level.prototype._placeItems = function(container) {
 
     if(object.Type === 'Moveable') {
       var moveable = new Moveable(this, definition);
-      console.log(moveable);
       container.add(moveable.getModel());
     }
   }, this);

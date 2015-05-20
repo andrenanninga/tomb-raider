@@ -99,7 +99,7 @@ Moveable.prototype._prepareAnimations = function(meshes) {
 
     var animation = {
       name: 'animation' + i,
-      fps: 25,
+      fps: 30,
       length: 1 / speed,
       hierarchy: []
     };
