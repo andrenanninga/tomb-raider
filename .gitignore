@@ -29,3 +29,5 @@ node_modules
 build
 
 .publish
+
+utils/fex-anim/MostRecentFiles.ini

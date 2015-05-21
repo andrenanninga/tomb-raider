@@ -63,7 +63,7 @@ Moveable.prototype.getModel = function() {
   group.traverse(function(mesh) { if(mesh.type === 'Mesh') { meshes.push(mesh); } });
 
   this.animations = this._prepareAnimations(meshes);
-  this.animation = new THREE.Animation(group.children[0], this.animations[103]);
+  this.animation = new THREE.Animation(group.children[0], this.animations[0]);
   this.animation.play();
 
   return group;
@@ -92,15 +92,15 @@ Moveable.prototype._prepareMeshtrees = function() {
 Moveable.prototype._prepareAnimations = function(meshes) {
   var animations = [];
 
-  _.times(218, function(i) {
+  _.times(1, function(i) {
     var definition = this.level.definition.Animations[this.object.Animation + i];
 
     var speed = 1;
 
     var animation = {
       name: 'animation' + i,
-      fps: 30,
-      length: 1 / speed,
+      fps: definition.FPS,
+      length: definition.Length,
       hierarchy: []
     };
 
@@ -112,9 +112,15 @@ Moveable.prototype._prepareAnimations = function(meshes) {
         var quaternion = new THREE.Quaternion();
         quaternion.setFromEuler(new THREE.Euler(rotation[0], rotation[1], rotation[2], 'YXZ'));
 
+        var position = mesh.position;
+
+        if(j === 0) {
+          position = new THREE.Vector3(frame.x, frame.y, frame.z);
+        }
+
         return {
-          time: k / definition.NumFrames / speed,
-          pos: mesh.position.toArray(),
+          time: k / definition.NumKeys * definition.Length,
+          pos: position.toArray(),
           scl: [1, 1, 1],
           rot: quaternion.toArray()
         };
