@@ -1,15 +1,9 @@
 /* eslint-disable no-undef */
+
 import hamsters from 'hamsters.js';
 
-hamsters.init({
-	debug: 'verbose',
-});
-
 export default async (palette, textile) => {
-	console.log(palette, textile);
 	return new Promise((resolve, reject) => {
-		console.log('2');
-	
 		const run = () => {
 			const image = new ImageData(256, 256);
 
@@ -27,14 +21,11 @@ export default async (palette, textile) => {
 
 			rtn.data = image;
 		}
-		
+
 		const callback = (result) => {
-			console.log('4');
-			console.log(result);
 			resolve(result[0])
 		}
 
-		console.log('3');
 		hamsters.run({ palette, textile }, run, callback);
 	});
 }

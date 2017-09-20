@@ -2,8 +2,15 @@ import c from 'c-struct';
 import Struct from 'struct';
 import toBuffer from 'blob-to-buffer';
 import { times } from 'lodash';
+import hamsters from 'hamsters.js';
 
-import textileLoader from './textile';
+import textile8Loader from './textile8';
+import textile16Loader from './textile16';
+import { palette, textile8, textile16, rooms } from './slice';
+
+hamsters.init({
+	debug: 'verbose',
+});
 
 const tr_colour = Struct()
 	.word8Ule('red')
@@ -66,10 +73,10 @@ export default () => {
 			const context = canvas.getContext('2d');
 			canvas.id = 'canvas';
 			canvas.width = 256;
-			canvas.height = 256;
+			canvas.height = 256 * 13;
 			canvas.style.cssText = `
 				width: 256px;
-				height: 256px;
+				height: ${256 * 13}px;
 				border: 2px solid rgba(255, 0, 255, 1);
 				position: absolute;
 				top: 0;
@@ -78,13 +85,17 @@ export default () => {
 			document.body.appendChild(canvas);
 
 			const slice = (buffer, start, length) => Buffer.from(buffer.slice(start, start + length));
-			const palette = 0;
 
-			const image = await textileLoader(
-				slice(buffer, 4, 768),
-				slice(buffer, 4 + 768 + 1024 + 4 + (65536 * palette), 65536)
-			);
+			// const image = await textile8Loader(
+			// 	slice(buffer, 4, 768),
+			// 	slice(buffer, 4 + 768 + 1024 + 4 + (65536 * palette), 65536)
+			// );
 
+			// const image = await textile8Loader(palette(buffer), textile8(buffer, false, 2));
+			const image = await textile16Loader(textile16(buffer, false));
+
+
+			console.log(rooms(buffer, false));
 			console.log('put');
 			context.putImageData(image, 0, 0);
 
