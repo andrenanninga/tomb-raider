@@ -5,6 +5,7 @@
   "dependencies": {
     "blob-to-buffer": "^1.2.6",
     "c-struct": "^0.0.4",
+    "hamsters.js": "^4.2.0",
     "lodash": "^4.17.4",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

@@ -3,9 +3,7 @@ import Struct from 'struct';
 import toBuffer from 'blob-to-buffer';
 import { times } from 'lodash';
 
-console.dir(Struct);
-
-// Struct.uint32 = Struct.word32Ule;
+import textileLoader from './textile';
 
 const tr_colour = Struct()
 	.word8Ule('red')
@@ -19,20 +17,18 @@ const tr_colour4 = Struct()
 	.word8Ule('alpha')
 
 const tr_textile8 = Struct()
-	.array('colour', 256 * 32, 'word8Ule');
+	.array('colour', 256 * 256, 'word8Ule');
 
 const tr_textile16 = Struct()
-	.array('colour', 256 * 32, 'word16Ule');
+	.array('colour', 256 * 256, 'word16Ule');
 
 const level = Struct()
 	.word32Ule('version')
-	.array('palette', 768, 'word8')
-	.array('palette16', 1024, 'word8')
+	.array('palette', 768, 'word8Ule')
+	.array('palette16', 1024, 'word8Ule')
 	.word32Ule('numTextiles')
-	.array('textile8', 13, tr_textile8)
-	.array('textile16', 13, tr_textile16)
-
-level.allocate();
+	.array('textile8', 13 * 256 * 256, 'word8Ule')
+	.array('textile16', 13 * 256 * 256, 'word16Ule')
 
 console.log(level);
 
@@ -56,15 +52,15 @@ export default () => {
 
 	
 	const request = new XMLHttpRequest();
-	request.open('GET', '/tombs/LIVING.TR2', true);
+	request.open('GET', '/tombs/ASSAULT.TR2', true);
 	request.responseType = 'blob';
 	
 	request.onload = function(oEvent) {
 		const blob = request.response;
-		toBuffer(blob, (err, buffer) => {
-			level.setBuffer(buffer);
+		toBuffer(blob, async (err, buffer) => {
+			// level.setBuffer(buffer);
 
-			console.log(level.fields);
+			// console.log(level.fields);
 
 			const canvas = document.createElement('canvas');
 			const context = canvas.getContext('2d');
@@ -81,30 +77,43 @@ export default () => {
 
 			document.body.appendChild(canvas);
 
-			const colours = level.fields.textile16[4].colour;
-			const textile = context.createImageData(256, 256);
+			const slice = (buffer, start, length) => Buffer.from(buffer.slice(start, start + length));
+			const palette = 0;
 
-			times(256 * 256, (i) => {
-				const color = colours[i] || 0;
+			const image = await textileLoader(
+				slice(buffer, 4, 768),
+				slice(buffer, 4 + 768 + 1024 + 4 + (65536 * palette), 65536)
+			);
 
-				const alpha = (color & 0x8000) * 255;
-				const red = ((color & 0x7c00) >> 10) * 8;
-				const green = ((color & 0x03e0) >> 5) * 8;
-				const blue = (color & 0x001f) * 8;
+			console.log('put');
+			context.putImageData(image, 0, 0);
 
-				if (Math.random() > 0.999) {
-					console.log(color.toString(16))
-					console.log({ red, green, blue });
-				}
+			// const colours = level.fields.textile8[1].colour;
+			// const textile = context.createImageData(256, 256);
+
+			// for(let i = 0; i < 256 * 32; i++) {
+			// 	const color = level.fields.palette[colours[i]] || {};
+			// 	const { red, green, blue } = color;
 				
-				textile.data[i * 4] = red;
-				textile.data[i * 4 + 1] = green;
-				textile.data[i * 4 + 2] = blue;
-				textile.data[i * 4 + 3] = 255;
-			});
+			// 	// const color = colours[i] || 0;
+			// 	// const alpha = (color & 0x8000) * 255;
+			// 	// const red = ((color & 0x7c00) >> 10) * 8;
+			// 	// const green = ((color & 0x03e0) >> 5) * 8;
+			// 	// const blue = (color & 0x001f) * 8;
 
-			console.log('put', textile);
-			context.putImageData(textile, 0, 0);
+			// 	// if (Math.random() > 0.999) {
+			// 	// 	console.log(color.toString(16))
+			// 	// 	console.log({ red, green, blue });
+			// 	// }
+				
+			// 	textile.data[i * 4] = red * 4;
+			// 	textile.data[i * 4 + 1] = green * 4;
+			// 	textile.data[i * 4 + 2] = blue * 4;
+			// 	textile.data[i * 4 + 3] = 255;
+			// }
+
+			// console.log('put', textile);
+			// context.putImageData(textile, 0, 0);
 		});
 	};
 	
