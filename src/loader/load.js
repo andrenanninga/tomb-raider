@@ -6,6 +6,7 @@ import hamsters from 'hamsters.js';
 
 import textile8Loader from './textile8';
 import textile16Loader from './textile16';
+import roomLoader from './room';
 import { palette, textile8, textile16, rooms } from './slice';
 
 hamsters.init({
@@ -94,10 +95,13 @@ export default () => {
 			// const image = await textile8Loader(palette(buffer), textile8(buffer, false, 2));
 			const image = await textile16Loader(textile16(buffer, false));
 
-
-			console.log(rooms(buffer, false));
 			console.log('put');
 			context.putImageData(image, 0, 0);
+
+			const room = rooms(buffer, false, 0);
+			console.log(room);
+			const verts = await roomLoader(room);
+			console.log(verts);
 
 			// const colours = level.fields.textile8[1].colour;
 			// const textile = context.createImageData(256, 256);

@@ -104,22 +104,24 @@ export const numRooms = (buffer, skip = false) => {
 		return end;
 	}
 
-	return Buffer.from(buffer.slice(start, end));
+	return buffer.readUInt16LE(start);
 }
 
 export const rooms = (buffer, skip = false, index = null) => {
-	const size = numRooms(buffer).readUInt16LE(0);
+	const size = numRooms(buffer);
 	const start = numRooms(buffer, true);
 	let pointer = start;
+	let roomStart = start;
 
-	for (let i = 0; i < 2; i++) {
+	for (let i = 0; i < size; i++) {
+		roomStart = pointer;
+
 		// roomInfo
 		pointer += 16;
 		
 		// dataWords
 		const numDataWords = buffer.readUInt32LE(pointer);
 		pointer += 4 + (numDataWords * 2);
-		console.log({ numDataWords })
 
 		// portals
 		const numPortals = buffer.readUInt16LE(pointer);
@@ -128,10 +130,7 @@ export const rooms = (buffer, skip = false, index = null) => {
 		// sectors
 		const numZsectors = buffer.readUInt16LE(pointer);
 		const numXsectors = buffer.readUInt16LE(pointer + 2);
-		console.log(pointer + 4)
-		console.log({ numZsectors, numXsectors });
 		pointer += 4 + (numZsectors * numXsectors * 8);
-		console.log(pointer)
 		
 		// ambientIntensity
 		pointer += 2;
@@ -140,16 +139,12 @@ export const rooms = (buffer, skip = false, index = null) => {
 		// lightMode
 		pointer += 2;
 
-		console.log(pointer);
-		
 		// lights
 		const numLights = buffer.readUInt16LE(pointer);
-		console.log({ numLights });
 		pointer += 2 + (numLights * 24);
 
 		// staticMeshes
 		const numStaticMeshes = buffer.readUInt16LE(pointer);
-		console.log({ numStaticMeshes });
 		pointer += 2 + (numStaticMeshes * 20);
 
 		// alternateRoom
@@ -157,7 +152,17 @@ export const rooms = (buffer, skip = false, index = null) => {
 
 		// flags
 		pointer += 2;
+
+		if (index === i) {
+			return Buffer.from(buffer.slice(roomStart, pointer));
+		}
 	}
 
-	return;
+	const end = pointer;
+
+	if (skip) {
+		return end;
+	}
+
+	return Buffer.from(buffer.slice(start, end));
 }

@@ -3,6 +3,8 @@ import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 import OrbitControls from 'three-orbit-controls';
 
+import Level from './Level';
+
 import load from './loader/load';
 
 const Controls = OrbitControls(THREE);
@@ -13,7 +15,7 @@ export default class Tomb extends PureComponent {
 
 		this.cameraPosition = new THREE.Vector3(0, 0, 5);
 
-		load();
+		// load();
 
 		this.setCamera = this.setCamera.bind(this);
 	}
@@ -35,6 +37,7 @@ export default class Tomb extends PureComponent {
 		return (
 			<React3
 				mainCamera="camera" // this points to the perspectiveCamera which has the name set to "camera" below
+				clearColor={0xffffff}
 				width={width}
 				height={height}
 			>
@@ -48,6 +51,8 @@ export default class Tomb extends PureComponent {
 						far={10000}
 						position={this.cameraPosition}
 					/>
+
+					<Level name="assault" />
 
 					<mesh>
 						<boxGeometry
