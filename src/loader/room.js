@@ -79,7 +79,7 @@ export default async (room) => {
 					vertices[reader.readUint16()],
 				];
 
-				reader.readUint16();
+				const texture = reader.readUint16();
 
 				addFace(verts[2], verts[1], verts[0]);
 				addFace(verts[3], verts[2], verts[0]);

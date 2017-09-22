@@ -30,6 +30,9 @@ export default class Level extends PureComponent {
 			const numRooms = slice.numRooms(level);
 			const rooms = times(numRooms, i => slice.rooms(level, false, i));
 
+			console.log(slice.numObjectTextures(level));
+			console.log(slice.numSpriteTextures(level));
+
 			this.setState({ level, rooms });
 		}
 		catch (e) {
@@ -46,8 +49,8 @@ export default class Level extends PureComponent {
 
 		return (
 			<group scale={this.scale} position={this.position}>
-				{rooms.map(room => (
-					<Room room={room} />
+				{rooms.map((room, i) => (
+					<Room key={i} room={room} />
 				))}
 			</group>
 		);
