@@ -54,7 +54,7 @@ Level.prototype.build = function() {
   center.divideScalar(this.definition.NumRooms);
   center.divideScalar(100);
 
-  this.container.position.sub(center);
+  // this.container.position.sub(center);
 
   this._placeItems(this.container);
 };

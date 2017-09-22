@@ -42,8 +42,8 @@ Mesh.prototype.getModel = function() {
 
   var mesh = new THREE.Mesh(geometry, material);
 
-  // mesh.castShadow = true;
-  // mesh.receiveShadow = true;
+  mesh.castShadow = true;
+  mesh.receiveShadow = true;
 
   return mesh;
 };

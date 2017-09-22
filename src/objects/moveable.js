@@ -59,6 +59,12 @@ Moveable.prototype.getModel = function() {
 
   group.rotation.y = this.definition.Rotation * (Math.PI / 180);
 
+  if (this.definition.ObjectID === 0) {
+    this.level.camera.position.x = this.definition.x * this.level.container.scale.x;
+    this.level.camera.position.y = this.definition.y * this.level.container.scale.y + 8;
+    this.level.camera.position.z = this.definition.z * this.level.container.scale.z;
+  }
+
   var meshes = [];
   group.traverse(function(mesh) { if(mesh.type === 'Mesh') { meshes.push(mesh); } });
 

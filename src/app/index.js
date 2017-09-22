@@ -5,34 +5,34 @@ var THREE = require('three');
 var Stats = require('stats.js');
 var Dat   = require('dat-gui');
 var Level = require('../objects/level');
+var FirstPersonControls = require('@fabienmotte/three-first-person-controls');
 
 global._ = _;
 global.THREE = THREE;
 
-require('../plugins/OrbitControls');
-
 var width = window.innerWidth;
 var height = window.innerHeight;
 
-var clock = new THREE.Clock();
+var clock = new THREE.Clock(true);
 var scene = new THREE.Scene();
 var renderer = new THREE.WebGLRenderer();
 renderer.setClearColor(0xf0f0f0);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(width, height);
-// renderer.shadowMapEnabled = true;
-// renderer.shadowMapSoft = true;
-// renderer.shadowMapType = THREE.PCFShadowMap;
+renderer.shadowMapEnabled = true;
+renderer.shadowMapSoft = true;
+renderer.shadowMapType = THREE.PCFShadowMap;
 document.body.appendChild(renderer.domElement);
 
 var camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 10000);
 // var camera = new THREE.OrthographicCamera(width / - 2, width / 2, height / 2, height / - 2, 1, 10000);
-camera.position.x = 200;
-camera.position.y = 200;
-camera.position.z = 200;
+camera.position.x = 0;
+camera.position.y = 0;
+camera.position.z = 0;
 
-var controls = new THREE.OrbitControls(camera);
-controls.damping = 0.2;
+var controls = new FirstPersonControls(camera);
+controls.lookSpeed = 2;
+controls.movementSpeed = 1000;
 
 var stats = new Stats();
 stats.domElement.style.position = 'absolute';
@@ -43,9 +43,9 @@ document.body.appendChild(stats.domElement);
 var light = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.5);
 scene.add(light);
 
-var light = new THREE.DirectionalLight(0xffffff, 0.5);
+var light = new THREE.PointLight(0xffffff, 0.5);
 light.shadowCameraFov = THREE.VIEW_ANGLE;
-// light.castShadow = true;
+light.castShadow = true;
 // light.shadowBias = 0.0001;
 // light.shadowDarkness = 0.5;
 // light.shadowMapSoft = true;
@@ -65,15 +65,15 @@ var loadLevel = function(levelName) {
   }
 
   level = new Level(levelName);
+  level.camera = camera;
   level.prepare(function(err) {
     if(err) {
       return console.error(err);
     }
 
-    camera.position.x = 200;
-    camera.position.y = 200;
-    camera.position.z = 200;
-    camera.lookAt(new THREE.Vector3());
+    camera.position.x = 0;
+    camera.position.y = 0;
+    camera.position.z = 0;
 
     level.build();
     scene.add(level.container);
@@ -134,8 +134,8 @@ var render = function () {
   var delta = clock.getDelta();
   THREE.AnimationHandler.update(delta);
   
-  controls.update();
-  // light.position.set(camera.position.x, camera.position.y, camera.position.z);
+  controls.update(clock.getDelta());
+  light.position.set(camera.position.x, camera.position.y, camera.position.z);
   renderer.render(scene, camera);
   
   stats.end();

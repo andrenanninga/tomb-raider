@@ -18,22 +18,27 @@ var config = _.extend({}, structs, {
     read: function() {
       var data = {};
 
+      // console.log(this.binary.tell());
+      // console.log(this.binary.read(['array', 'int32', 4]))
       data.RoomInfo = this.binary.read('tr2_room_info');
 
       data.NumData = this.binary.read('uint32');
       data.RoomData = this.binary.read('RoomData');
-
+      
       data.NumDoors = this.binary.read('uint16');
       data.Doors = this.binary.read(['array', 'tr2_room_door', data.NumDoors]);
-
+      
       data.NumZsector = this.binary.read('uint16');
       data.NumXsector = this.binary.read('uint16');
+      data.before = this.binary.tell();
       data.SectorData = this.binary.read(['array', 'tr2_room_sector', data.NumZsector * data.NumXsector]);
-
+      data.after = this.binary.tell();
+      
       data.Intensity1 = this.binary.read('int16');
       data.Intensity2 = this.binary.read('int16');
       data.LightMode = this.binary.read('int16');
-
+      data.second = this.binary.tell();
+      
       data.NumLights = this.binary.read('uint16');
       data.Lights = this.binary.read(['array', 'tr2_room_light', data.NumLights]);
 
