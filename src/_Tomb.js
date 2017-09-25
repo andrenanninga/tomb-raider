@@ -3,6 +3,8 @@ import React3 from 'react-three-renderer';
 import * as THREE from 'three';
 import OrbitControls from 'three-orbit-controls';
 
+import Cube from './entities/Cube';
+
 import Level from './Level';
 
 import load from './loader/load';
@@ -18,11 +20,17 @@ export default class Tomb extends PureComponent {
 		// load();
 
 		this.setCamera = this.setCamera.bind(this);
+		this.setScene = this.setScene.bind(this);
 	}
 	
 	setCamera(ref) {
 		this.camera = ref;
 		this.controls = new Controls(this.camera);
+	}
+
+	setScene(ref) {
+		this.scene = ref;
+		this.scene.add(new Cube());
 	}
 
 	componentWillUnmount() {
@@ -41,7 +49,9 @@ export default class Tomb extends PureComponent {
 				width={width}
 				height={height}
 			>
-				<scene>
+				<scene
+					ref={this.setScene}
+				>
 					<perspectiveCamera
 						ref={this.setCamera}
 						name="camera"
@@ -51,17 +61,6 @@ export default class Tomb extends PureComponent {
 						far={10000}
 						position={this.cameraPosition}
 					/>
-
-					<Level name="assault" />
-
-					<mesh>
-						<boxGeometry
-							width={1}
-							height={1}
-							depth={1}
-						/>
-						<meshNormalMaterial />
-					</mesh>
 				</scene>
 			</React3>
 		)

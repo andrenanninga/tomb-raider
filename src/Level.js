@@ -4,6 +4,7 @@ import { times } from 'lodash';
 import * as THREE from 'three';
 
 import loadLevel from './loader/level';
+import loadTextures from './loader/textures';
 import * as slice from './loader/slice';
 
 import Room from './Room';
@@ -32,6 +33,8 @@ export default class Level extends PureComponent {
 
 			console.log(slice.numObjectTextures(level));
 			console.log(slice.numSpriteTextures(level));
+			console.log(slice.objectTextures(level));
+			const textures = await loadTextures(slice.objectTextures(level));
 
 			this.setState({ level, rooms });
 		}

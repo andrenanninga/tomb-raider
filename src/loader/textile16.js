@@ -5,9 +5,9 @@ import hamsters from 'hamsters.js';
 export default async (textile) => {
 	return new Promise((resolve, reject) => {
 		const run = () => {
-			const image = new ImageData(256, 258 * 13);
+			const image = new ImageData(256, 256);
 
-			for (let i = 0; i < 256 * 258 * 13 * 2; i += 2) {
+			for (let i = 0; i < 256 * 256 * 2; i += 2) {
 				const color = (params.textile[i + 1] << 8) + params.textile[i];
 				const red = ((color & 0x7C00) >> 10) * 8;
 				const green = ((color & 0x03E0) >> 5) * 8;

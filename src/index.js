@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Tomb from './Tomb';
+import Presentation from './Presentation';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<Tomb />, document.getElementById('root'));
+ReactDOM.render(<Presentation />, document.getElementById('root'));
 registerServiceWorker();

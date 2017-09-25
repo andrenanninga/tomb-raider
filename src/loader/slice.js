@@ -300,5 +300,5 @@ const chunk = (buffer, start, size, skip) => {
 		return end;
 	}
 
-	return Buffer.from(buffer.slice(start, end));
+	return Buffer.from(buffer.slice(pointer, end));
 }

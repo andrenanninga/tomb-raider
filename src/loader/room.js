@@ -39,8 +39,8 @@ export default async (room) => {
 				reader.readInt16(); // skip Lighting2
 			}
 
-			let faces = [];
-			let normals = [];
+			const faces = {};
+			const normals = [];
 			const numRectangles = reader.readInt16();
 
 			const pA = new THREE.Vector3();
@@ -50,25 +50,25 @@ export default async (room) => {
 			const cb = new THREE.Vector3();
 			const ab = new THREE.Vector3();
 
-			const addFace = (vA, vB, vC) => {
-				faces = faces.concat(vA, vB, vC);
-				
+			const addFace = (texture, vA, vB, vC) => {
 				pA.set(vA[0], vA[1], vA[2]);
 				pB.set(vB[0], vB[1], vB[2]);
 				pC.set(vC[0], vC[1], vC[2]);
-
+				
 				cb.subVectors(pC, pB);
 				ab.subVectors(pA, pB);
-
+				
 				cb.cross(ab);
-
+				
 				cb.normalize();
-
+				
 				const nx = cb.x;
 				const ny = cb.y;
 				const nz = cb.z;
-
-				normals = normals.concat(nx, ny, nz, nx, ny, nz, nx, ny, nz);
+				
+				faces[texture] = faces[texture] || [];
+				faces[texture].push(...[vA[0], vA[1], vA[2], vB[0], vB[1], vB[2], vC[0], vC[1], vC[2]]);
+				normals.push(...[nx, ny, nz, nx, ny, nz, nx, ny, nz]);
 			}
 
 			for (i = 0; i < numRectangles; i++) {
@@ -81,8 +81,8 @@ export default async (room) => {
 
 				const texture = reader.readUint16();
 
-				addFace(verts[2], verts[1], verts[0]);
-				addFace(verts[3], verts[2], verts[0]);
+				addFace(texture, verts[2], verts[1], verts[0]);
+				addFace(texture, verts[3], verts[2], verts[0]);
 			}
 
 			const numTriangles = reader.readInt16();
@@ -94,16 +94,29 @@ export default async (room) => {
 					vertices[reader.readUint16()],
 				];
 
-				reader.readUint16();
+				const texture = reader.readUint16();
 
-				addFace(verts[2], verts[1], verts[0]);
+				addFace(texture, verts[2], verts[1], verts[0]);
 			}
+
+			const groups = [];
+			let float32Faces = [];
+			let start = 0;
+
+			Object.keys(faces).forEach((texture, i) => {
+				float32Faces = float32Faces.concat(faces[texture]);
+				groups.push([start, faces[texture].length, i]);
+				start += faces[texture].length;
+			});
+
+			console.log(groups);
 
 			rtn.data = {
 				position,
 				vertices,
+				groups,
 				normals: new Float32Array(normals),
-				faces: new Float32Array(faces),
+				faces: new Float32Array(float32Faces),
 			};
 		}
 

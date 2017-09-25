@@ -22,7 +22,6 @@ export default class Room extends PureComponent {
 	async loadRoom(props = this.props) {
 		try {
 			const room = await loadRoom(this.props.room);
-			console.log(room);
 
 			this.setState({
 				faces: new THREE.BufferAttribute(room.faces, 3),
