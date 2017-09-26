@@ -39,7 +39,7 @@ export default async (room) => {
 				reader.readInt16(); // skip Lighting2
 			}
 
-			const faces = {};
+			const faces = [];
 			const normals = [];
 			const numRectangles = reader.readInt16();
 
@@ -73,50 +73,40 @@ export default async (room) => {
 
 			for (i = 0; i < numRectangles; i++) {
 				const verts = [
-					vertices[reader.readUint16()],
-					vertices[reader.readUint16()],
-					vertices[reader.readUint16()],
-					vertices[reader.readUint16()],
+					reader.readUint16(),
+					reader.readUint16(),
+					reader.readUint16(),
+					reader.readUint16(),
 				];
 
 				const texture = reader.readUint16();
 
-				addFace(texture, verts[2], verts[1], verts[0]);
-				addFace(texture, verts[3], verts[2], verts[0]);
+				faces.push([verts[2], verts[1], verts[0]]);
+				faces.push([verts[3], verts[2], verts[0]]);
 			}
 
 			const numTriangles = reader.readInt16();
 
 			for (i = 0; i < numTriangles; i++) {
 				const verts = [
-					vertices[reader.readUint16()],
-					vertices[reader.readUint16()],
-					vertices[reader.readUint16()],
+					reader.readUint16(),
+					reader.readUint16(),
+					reader.readUint16(),
 				];
 
 				const texture = reader.readUint16();
 
-				addFace(texture, verts[2], verts[1], verts[0]);
+				faces.push([verts[2], verts[1], verts[0]]);
 			}
 
 			const groups = [];
-			let float32Faces = [];
-			let start = 0;
-
-			Object.keys(faces).forEach((texture, i) => {
-				float32Faces = float32Faces.concat(faces[texture]);
-				groups.push([start, faces[texture].length, i]);
-				start += faces[texture].length;
-			});
-
-			console.log(groups);
 
 			rtn.data = {
 				position,
 				vertices,
 				groups,
 				normals: new Float32Array(normals),
-				faces: new Float32Array(float32Faces),
+				faces
 			};
 		}
 

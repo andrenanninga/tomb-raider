@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import * as THREE from 'three';
 import { Easing, Tween, autoPlay } from 'es6-tween'
+import { invoke } from 'lodash';
 
 import OrbitControls from 'three-orbit-controls';
 
@@ -18,6 +19,16 @@ export default class Camera extends PureComponent {
 	}
 	
 	componentWillUnmount() {
+		if (this.positionTween) {
+			this.positionTween.stop();
+			delete this.positionTween;
+		}
+
+		if (this.lookAtTween) {
+			this.lookAtTween.stop();
+			delete this.lookAtTween;
+		}
+
 		if (this.controls) {
 			this.controls.dispose();
 			delete this.controls;
@@ -29,27 +40,33 @@ export default class Camera extends PureComponent {
 			this.camera = ref;
 			this.controls = new Controls(this.camera);
 			this.controls.enableKeys = false;
-
-			setTimeout(() => {
-				console.log(this.controls);
-			}, 1000);
 		}
 	}
 
-	moveTo(position = null, lookAt = null) {
-		autoPlay(true);
-
-		if (position) {
-			new Tween(this.camera.position)
-				.to({ x: position.x, y: position.y, z: position.z }, 1000)
-				.start();
+	moveTo(position = null, lookAt = null, animated = true) {
+		if (animated) {
+			autoPlay(true);
+	
+			if (position) {
+				this.positionTween = new Tween(this.camera.position)
+					.to({ x: position.x, y: position.y, z: position.z }, 1000)
+					.start();
+			}
+	
+			if (lookAt) {
+				this.lookAtTween = new Tween(this.controls.target)
+					.to({ x: lookAt.x, y: lookAt.y, z: lookAt.z }, 1000)
+					.on('update', () => invoke(this.controls, 'update'))
+					.start();
+			}
 		}
-
-		if (lookAt) {
-			new Tween(this.controls.target)
-				.to({ x: lookAt.x, y: lookAt.y, z: lookAt.z }, 1000)
-				.on('update', () => this.controls.update())
-				.start();
+		else {
+			if (position) {
+				this.camera.position.set(position.x, position.y, position.z);
+			}
+			if (lookAt) {
+				this.controls.target.set(lookAt.x, lookAt.y, lookAt.z);
+			}
 		}
 	}
 

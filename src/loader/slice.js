@@ -109,7 +109,7 @@ export const numRooms = (buffer, skip = false) => {
 	return buffer.readUInt16LE(start);
 }
 
-export const rooms = (buffer, skip = false, index = null) => {
+export const sliceRooms = (buffer, skip = false, index = null) => {
 	const start = numRooms(buffer, true);
 	const size = numRooms(buffer);
 	let pointer = start;
@@ -170,7 +170,7 @@ export const rooms = (buffer, skip = false, index = null) => {
 }
 
 export const numFloorData = (buffer, skip = false) => {
-	return num(buffer, rooms, SIZE.UINT32, skip);
+	return num(buffer, sliceRooms, SIZE.UINT32, skip);
 }
 
 export const floorData = (buffer, skip = false) => {

@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import React3 from 'react-three-renderer';
 import { connect } from 'react-redux';
 import Measure from 'react-measure'
@@ -8,7 +9,6 @@ import * as THREE from 'three';
 import OrbitControls from 'three-orbit-controls';
 import { get } from 'lodash';
 
-import Cube from './Cube';
 import Level from './Level';
 import Camera from './Camera';
 
@@ -16,14 +16,24 @@ const Controls = OrbitControls(THREE);
 
 export default (WrappedComponent) => {
 	return class extends PureComponent{
+		static propTypes = {
+			size: PropTypes.number,
+			margin: PropTypes.number,
+		}
+
+		static defaultProps = {
+			size: 1,
+			margin: 0,
+		}
+
 		constructor(props) {
 			super(props);
 
 			this.state = {
 				isLoaded: false,
 				camera: null,
-				width: window.innerWidth - 80,
-				height: window.innerHeight - 80,
+				width: window.innerWidth - props.margin,
+				height: window.innerHeight - props.margin,
 			};
 
 			this.cameraPosition = new THREE.Vector3(2, 2, 2);
@@ -31,26 +41,6 @@ export default (WrappedComponent) => {
 			this.setCamera = this.setCamera.bind(this);
 			this.handleLevelLoad = this.handleLevelLoad.bind(this);
 		}
-		
-		componentWillMount() {
-			// const { dispatch, route } = this.props;
-
-			// dispatch({
-			// 	type: 'ADD_FRAGMENT',
-			// 	payload: {
-			// 		id: 0,
-			// 		slide: route.slide,
-			// 		visible: false,
-			// 	},
-			// });
-		}
-
-		// componentWillReceiveProps(nextProps) {
-		// 	const { route } = this.props;
-		// 	const wireframe = get(nextProps, `fragment.fragments.${route.slide}[0].visible`) || false;
-
-		// 	this.setState({ wireframe });
-		// }
 
 		setCamera(ref) {
 			if (ref) {
@@ -69,9 +59,8 @@ export default (WrappedComponent) => {
 		}
 
 		render() {
+			const { size } = this.props;
 			const { width, height, isLoaded, camera, buffer, materials } = this.state;
-
-			console.log(camera);
 
 			return (
 				<React3
@@ -79,11 +68,11 @@ export default (WrappedComponent) => {
 					clearColor={0xffffff}
 					clearAlpha={0}
 					alpha
-					width={width}
+					width={width * size}
 					height={height}
 				>
 					<scene>
-						<Camera ref={this.setCamera} width={width} height={height} />
+						<Camera ref={this.setCamera} width={width * size} height={height} />
 						<Level onLoad={this.handleLevelLoad} name="assault" />
 
 						<axisHelper />

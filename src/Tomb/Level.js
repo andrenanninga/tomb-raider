@@ -3,14 +3,12 @@ import PropTypes from 'prop-types';
 import * as THREE from 'three';
 import axios from 'axios';
 import { times } from 'lodash';
-import hamsters from 'hamsters.js';
 
 import { numTextiles, textile16 } from '../loader/slice';
 import loadTextile16 from '../loader/textile16';
 
 import Cube from '../entities/Cube';
 
-hamsters.init();
 
 export default class Level extends PureComponent {
 	static propTypes = {
